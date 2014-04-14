@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>想减肥_中国最专业的减肥瘦身网站</title>
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/admin.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://resource.pipikou.com/b/js/jquery/jquery.js"></script>
+    <style>
+        .firstcontent{ padding-top:15px;}
+    </style>
+</head>
+<body>
+<% include ../module/topbar.html %>
+<% var fnav = 'post' %>
+<% include ../module/header.html %>
+
+<div class="grid main fn-clear">
+    <% var snav = 'list' %>
+    <% include ../module/leftside.html %>
+    <div class="maincon">
+        <h3 class="toptitle">编辑文章</h3>
+        <ul class="subnav">
+            <li ><a href="/admin/post/edit<%= post._id%>">基本信息</a></li>
+            <li class="curr"><a href="/admin/post/pedit<%= post._id%>">分页信息</a></li>
+            
+        </ul>
+        <form id="J_form" data-id="<%= post._id%>" >
+        <div class="formbox">
+            <div id="J_pbox">
+            <%for(var i=0;i<post.pageContent.length;i++){%>
+            <div class="formcolumn fn-clear">
+                <label class="formlab fn-left">
+                    分页内容<%= i+1%>：
+                </label>
+                
+                <div class="content fn-left" >
+                    <textarea id="content<%= i%>" class="uecontent"  name="content" style=" height:500px;">
+                        <%- post.pageContent[i].data%>
+                    </textarea>
+                </div>
+            </div>
+            <%}%>
+            </div>
+            <div class="formcolumn">
+                <label class="formlab">
+                    &nbsp;
+                </label>
+                <input type="button" value="增加" class="btn J_addpagecontent" />
+                <input type="button" value="提交" id="J_submit" class="btn" />
+            </div>
+        </div>
+        </form>
+    </div>
+
+</div>
+<!-- 配置文件 -->
+<script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/ueditor/ueditor.all.min.js"></script>
+<% include ../module/footer.html %>
+<script type="text/javascript">
+    <%for(var i=0;i<post.pageContent.length;i++){%>
+    var editor<%= i%> = UE.getEditor('content<%= i%>');
+    <%}%>
+    $(function () {
+        $(".J_addpagecontent").bind("click",function(){
+            var i = $(".uecontent").length;
+            var htm = [];
+            htm.push('<div class="formcolumn fn-clear">');
+            htm.push('<label class="formlab fn-left">');
+            htm.push('新分页内容：');
+            htm.push('</label>');
+            htm.push('<div class="content fn-left" >');
+            htm.push('<textarea id="content'+i+'" class="uecontent"  name="content" style=" height:500px;">');
+            htm.push('</textarea>');
+            htm.push('</div></div>');
+            $("#J_pbox").append(htm.join(''));
+            UE.getEditor('content'+i);
+        });
+
+        $("#J_submit").bind("click", function () {
+            var d = $("#J_form").serialize();
+            $.ajax({
+               
+                type: "POST",
+                data: d,
+                datatype: "json",
+                url: "/admin/post/pedit" + $("#J_form").data("id"),
+                success: function (data) {
+                    if (data.res == 1) {
+                        alert("保存成功!");
+                    } else {
+                        alert("保存失败！错误代码：" + data.msg);
+                        return false;
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

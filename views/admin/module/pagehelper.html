@@ -1,0 +1,43 @@
+﻿<% var totalpage = Math.ceil(total/settings.static.pagesize) %>
+<% page = parseInt(page, 10) > 0 ? parseInt(page, 10) : 1%>
+<%if(totalpage>1){%>
+<div class="pagehelper">
+    <span class="fn-right">共<%= total%>条</span>
+	<ul class="pageul">
+		<% if(page>1){%>
+		<li class="page-p"><a href="<%= base+(page-1)%>">&lt;&lt;</a></li>
+		<%}%>
+		<% if(page>3){%>
+		<li><a href="<%= base+(page-3)%>"><%= page-3%></a></li>
+		<%}%>
+		<% if(page>2){%>
+		<li><a href="<%= base+(page-2)%>"><%= page-2%></a></li>
+		<%}%>
+		<% if(page>1){%>
+		<li><a href="<%= base+(page-1)%>"><%= page-1%></a></li>
+		<%}%>
+		<li><span><%= page%></span></li>
+		<% if(page+1==totalpage){%>
+		<li><a href="<%= base+(page+1)%>"><%= page+1%></a></li>
+		<%}%>
+		<% if(page+2==totalpage){%>
+		<li><a href="<%= base+(page+1)%>"><%= page+1%></a></li>
+		<li><a href="<%= base+(page+2)%>"><%= page+2%></a></li>
+		<%}%>
+		<% if(page+3==totalpage){%>
+		<li><a href="<%= base+(page+1)%>"><%= page+1%></a></li>
+		<li><a href="<%= base+(page+2)%>"><%= page+2%></a></li>
+		<li><a href="<%= base+(page+3)%>"><%= page+3%></a></li>
+		<%}%>
+		<% if(page+3<totalpage){%>
+		<li><a href="<%= base+(page+1)%>"><%= page+1%></a></li>
+		<li><a href="<%= base+(page+2)%>"><%= page+2%></a></li>
+		<li><span>...</span></li>
+		<li><a href="<%= base+totalpage%>"><%= totalpage%></a></li>
+		<%}%>
+		<% if(page<totalpage){%>
+		<li class="page-p"><a href="<%= base+(page+1)%>">&gt;&gt;</a></li>
+		<%}%>
+	</ul>
+</div>
+<%}%>

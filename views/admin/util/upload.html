@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>图片上传</title>
+<link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+<style>
+html { background:#f5f5f0;}
+.sl-file-input{width:500px; height:500px;opacity:0;cursor:pointer;}
+</style>
+</head>
+<body >
+	<input type="hidden" id="J_imgurl" value="<%= imgurl%>" />
+	<input type="hidden" id="J_res" value="<%= res%>" />
+    <input type="hidden" id="J_dom" value="<%= dom%>" />
+	<form id="J_form" enctype="multipart/form-data" action="/admin/util/imgupload?dom=<%= dom%>"" method="post">
+        <input id="J_file" name="imgFile" type="file" exts="png|jpg|bmp|gif" class="sl-file-input" />
+	</form>
+	<script type="text/javascript" src="http://resource.pipikou.com/b/js/jquery/jquery.js"></script>
+	<script>
+	$(function(){
+		$("#J_file").change(function(){
+			$("#J_btn").val("正在上传图片");
+			$("#J_form").submit();
+		})
+		var imgurl = $("#J_imgurl").val();
+		var dom = $("#J_dom").val();
+		if (imgurl) {
+			parent.changeImg&&parent.changeImg(imgurl,dom);
+		}
+	})
+	
+	</script>
+</body>
+</html>

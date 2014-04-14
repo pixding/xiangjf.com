@@ -1,0 +1,33 @@
+<div class="header">
+    <div class="grid">
+        <div class="logo fn-left">
+            <a href="#">
+                <img src="/static/images/logo3.jpg" />
+            </a>
+        </div>
+        <div class="search fn-left">
+            <form>
+                <input type="text" placeholder="输入关键词" class="search-txt" />
+                <input type="submit" class="search-btn" value="" />
+                <div class="search-tip">
+                    <a href="#">美腿</a>
+                    <a href="#">减肥药</a>
+                    <a href="#">春季瘦身</a>
+                    <a href="#">跑步</a>
+                    <a href="#">美腿</a>
+                    <a href="#">减肥药</a>
+                    <a href="#">美腿</a>
+                    <a href="#">减肥药</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="nav">
+    <div class=" grid">
+        <ul class="navul fn-left">
+            <li <%= fnav=="setting"?"class=active":"" %> ><a href="/admin/set/banner">网站设置</a></li>
+            <li <%= fnav=="post"?"class=active":"" %>><a href="/admin/post/list">文章设置</a></li>
+        </ul>
+    </div>
+</div>

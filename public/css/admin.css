@@ -1,0 +1,83 @@
+﻿.grid{ width:1080px; margin:0 auto;}
+a{ color:#666;}
+a:hover{ text-decoration:underline;}
+.normal-more{ color:#36c;}
+.fn-btn{ padding:0 10px; text-decoration:none !important; color:#fff; height:26px; line-height:26px; border:none; cursor:pointer; color:#fff; background:#f60; display:inline-block;}
+.fn-btn:hover{ opacity:0.8;}
+.fn-btn-big {font-size: 16px; margin-top: 20px;padding: 5px 35px;}
+
+/*头部栏*/
+.topbar{ height:28px; background:#f3f3f3; border-bottom:1px solid #dedede; line-height:28px; color:#999; }
+.topbar .quicklink{}
+.topbar .quicklink li{ float:left; padding:0 10px;}
+.topbar .quicklink li a{ color:#666;}
+.topbar .quicklink li a:hover{ text-decoration:underline;}
+
+/*头部和搜索*/
+.header{ height:90px; overflow:hidden; padding-top:10px;}
+.header .logo{ width:280px; height:90px; overflow:hidden;}
+.header .logo img{ width:260px; height:90px;}
+
+.search{ margin-top:10px; position:relative;}
+.search .search-txt{background:#FFFFFF;border: 3px solid #3ba60c;border-radius: 6px;color: #999;
+display: block;height: 40px; font-size:16px; line-height: 40px;margin-bottom: 2px;text-indent: 6px;width: 500px;}
+.search .search-txt:focus{ color:#333;}
+.search .search-btn{ position:absolute; right:3px; top:3px; width:50px; height:40px; border:none;
+                    cursor:pointer; background:#3ba60c url(images/searchIcon.png) center center no-repeat;}
+.search .search-tip{ padding:3px 0; line-height:20px;}
+.search .search-tip a{ color:#999; margin-right:10px;}
+.search .search-tip a:hover{ text-decoration:underline; color:#666; }
+
+/*导航*/
+.nav{ background:#3ba60c; height:40px; }
+.nav .navul{}
+.nav .navul li{ float:left; margin-right:5px; }
+.nav .navul li a{ color:#fff; display:block;padding:0 20px;line-height:40px; text-align:center; font-size:14px; }
+.nav .navul li:hover{background:#288400;}
+.nav .navul li.active{ background:url(images/nav_cur_bg.gif) repeat-x;}
+.nav .navul li.active a{ color:#333;}
+
+.footer{ margin-top:10px; padding:15px 0 25px; border-top:1px solid #aaa; background:#efefef; text-align:left;}
+.footer .footerul{ display:inline-block;}
+.footer .footerul li{ line-height:28px; float:left; margin-right:20px;}
+.footer .footerul li a{ color:#444;}
+
+.fn-table{width:100%; border-collapse: collapse;border-spacing: 0; max-width: 100%;}
+.fn-table tr{ line-height:20px;}
+
+.fn-table tr:hover{background:#efefef;}
+.fn-table tr.enable{ background:#ccc; }
+.fn-table th,.fn-table td{border:1px solid #ccc; padding:8px;}
+.fn-table th{font-size:14px; text-align:center; font-weight:bold; background:#efefef;}
+.fn-table .tc{ text-align:center;}
+
+.pagehelper{height: 20px;padding: 20px 0;}
+.pageul{float:right;}
+.pageul li{float:left;margin-right: 15px;}
+.pageul li.page-p a{color:#CC342C;font-weight: bold;}
+.pageul li a:hover{text-decoration: underline;}
+
+.main{ margin-top:10px;}
+.leftaside{ width:240px; float:left; border:1px solid #ccc;}
+.leftaside .title{ line-height:34px; background:#bced91; text-indent:10px; font-size:14px;}
+.leftaside .sul{ padding:10px;}
+.leftaside .sul li{ line-height:30px;}
+.leftaside .sul li a{ display:block; text-indent:5px;}
+.leftaside .sul li.curr a{ background:#569d58; color:#fff; }
+
+.maincon{ min-height:450px; float:right; width:830px;}
+.maincon .toptitle{ border-left:3px solid #569d58; font-size:14px; margin-bottom:10px; line-height:30px; background:#d4f3d4; text-indent:10px;}
+    
+.maincon .formbox{ padding:10px 0;}
+.maincon .formbox .formcolumn{ padding:8px 0; line-height:28px;}
+.maincon .formbox .formlab{ display:inline-block;  width:90px; text-align:right;}
+.maincon .formbox .txt{ padding:5px 0; border:1px solid #ccc; }
+.maincon .formbox .desc{ width:345px; height:60px; padding:5px; border:1px solid #ccc;}
+.maincon .formbox .content{ width:600px;}
+.maincon .formbox .btn{ border:1px solid #ccc; padding:0 15px; background:#f60; color:#fff; line-height:30px; cursor:pointer;}
+
+/*二级导航*/
+.subnav{ height:30px; margin-bottom:10px; line-height:30px; border-bottom:2px solid #390;}
+.subnav li{ float:left; line-height:30px; padding:0 10px; margin-right:10px; text-align:center; color:#333; background:#dedede;}
+.subnav li.curr { background:#390;color:#fff;}
+.subnav li.curr a{color:#fff;}

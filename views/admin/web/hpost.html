@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>想减肥_中国最专业的减肥瘦身网站</title>
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/admin.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://resource.pipikou.com/b/js/jquery/jquery.js"></script>
+    <style>
+        .postbox{ width:400px; border:1px solid #ccc;}
+        .postbox dt{ line-height:30px; padding:3px 15px; background:#ffd800; color:#333; }
+        .postbox dt .title{ font-size:14px; font-weight:bold;}
+        .postbox dt .more{ color:#36c;}
+        .postbox dd{ line-height:30px; padding:2px 10px; border-bottom:1px dashed #ccc;}
+        .postbox dd a{ color:#36c;}
+        .postbox dd:last-child{ border-bottom:none;}
+        .postbox dd .del{ position:relative;cursor:pointer;  width:30px; height:30px;}
+        .postbox dd .del:after{ right:10px;top:12px; content:"";display:block; width:12px; height:4px; background:#999; position:absolute; }
+        .postbox dd .del:hover:after{ background:#333;}
+        </style>
+</head>
+<body>
+<% include ../module/topbar.html %>
+<% var fnav = 'setting' %>
+<% include ../module/header.html %>
+
+<div class="grid main fn-clear">
+    
+    ﻿<% var snav = 'hpost' %>
+    <% include ../module/leftside.html %>
+    
+    <div class="maincon">
+        <form action="/admin/set/banner" method="post">
+        <input type="hidden" name="postlist" value="list1" />
+        <h3 class="toptitle">热门文章设置</h3>
+        <dl class="postbox">
+            <dt class="fn-clear">
+                <label class="title fn-left">最热文章设置</label>
+                <a href="javascript:;" class="J_selPost more fn-right">选择</a>
+                <a href="javascript:;" class="J_savePost more fn-right">保存</a>
+            </dt>
+            <%for(var i=0;i<postList.length;i++){%>
+            <dd class="fn-clear">
+            <label class="fn-left">[<%= settings.static.category[postList[i].pcategory]%>]<a target="_blank" href="/detail_<%= postList[i].pid%>"><%= postList[i].ptitle%></a></label>
+            <input type="hidden" name="pid" value="<%= postList[i].pid%>" />
+            <input type="hidden" name="ptitle" value="<%= postList[i].ptitle%>" />
+            <input type="hidden" name="pcategory" value="<%= postList[i].pcategory%>" />
+            <input type="hidden" name="pdesc" value="<%= postList[i].pdesc%>" />
+            <a class="fn-right del" title="删除"></a>
+            </dd>
+            <%}%>
+        </dl>
+       </form>
+    </div>
+    
+</div>
+
+<% include ../module/footer.html %>
+<script src="http://r.lvyouquan.cn/b/js/layer/layer.min.js" type="text/javascript"></script>
+<script>
+    function callback(list) {
+        var htm = [];
+        for (var i = 0; i < list.length; i++) {
+            htm.push('<dd class="fn-clear">');
+            htm.push('<label class="fn-left">[' + list[i].categorytxt + ']<a target="_blank" href="/detail_'+list[i].id+'">' + list[i].title + '</a></label>');
+            htm.push('<input type="hidden" name="pid" value="' + list[i].id + '" />');
+            htm.push('<input type="hidden" name="ptitle" value="' + list[i].title + '" />');
+            htm.push('<input type="hidden" name="pcategory" value="' + list[i].category + '" />');
+            htm.push('<input type="hidden" name="pdesc" value="' + list[i].desc + '" />');
+            htm.push('<a class="fn-right del" title="删除"></a>');
+            htm.push('</dd>');
+        }
+        $(".postbox").append(htm.join(''));
+    }
+    
+    $(function () {
+        $(".postbox").on("click", ".del", function () {
+            $(this).parents("dd").remove();
+        });
+        //选择文章
+        $(".J_selPost").bind("click", function () {
+            var layid = $.layer({
+                fix: false,
+                type: 2,
+                border: [3, 0.3, '#000', true],
+                move: ['', false],
+                title: "选择热门文章",
+                offset: ['50px', ''],
+                iframe: {
+                    src: '/admin/post/i-list?callback=callback'
+                },
+                area: ['900', '450']
+            })
+        });
+
+        $(".J_savePost").bind("click", function () {
+            var d = $(this).parents("form").serialize();
+            $.ajax({
+                type: "POST",
+                data: d,
+                datatype: "json",
+                url: "/admin/set/hpost",
+                success: function (data) {
+                    if (data.res == 1) {
+                        alert("保存成功!");
+                        location.href = "/admin/set/hpost";
+                    } else {
+                        alert("保存失败！错误代码：" + data.msg);
+                        return false;
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

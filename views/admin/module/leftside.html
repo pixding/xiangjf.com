@@ -1,0 +1,19 @@
+﻿<div class="leftaside">
+    <% if(fnav=='post'){%>
+    <h3 class="title">文章管理</h3>
+    <ul class="sul">
+        <li <%= snav=="add"?"class=curr":"" %> ><a href="/admin/post/add">添加文章</a></li>
+        <li <%= snav=="list"?"class=curr":"" %> ><a href="/admin/post/list">文章列表</a></li>
+        <li <%= snav=="get"?"class=curr":"" %> ><a href="/admin/post/get">拉取文章</a></li>
+        <li <%= snav=="lady"?"class=curr":"" %> ><a href="/admin/post/lady">Lady8844内容</a></li>
+    </ul>
+    <%}%>
+    <% if(fnav=='setting'){%>
+    <h3 class="title">网站设置</h3>
+    <ul class="sul">
+        <li <%= snav=="banner"?"class=curr":"" %> ><a href="/admin/set/banner">banner设置</a></li>
+        <li <%= snav=="hpost"?"class=curr":"" %> ><a href="/admin/set/hpost">热门文章</a></li>
+        <li <%= snav=="theme"?"class=curr":"" %> ><a href="/admin/set/theme">专题设置</a></li>
+    </ul>
+    <%}%>
+</div>

@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>想减肥_中国最专业的减肥瘦身网站</title>
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/admin.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://resource.pipikou.com/b/js/jquery/jquery.js"></script>
+</head>
+<body>
+
+<div style="padding:10px;" class=" fn-clear">
+    <form method="get" action="/admin/post/i-list">
+    <div style="padding:10px 0;">
+        <label>
+            分类：
+        </label>
+
+        <select name="category">
+            <% for(var i=0; i<settings.static.category.length;i++){%>
+            <option <%if(category ==i){%>selected="selected" <%}%>  value="<%= i%>"><%= settings.static.category[i]%></option>
+            <%}%>
+        </select>
+        <input name="key" type="text" value="<%= key%>" />
+        <input name="callback" value="<%= callback%>" type="hidden" />
+        <input type="submit" value="搜索" />
+    </div>
+    </form>
+    <table class="fn-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>序号</th>
+                <th>标题</th>
+                <th>分类</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <% for(var i=0; i<list.length;i++){%>
+                <tr data-desc="<%= list[i].desc%>" data-category="<%= list[i].category%>" data-categorytxt="<%= settings.static.category[list[i].category]%>" data-title="<%= list[i].title %>" data-id ="<%= list[i]._id %>">
+                    <td ><input class="J_check" type="checkbox" /></td>
+                    <td ><%= (page-1)*settings.static.pagesize+i+1 %></td>
+                    <td><a target="_blank" href="/detail_<%= list[i]._id %>" ><%= list[i].title %></a></td>
+                    <td><%= settings.static.category[list[i].category]%></td>
+                </tr>
+            <%}%>
+
+        </tbody>
+    </table>
+    <% var base = "/admin/post/i-list?callback="+callback+"&cagegory="+category+"&key="+key+"&page=";%>
+    <% include ../module/pagehelper.html %>
+
+    <div class="fn-clear">
+        <a href="javascript:;" class="fn-btn fn-right J_ok">确定</a>
+    </div>
+</div>
+<script>
+    $(function () {
+        $(".J_ok").bind("click", function () {
+            var postlist = $(".J_check:checked");
+            var list = [];
+            for (var i = 0; i < postlist.length; i++) {
+                var dom = $(postlist[i]).parents("tr");
+                var mod = {desc:dom.data("desc"), id: dom.data("id"), title: dom.data("title"), category: dom.data("category"), categorytxt: dom.data("categorytxt") };
+                list.push(mod);
+            }
+            parent["<%= callback%>" + ""] && parent["<%= callback%>" + ""](list);
+            parent.layer&&parent.layer.closeAll();
+        });
+    });
+</script>
+</body>
+</html>

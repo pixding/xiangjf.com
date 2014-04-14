@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>想减肥_中国最专业的减肥瘦身网站</title>
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/admin.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://resource.pipikou.com/b/js/jquery/jquery.js"></script>
+    <style>
+        .imglist li{  margin-bottom:10px;}
+        .imglist li .imgbox{ height:200px; position:relative; overflow:hidden; margin-right:10px; border:1px solid #ccc; width:150px; }
+        .imglist li .imgbox .upload,.imglist li .imgbox .uploadiframe{display:none;}
+        .imglist li .imgbox:hover .upload{ width:100%; line-height:30px; color:#fff; font-size:14px; text-align:center; height:30px; background:#333;opacity:0.8; position:absolute; bottom:0px; left:0px; display:block;}
+        .imglist li .imgbox:hover .uploadiframe{ width:100%; overflow:hidden; color:#fff; font-size:14px; text-align:center; height:30px; background:#333;opacity:0; position:absolute; bottom:0px; left:0px; display:block;}
+        .imglist li .imgbox img{width:100%; height:100%; display:block;}
+        .imglist li .txt{ margin-top:10px; padding:5px 0; width:450px; border:1px solid #999;}
+        .imglist li .lab{ width:100px; text-align:right; display:inline-block;}
+    </style>
+</head>
+<body>
+<% include ../module/topbar.html %>
+<% var fnav = 'setting' %>
+<% include ../module/header.html %>
+
+<div class="grid main fn-clear">
+    
+    ﻿<% var snav = 'banner' %>
+    <% include ../module/leftside.html %>
+    <form id="J_form" action="/admin/set/banner" method="post">
+    <div class="maincon">
+        <h3 class="toptitle">banner设置</h3>
+        <ul class="imglist fn-clear">
+            <%if(banner){%>
+            <%for(var i=0;i<banner.length;i++){%>
+            <li class="fn-clear J_dom<%= i+1%>" >
+                <div class="imgbox fn-left">
+                    <img src="<%= banner[i].imgurl%>" />
+                    <span class="upload">点击上传</span>
+                    <iframe width="100%" height="30" frameborder="no" border="0" class="uploadiframe" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes" src="/admin/util/imgupload?dom=.J_dom<%= i+1%>" >
+						</iframe>
+                </div>
+                <div>
+                    <div>
+                        <label class="lab">当前位置：</label><strong><%= i+1%></strong>
+                    </div>
+                    <div>
+                        <label class="lab">标题：</label><input value="<%= banner[i].title%>" name="title" style="width:150px;" type="text" class="txt" />
+                    </div>
+                    <div>
+                        <label class="lab">链接：</label><input value="<%= banner[i].url%>" name="url" type="text" class="txt" />
+                    </div>
+                    <div>
+                        <label class="lab">图片地址：</label><input value="<%= banner[i].imgurl%>" name="imgurl" type="text" class="txt" />
+                    </div>
+                    <div>
+                        <label class="lab">排序：</label><input name="sort" value="<%= banner[i].sort%>"  style="width:50px;" type="text" class="txt" />
+                    </div>
+                </div>
+                
+            </li>
+            <%}%>
+
+            <%}else{%>
+            <%for(var i=0;i<5;i++){%>
+            <li class="fn-clear J_dom<%= i+1%>" >
+                <div class="imgbox fn-left">
+                    <img src="/myupload/1.png" />
+                    <span class="upload">点击上传</span>
+                    <iframe width="100%" height="30" frameborder="no" border="0" class="uploadiframe" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes" src="/admin/util/imgupload?dom=.J_dom<%= i+1%>" >
+						</iframe>
+                </div>
+                <div>
+                    <div>
+                        <label class="lab">当前位置：</label><strong><%= i+1%></strong>
+                    </div>
+                    <div>
+                        <label class="lab">标题：</label><input name="title" style="width:150px;" type="text" class="txt" />
+                    </div>
+                    <div>
+                        <label class="lab">链接：</label><input name="url" type="text" class="txt" />
+                    </div>
+                    <div>
+                        <label class="lab">图片地址：</label><input name="imgurl" type="text" class="txt" />
+                    </div>
+                    <div>
+                        <label class="lab">排序：</label><input name="sort"  style="width:50px;" type="text" class="txt" />
+                    </div>
+                </div>
+                
+            </li>
+            <%}}%>
+        </ul>
+        <div class="formcolumn">
+            <label class="formlab">
+                &nbsp;
+            </label>
+            <input type="button" value="提交" id="J_submit" class="btn" />
+        </div>
+    </div>
+        
+    </form>
+</div>
+
+<% include ../module/footer.html %>
+<script>
+    $(function () {
+        $("#J_submit").bind("click", function () {
+            var d = $("#J_form").serialize();
+            $.ajax({
+                type: "POST",
+                data: d,
+                datatype: "json",
+                url: "/admin/set/banner",
+                success: function (data) {
+                    if (data.res == 1) {
+                        alert("保存成功!");
+                        location.href = "/admin/set/banner";
+                    } else {
+                        alert("保存失败！错误代码：" + data.msg);
+                        return false;
+                    }
+                }
+            });
+        });
+
+        $("[name='imgurl']").bind("change", function () {
+            var url = $(this).val();
+            $(this).parents("li").find(".imgbox img").attr("src", url);
+        });
+    });
+    function changeImg(url, v) {
+        if ($(v).length) {
+            $(v).find(".imgbox img").attr("src", url);
+            $(v).find("[name='imgurl']").val(url);
+        } else {
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>想减肥_中国最专业的减肥瘦身网站</title>
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/admin.css" rel="stylesheet" />
+    <style>
+        .firstcontent{ padding-top:15px;}
+    </style>
+</head>
+<body>
+<% include ../module/topbar.html %>
+<% include ../module/header.html %>
+<style>
+    .main{ margin-top:10px;}
+    .leftaside{ width:240px; float:left; border:1px solid #ccc;}
+    .leftaside .title{ line-height:34px; background:#bced91; text-indent:10px; font-size:14px;}
+    .leftaside .sul{ padding:10px;}
+    .leftaside .sul li{ line-height:30px;}
+    .leftaside .sul li a{ display:block; text-indent:5px;}
+    .leftaside .sul li.curr a{ background:#569d58; color:#fff; }
+
+    .maincon{ min-height:450px; float:right; width:830px;}
+    .maincon .toptitle{ border-left:3px solid #569d58; font-size:14px; line-height:30px; background:#d4f3d4; text-indent:10px;}
+    
+    .maincon .formbox{ padding:10px 0;}
+    .maincon .formbox .formcolumn{ padding:8px 0; line-height:28px;}
+    .maincon .formbox .formlab{ display:inline-block;  width:90px; text-align:right;}
+    .maincon .formbox .txt{ padding:5px 0; border:1px solid #ccc; }
+    .maincon .formbox .desc{ width:500px; height:60px; padding:5px; border:1px solid #ccc;}
+    .maincon .formbox .content{ width:600px;}
+    .maincon .formbox .btn{ border:1px solid #ccc; padding:0 15px; background:#f60; color:#fff; line-height:30px; cursor:pointer;}
+</style>
+<div class="grid main fn-clear">
+    <div class="leftaside">
+        <h3 class="title">文章管理</h3>
+        <ul class="sul">
+            <li ><a href="#">添加文章</a></li>
+            <li class="curr"><a href="#">文章列表</a></li>
+        </ul>
+
+    </div>
+    <div class="maincon">
+        <h3 class="toptitle">添加文章</h3>
+        <form action="postadd" method="post">
+        <div class="formbox">
+            <div class="formcolumn">
+                <label class="formlab">
+                    标题：
+                </label>
+                <input type="text" style="width:350px" name="title" class="txt" />
+
+            </div>
+            
+            <div class="formcolumn">
+                <label class="formlab">
+                    分类：
+                </label>
+                <select class="txt" name="category">
+                    <option value="1">运动减肥</option>
+                    <option value="2">饮食减肥</option>
+                    <option value="3">局部减肥</option>
+                    <option value="4">减肥常识</option>
+                    <option value="5">热门主题</option>
+                    <option value="6">减肥案例</option>
+                    <option value="7">减肥秘籍</option>
+                </select>
+                <label class="formlab">
+                    标签：
+                </label>
+                <input class="txt" type="text" name="tags" />
+            </div>
+            <div class="formcolumn">
+                <label class="formlab">
+                    发表时间：
+                </label>
+                <input class="txt" type="text" name="pubdate" />
+                <label class="formlab">
+                    来源：
+                </label>
+                <input class="txt" type="text" name="author" />
+            </div>
+            <div class="formcolumn">
+                <label class="formlab">
+                    描述：
+                </label>
+                <textarea class="desc" name="desc">
+
+                </textarea>
+            </div>
+            <div class="formcolumn fn-clear">
+                <label class="formlab fn-left">
+                    内容：
+                </label>
+                <div class="content fn-left" >
+                    <textarea id="contenter" name="content" style=" height:500px;">
+
+                    </textarea>
+                </div>
+            </div>
+            <div class="formcolumn">
+                <label class="formlab">
+                    &nbsp;
+                </label>
+                <input type="submit" value="提交" class="btn" />
+            </div>
+        </div>
+        </form>
+    </div>
+
+</div>
+<!-- 配置文件 -->
+<script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/ueditor/ueditor.all.min.js"></script>
+<% include ../module/footer.html %>
+<script type="text/javascript">
+    var editor = UE.getEditor('contenter')
+</script>
+</body>
+</html>

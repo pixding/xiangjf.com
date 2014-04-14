@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>想减肥_中国最专业的减肥瘦身网站</title>
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/admin.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://resource.pipikou.com/b/js/jquery/jquery.js"></script>
+    <style>
+        .firstcontent{ padding-top:15px;}
+    </style>
+</head>
+<body>
+<% include ../module/topbar.html %>
+<% var fnav = 'post' %>
+<% include ../module/header.html %>
+
+<div class="grid main fn-clear">
+    <% var snav = 'list' %>
+    <% include ../module/leftside.html %>
+    <div class="maincon">
+        <h3 class="toptitle">编辑文章</h3>
+        <ul class="subnav">
+            <li class="curr"><a href="/admin/post/edit<%= post._id%>">基本信息</a></li>
+            <li><a href="/admin/post/pedit<%= post._id%>">分页信息</a></li>
+            
+        </ul>
+        <form id="J_form" action="/admin/post/add" data-id="<%= post._id%>" method="post">
+        <div class="formbox">
+            <div class="formcolumn">
+                <label class="formlab">
+                    标题：
+                </label>
+                <input type="text" style="width:350px" name="title" value="<%= post.title%>" class="txt" />
+            </div>
+            
+            <div class="formcolumn">
+                <label class="formlab">
+                    分类：
+                </label>
+                <select class="txt" name="category">
+                    <% for(var i=0; i<settings.static.category.length;i++){%>
+                    <option <%if(post.category ==i){%>selected="selected" <%}%> value="<%= i%>"><%= settings.static.category[i]%></option>
+                    <%}%>
+                </select>
+                
+                <label class="formlab">
+                    标签：
+                </label>
+                <input class="txt" type="text" name="tags" value="<%= post.tags? post.tags.join(','):"" %>" />
+            </div>
+            
+            <div class="formcolumn">
+                <label class="formlab">
+                    发表时间：
+                </label>
+                <input class="txt" type="text"  value="<%= post.createDate%>" name="pubdate" />
+                <label class="formlab">
+                    来源：
+                </label>
+                <input class="txt" type="text" value="<%= post.author%>" name="author" />
+            </div>
+            <div class="formcolumn">
+                <label class="formlab">
+                    描述：
+                </label>
+                <textarea class="desc" name="desc"><%= post.desc%></textarea>
+            </div>
+            <div class="formcolumn fn-clear">
+                <label class="formlab fn-left">
+                    内容：
+                </label>
+                <div class="content fn-left" >
+                    <textarea id="contenter" name="content" style=" height:500px;">
+                        <%- post.content%>
+                        
+                    </textarea>
+                </div>
+            </div>
+            <div class="formcolumn">
+                <label class="formlab">
+                    &nbsp;
+                </label>
+                <input type="button" value="提交" id="J_submit" class="btn" />
+            </div>
+        </div>
+        </form>
+    </div>
+
+</div>
+<!-- 配置文件 -->
+<script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/ueditor/ueditor.all.min.js"></script>
+<% include ../module/footer.html %>
+<script type="text/javascript">
+    var editor = UE.getEditor('contenter');
+    $(function () {
+        $("#J_submit").bind("click", function () {
+            var d = $("#J_form").serialize();
+            $.ajax({
+               
+                type: "POST",
+                data: d,
+                datatype: "json",
+                url: "/admin/post/edit" + $("#J_form").data("id"),
+                success: function (data) {
+                    if (data.res == 1) {
+                        alert("保存成功!");
+                        
+                        location.href = "/admin/post/list";
+                    } else {
+                        alert("保存失败！错误代码：" + data.msg);
+                        return false;
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

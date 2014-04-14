@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>想减肥_中国最专业的减肥瘦身网站</title>
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/admin.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://resource.pipikou.com/b/js/jquery/jquery.js"></script>
+</head>
+<body>
+<% include ../module/topbar.html %>
+<% var fnav = 'post' %>
+<% include ../module/header.html %>
+
+<div class="grid main fn-clear">
+    <% var snav = 'list' %>
+    <% include ../module/leftside.html %>
+    <div class="maincon">
+        <h3 class="toptitle">文章列表</h3>
+
+        <form method="get" action="/admin/post/list">
+        <div class="fn-clear">
+            <select name="category">
+                <% for(var i=0; i<settings.static.category.length;i++){%>
+                <option <%if(category ==i){%>selected="selected" <%}%> value="<%= i%>"><%= settings.static.category[i]%></option>
+                <%}%>
+            </select>
+            <input name="key" type="text" value="<%= key%>" />
+            <input type="submit" value="搜索" />
+        </div>
+        </form>
+        <table class="fn-table">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>标题</th>
+                    <th>分类</th>
+                    <th>标签</th>
+                    <th>来源</th>
+                    <th>状态</th>
+                    <th>发布时间</th>
+                    <th>操作</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <% for(var i=0; i<list.length;i++){%>
+                    <tr>
+                        <td><%= (page-1)*settings.static.pagesize+i+1 %></td>
+                        <td><a target="_blank" href="/detail_<%= list[i]._id %>" ><%= list[i].title %></a></td>
+                        <td><%= list[i].category %></td>
+                        <td><%= list[i].tags? list[i].tags.join(','):"" %></td>
+                        <td><%= list[i].author %></td>
+                        <td><%= list[i].enable %></td>
+                        <td><%= list[i].createDate %></td>
+                        <td><a href="/admin/post/edit<%= list[i]._id %>">【编辑】</a><a href="javascript:;" data-id="<%= list[i]._id %>" class="J_del">【删除】</a></td>
+                    </tr>
+                <%}%>
+
+            </tbody>
+        </table>
+        <% var base = "/admin/post/list?category="+category+"&key="+key+"&page=";%>
+        <% include ../module/pagehelper.html %>
+    </div>
+
+</div>
+
+<% include ../module/footer.html %>
+<script>
+    $(function () {
+        $(".J_del").bind("click", function () {
+            if (window.confirm("确认删除？")) {
+                var d = $(this).data("id");
+                $.ajax({
+                    type: "POST",
+                    data: { id: d },
+                    datatype: "json",
+                    url: "/admin/post/delete",
+                    success: function (data) {
+                        if (data.res == 1) {
+                            alert("删除成功!");
+                            location.reload();
+                        } else {
+                            alert("删除失败！错误代码：" + data.msg);
+                            return false;
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<ul class="sidetab fn-clear">
+    <li class="curr">热门阅读排行</li>
+    <li>猜你喜欢</li>
+    <li>减肥方案</li>
+</ul>
+<div>
+    <ul class="sidetabcon">
+        <%for(var i=0;i<locals.moreList.length;i++){%>
+        <li><a href="/detail_<%= locals.moreList[i]._id%>" target="_blank"><%= i+1%>、<%= locals.moreList[i].title%></a></li>
+        <%}%>
+    </ul>
+    <ul class="sidetabcon fn-hide">
+        <%for(var i=0;i<locals.lessList.length;i++){%>
+        <li><a href="/detail_<%= locals.moreList[i]._id%>" target="_blank"><%= i+1%>、<%= locals.lessList[i].title%></a></li>
+        <%}%>
+    </ul>
+    <ul class="sidetabcon fn-hide">
+        
+    </ul>
+</div>
+<script>
+$(function () {
+    $(".sidetab li").hover(function () {
+        var i = $(this).index();
+        $(".sidetab li").removeClass('curr');
+        $(this).addClass('curr');
+        $(".sidetabcon").hide().eq(i).show();
+    });
+});
+</script>

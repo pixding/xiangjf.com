@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>想减肥_中国最专业的减肥瘦身网站<%= locals.lessList.length%></title>
+    <meta content="减肥方法,健康减肥,减肥常识,减肥技巧,瘦身误区" name="keywords">
+    <meta content="想减肥瘦身中心,教您正确的健康减肥常识,推荐最有效的减肥方法及减肥技巧,帮您避开减肥中的误区,助您健康减肥瘦身!" name="description">
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/xiangjf.css" rel="stylesheet" />
+    <script src="/js/jquery.js"></script>
+</head>
+<body>
+    <% include module/indextop.html %>
+    
+    <div class="grid fn-clear">
+        <div class="wrap boderright fn-left">
+            <div class="breadhead boderbottom">
+                <a href="/">首页</a> &gt;
+                <label><%= category==0?key+"_搜索结果":settings.static.category[category]%></label>
+            </div>
+            <div class="fn-clear">
+                <div class="fn-left lside">
+                    <div class="lhotlist">
+                        <h3 class="lhotlist-t">热门文章 <span class="letter">HOT</span></h3>
+                        <div class="fn-clear">
+                            <dl class="limgitem fn-left">
+                                <dt>
+                                    <a href="#">
+                                        <img width="120" height="128" src="http://www.lady8844.com/h032/h03/img201310141039070.jpg" />
+                                    </a>
+                                </dt>
+                                <dd class="ititle">你好啊</dd>
+                            </dl>
+                            <dl class="limgitem fn-left">
+                                <dt>
+                                    <a href="#">
+                                        <img width="120" height="128" src="http://www.lady8844.com/h032/h03/img201310141038040.jpg" />
+                                    </a>
+                                </dt>
+                                <dd class="ititle">你好啊</dd>
+                            </dl>
+                        </div>
+                        <ul class="lhotlist-c">
+                            <li><a href="#">冬季减肥计划 让你分分钟都在甩肉</a></li>
+                            <li><a href="#">8款减肥食材 燃脂效果顶呱呱</a></li>
+                            <li><a href="#">冬季如何瘦腰 最快最有效妙招</a></li>
+                            <li><a href="#">卷心菜减肥法 让你7天甩脂6J</a></li>
+                            <li><a href="#">瘦腿最快的方法 光速打造玉腿</a></li>
+                            <li><a href="#">卷心菜减肥法 让你7天甩脂6J</a></li>
+                            <li><a href="#">瘦腿最快的方法 光速打造玉腿</a></li>
+                            <li><a href="#">卷心菜减肥法 让你7天甩脂6J</a></li>
+                        </ul>
+                    </div>
+                    <div class="lhotlist">
+                        <h3 class="lhotlist-t">热搜标签 <span class="letter">TAGS</span></h3>
+                        <div class="lhot-tags">
+                            <% for(var i=0;i<settings.static.searchKey.length;i++){%>
+                            <a href="/key_<%= settings.static.searchKey[i]%>"><%= settings.static.searchKey[i]%></a>
+                            <%}%>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                
+                <div class="postlist fn-right">
+                    <ul>
+                <%for (var i=0; i<list.length; i++){%>
+                    <li class="fn-clear">
+                        <a  class="fn-left" href="/detail_<%= list[i]._id%>" target="_blank"><%= list[i].title%></a>
+                        <span class="date fn-right">
+                            [<%= list[i].createDate%>]
+                        </span>
+                    
+                    </li>
+                <%}%>
+                    </ul>
+                    <%
+                var url = (category==0?"/key_"+(key?key:"瘦身")+"?page=":"/cate/"+category+"?page=");
+                var totalpage = Math.ceil(total/settings.static.listsize)
+                %>
+                <div class="entrypage">
+				    <ul class="pagelist">
+					    <li><a>共<%= totalpage %>页/<%= total%>条</a></li>
+                        <% for(var j=1; j<=totalpage;j++){%>
+                        <li <%if(j==page){%> class="curr"<%}%>><a href="<%=url+j%>"><%= j %></a></li>
+                        <%}%>
+				    </ul>
+			    </div>
+                </div>
+                
+            </div>
+            
+
+        </div>
+        <div class="side fn-right">
+            <a target="_blank" href="http://s.click.taobao.com/t?e=m%3D2%26s%3Dvx2%2Ffr%2BN4I4cQipKwQzePCperVdZeJvipRe%2F8jaAHci5VBFTL4hn2bqfdrQ0Z%2FG7LzyWwQxzkU82EyOPYW1wwqidPceBBnMH8w6X54llwrw7%2FZO15Bhdwb0CYBEjBf0r%2BX0J8NM6NNe3guBJbDHkrvB0z8qlrv%2BjvNeCLM2njIAStfqdfGvHKIuy2hv73XxSwO2wFfd6wLshvwjcDI8OIV4SO%2BiNB2XAdW8trg1cjgVzaCLOd77iM%2FCYpLQg9TU8eR9gA%2BxpGGeyxz01ebaIdiR1WJWMesjMS6a9pmYsXdM%3D">
+                <img src="http://gtms04.alicdn.com/tps/i4/T15ReQFBRcXXbTMG7M-440-180.jpg" width="290" />
+            </a>
+            <% include module/sidebar.html %>
+            
+            <div class="hittools fn-clear">
+                <h3 class="toolstitle">瘦身工具</h3>
+                <dl class="toolsitem">
+                    <dt>
+                        <img src="http://www.lady8844.com/images/shoushen_2014/images/app1.jpg">
+                    </dt>
+                    <dd>减肥自测</dd>
+                </dl>
+                <dl class="toolsitem">
+                    <dt>
+                        <img src="http://www.lady8844.com/images/shoushen_2014/images/app2.jpg">
+                    </dt>
+                    <dd>热量查询</dd>
+                </dl>
+                <dl class="toolsitem">
+                    <dt>
+                        <img src="http://www.lady8844.com/images/shoushen_2014/images/app3.jpg">
+                    </dt>
+                    <dd>腰围换算</dd>
+                </dl>
+                <dl class="toolsitem">
+                    <dt>
+                        <img src="http://www.lady8844.com/images/shoushen_2014/images/app4.jpg">
+                    </dt>
+                    <dd>身材比例</dd>
+                </dl>
+            </div>
+        </div>
+        
+    </div>
+    
+    
+
+    <% include module/footer.html %>
+</body>
+</html>

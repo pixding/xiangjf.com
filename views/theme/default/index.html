@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>想减肥_中国最专业的减肥瘦身网站</title>
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/xiangjf.css" rel="stylesheet" />
+    <script src="/js/jquery.js"></script>
+    <script src="/js/slides.min.jquery.js"></script>
+</head>
+<body>
+    <% include module/indextop.html %>
+    <!-- 首页主模块 -->
+    <div class="mb10 fn-clear grid">
+        <div class="side fn-left">
+            <div class="sliderimg">
+                <div class="slides_container">
+                    <%for(var i=0;i<banner.length;i++){%>
+                    <a href="<%=banner[i].url%>" class="item" target="_blank">
+                        <img src="<%=banner[i].imgurl%>" width="290" height="380" />
+                        <p class="p"><%=banner[i].title%></p>
+                    </a>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+        
+        <div class="wrap fn-right">
+            <div class="hotpostbox fn-left">
+                <%for(var i=0;i<hotlist.length;i++){%>
+                <%if(i<2){%>
+                <h3 class="hottitle"><a href="/detail_<%= hotlist[i].pid%>" target="_blank"><%= hotlist[i].ptitle%></a></h3>
+                <p class="hotdesc"><%= hotlist[i].pdesc.substring(0,60)%>...<a href="/detail_<%= hotlist[i].pid%>" class="more" target="_blank">[详细]</a></p>
+                <%}%>
+                <%}%>
+                <ul class="newslist">
+                <%for(var i=2;i<hotlist.length;i++){%>
+                    <%if(i<14){%>
+                    <li><span>[<a href="/cate/<%= hotlist[i].pcategory%>" target="_blank"><%= settings.static.category[hotlist[i].pcategory]%></a>]</span> <a href="/detail_<%= hotlist[i].pid%>" title="<%= hotlist[i].ptitle%>" target="_blank"><%= hotlist[i].ptitle%></a></li>
+                    
+                    <%}}%>
+                </ul>
+            </div>
+            <div class="wraprightbox fn-right">
+                <div class="themebox">
+                    <div class="themetop">
+                        <h3 class="themetitle fn-left">精彩专题</h3>
+                        <a class="fn-right normal-more" href="#">更多&gt;&gt;</a>
+                    </div>
+                    <ul class="themecon">
+                        <li>
+                            <h3><a href="#">1、冬季减肥计划 让你分分钟都在甩肉</a></h3>
+                        </li>
+                        <li>
+                            <h3><a href="#">2、爸爸去哪儿 潮爹的减肥塑形专区</a></h3>
+                        </li>
+                        <li>
+                            <h3><a href="#">3、不做最美女胖子 只做幸福瘦美人</a></h3>
+                        </li>
+                        <li>
+                            <h3><a href="#">4、减肥最强音，胖子誓死瘦成纸片人</a></h3>
+                        </li>
+                        <li>
+                            <h3><a href="#">5、减肥最强音，胖子誓死瘦成纸片人</a></h3>
+                        </li>
+                    </ul>
+                    
+                </div>
+                <div class="hittools fn-clear">
+                    <h3 class="toolstitle">瘦身工具</h3>
+                    <dl class="toolsitem">
+                        <dt>
+                            <img src="http://www.lady8844.com/images/shoushen_2014/images/app1.jpg" />
+                        </dt>
+                        <dd>减肥自测</dd>
+                    </dl>
+                    <dl class="toolsitem">
+                        <dt>
+                            <img src="http://www.lady8844.com/images/shoushen_2014/images/app2.jpg" />
+                        </dt>
+                        <dd>热量查询</dd>
+                    </dl>
+                    <dl class="toolsitem">
+                        <dt>
+                            <img src="http://www.lady8844.com/images/shoushen_2014/images/app3.jpg" />
+                        </dt>
+                        <dd>腰围换算</dd>
+                    </dl>
+                    <dl class="toolsitem">
+                        <dt>
+                            <img src="http://www.lady8844.com/images/shoushen_2014/images/app4.jpg" />
+                        </dt>
+                        <dd>身材比例</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    $(function () {
+
+        $('.sliderimg').slides({
+            effect: 'fade',
+            crossfade: true,
+            play: 8000,
+            pause: 2500,
+            hoverPause: true,
+            generatePagination: true,
+            fadeSpeed: 700
+        });
+    });
+    </script>
+    <% include module/footer.html %>
+</body>
+</html>
