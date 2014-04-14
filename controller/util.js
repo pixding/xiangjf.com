@@ -12,7 +12,6 @@ exports.imgUpload = function (req, res, next) {
         var ext = path.extname(name);
         //var uid = req.session.user._id.toString();
         var time = new Date().getTime();
-        console.log(time);
         var new_name = time + ext;
         var new_path = path.join(upload_path, new_name);
         fs.rename(file.path, new_path, function (err) {

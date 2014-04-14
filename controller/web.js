@@ -67,8 +67,7 @@ exports.hpost = function (req, res, next) {
     }
     if (req.method == "POST") {
         var name = req.body.postlist;
-        var s = "53293ae4ed0520f02a000011,53293ae0ed0520f02a000001".split(",");
-        console.log(s);
+
         var pid = req.body.pid;
         var ptitle = req.body.ptitle;
         var pcategory = req.body.pcategory;

@@ -85,7 +85,6 @@ exports.syncLady = function (req, res, next) {
         if (err) {
             return next();
         }
-        console.log(result.length);
         for (var i = 0; i < result.length; i++) {
             var post = {};
 
@@ -102,7 +101,6 @@ exports.syncLady = function (req, res, next) {
                         } else {
 
                             ladyMod.updateByUnique(_url, {enable:1}, function (err, rlt) {
-                                console.log(_i + "已同步");
                             });
                         }
                     });
@@ -295,7 +293,6 @@ function saveImg(url, name) {
         res.on('end', function () {
             fs.writeFile(name, imagedata, 'binary', function (err) {
                 if (err) throw err
-                console.log('File saved.')
             })
         })
 
@@ -363,7 +360,6 @@ exports.postListSel = function (req, res, next) {
             if (err) {
                 return next();
             }
-            console.log(callback);
             res.render("admin/post/i-list", { layout: false, category: category, key: key, callback: callback, list: result, page: page, total: count });
         });
     });
@@ -448,14 +444,12 @@ exports.postpEdit = function (req, res, next) {
         var pageContent = req.body.content;
         var post = {};
         post.pageContent = [];
-        console.log(pageContent);
         if ((typeof pageContent == 'string') && pageContent.constructor == String) {
             var pagecon = {};
             pagecon.index = 1;
             pagecon.data = pageContent;
             post.pageContent.push(pagecon);
         }
-        console.log(typeof pageContent + "______" + pageContent.constructor);
         if ((typeof pageContent == 'object') && pageContent.constructor == Array) {
             for (var i = 0; i < pageContent.length; i++) {
                 var pagecon = {};
@@ -465,7 +459,6 @@ exports.postpEdit = function (req, res, next) {
             }
         }
         
-        console.log(post.pageContent);
         postMod.update(id, {"pageContent":post.pageContent}, function (err, result) {
             if (err) {
                 res.json({ res: -1, msg: err });
@@ -513,51 +506,6 @@ exports.postGet = function (req, res, next) {
     }
 
 }
-
-
-
-exports.test = function (req, res, next) {
-    //var url = "http://www.lady8844.com/shoushen/ydss/";   //category = 1  运动减肥
-    //var url = "http://www.lady8844.com/shoushen/ccmt/"; //category = 2   饮食减肥
-    //var url = "http://www.lady8844.com/shoushen/jbss/"; //category = 3 局部减肥
-    //var url = "http://www.lady8844.com/shoushen/jfcs/"; //category = 4   减肥常识
-    //var url = ""; //category = 5  热门主题
-    var url = "http://www.lady8844.com/shoushen/jfjy/"; //category = 6  减肥案例
-    //var url = ""; //category = 7  减肥秘籍
-    
-    download(url, function (data) {
-        var $ = cheerio.load(data);
-        var postlist = [];
-        var jlist = $(".ArtList li");
-        for (var i = 0; i < jlist.length; i++) {
-            var post = {};
-
-            post.author = "admin";
-            post.tags = [];
-            post.enable = 1;
-            post.category = 6;
-            _url = $(jlist[i]).find("a").attr("href");
-            (function (_url, post, _i) {
-                download8844(_url, post, function (p) {
-                    postMod.save(p, function (err, result) {
-                        if (err) {
-                            console.log(_i+"error:" + _url.split("/").pop() + "\r\n");
-                        } else {
-
-                            console.log(_i + "success:" + _url.split("/").pop() + "\r\n");
-                        }
-                    });
-                });
-            })(_url, post,i);
-            
-        }
-        res.json("{\"res\":1}");
-
-    });
-}
-
-
-
 
 
 

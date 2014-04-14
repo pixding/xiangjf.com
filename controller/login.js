@@ -42,7 +42,6 @@ exports.login = function (req, res) {
     if (req.method == "POST") {
         var name = req.body.name.trim();
         var pass = req.body.pass.trim();
-        console.log(lib.md5(pass));
         if (name == '' || pass == '') {
             res.render('admin/login', {
                 layout: false,

@@ -10,6 +10,14 @@
     "ejs": "*",
 	"mongoskin":"0.6.1",
 	"dateformat":"1.0.7-1.2.3",
-	"crypto":"0.0.3"
+	"crypto":"0.0.3",
+	"bufferhelper":"*",
+	"cheerio":"*",
+	"eventproxy":"*",
+	"http-get":"*",
+	"iconv-lite":"*",
+	"needle":"*",
+	"path":"*",
+	"request":"*"
   }
 }
