@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>想减肥_中国最专业的减肥瘦身网站<%= locals.lessList.length%></title>
+    <title><%= settings.static.category[category]%>列表_想减肥</title>
     <meta content="减肥方法,健康减肥,减肥常识,减肥技巧,瘦身误区" name="keywords">
     <meta content="想减肥瘦身中心,教您正确的健康减肥常识,推荐最有效的减肥方法及减肥技巧,帮您避开减肥中的误区,助您健康减肥瘦身!" name="description">
     <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
@@ -16,7 +16,7 @@
         <div class="wrap boderright fn-left">
             <div class="breadhead boderbottom">
                 <a href="/">首页</a> &gt;
-                <label><%= category==0?key+"_搜索结果":settings.static.category[category]%></label>
+                <label><%= settings.static.category[category]%></label>
             </div>
             <div class="fn-clear">
                 <div class="fn-left lside">
@@ -76,7 +76,7 @@
                 <%}%>
                     </ul>
                     <%
-                var url = (category==0?"/key_"+(key?key:"瘦身")+"?page=":"/cate/"+category+"?page=");
+                var url = "/cate/"+category+"?page=";
                 var totalpage = Math.ceil(total/settings.static.listsize)
                 %>
                 <div class="entrypage">
