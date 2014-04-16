@@ -16,4 +16,11 @@
         <li <%= snav=="theme"?"class=curr":"" %> ><a href="/admin/set/theme">专题设置</a></li>
     </ul>
     <%}%>
+    <% if(fnav=='pimg'){%>
+    <h3 class="title">网站设置</h3>
+    <ul class="sul">
+        <li <%= snav=="pull"?"class=curr":"" %> ><a href="/admin/pimg/pull">图片抓取</a></li>
+        <li <%= snav=="list"?"class=curr":"" %> ><a href="/admin/pimg/list">图片列表</a></li>
+    </ul>
+    <%}%>
 </div>

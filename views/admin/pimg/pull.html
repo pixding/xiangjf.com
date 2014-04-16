@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>想减肥_中国最专业的减肥瘦身网站</title>
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/admin.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://resource.pipikou.com/b/js/jquery/jquery.js"></script>
+    <style>
+        .opbox{ float:right; padding:0 0 10px;}
+    </style>
+</head>
+<body>
+<% include ../module/topbar.html %>
+<% var fnav = 'pimg' %>
+<% include ../module/header.html %>
+<div class="grid main fn-clear">
+    <% var snav = 'pull' %>
+    <% include ../module/leftside.html %>
+    <div class="maincon">
+        <h3 class="toptitle">图片抓取</h3>
+        <ul class="subnav">
+            <li <%if(kind==""){%> class="curr"<%}%> ><a href="/admin/pimg/list">全部</a></li>
+            <% for(var i=1; i<settings.static.category.length;i++){%>
+                <li <%if(kind==i){%> class="curr"<%}%> ><a href="/admin/pimg/list?kind=<%= i%>"><%= settings.static.pimgcategory[i]%></a></li>
+            <%}%>
+        </ul>
+        <%if(kind>=1){%>
+        <div class="opbox">
+            
+            <a data-cate="<%= kind%>" class="fn-btn fn-btn-big J_getPost" href="javascript:;">同步<%= settings.static.pimgcategory[kind]%>图片到本地</a>
+
+            <a data-cate="<%= kind%>" class="fn-btn fn-btn-big J_pull" href="javascript:;">抓取<%= settings.static.pimgcategory[kind]%>图片链接</a>
+        </div>
+        <%}%>
+        <table class="fn-table">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>描述</th>
+                    <th>标签</th>
+                    <th>状态</th>
+                    <th>时间</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <% for(var i=0; i<list.length;i++){%>
+                    <tr>
+                        <td><%= (page-1)*settings.static.pagesize+i+1 %></td>
+                        <td><%= list[i].desc %></td>
+                        <td><%= list[i].tag %></td>
+                        <td><%= list[i].enable==undefined?"未同步":list[i].enable %></td>
+                        <td><%= list[i].date %></td>
+                    </tr>
+                <%}%>
+
+            </tbody>
+        </table>
+        <% var base = "/admin/post/lady?type="+type+"&page=";%>
+        <% include ../module/pagehelper.html %>
+    </div>
+
+</div>
+
+<% include ../module/footer.html %>
+<script type="text/javascript">
+    $(function () {
+        $(".J_pull").bind("click", function () {
+            var d = $(this).data("cate");
+            $.ajax({
+                type: "POST",
+                data: {cate:d},
+                datatype: "json",
+                url: "/admin/post/lady",
+                success: function (data) {
+                    if (data.res == 1) {
+                        alert("抓取成功!");
+                        location.reload();
+                    } else {
+                        alert("保存失败！错误代码：" + data.msg);
+                        return false;
+                    }
+                }
+            });
+        });
+
+        $(".J_getPost").bind("click", function () {
+            var d = $(this).data("cate");
+            $.ajax({
+                type: "POST",
+                data: { cate: d },
+                datatype: "json",
+                url: "/admin/post/syncLady",
+                success: function (data) {
+                    if (data.res == 1) {
+                        alert("同步成功!");
+                        location.reload();
+                    } else {
+                        alert("保存失败！错误代码：" + data.msg);
+                        return false;
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
