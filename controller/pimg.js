@@ -9,7 +9,7 @@ var request = require('request');
 var fs = require('fs');
 var EventProxy = require('eventproxy').EventProxy;
 var upload_path = path.join(path.dirname(__dirname), 'public');
-
+var http = require('http');
 var iconv = require('iconv-lite');
 var BufferHelper = require('bufferhelper');
 
@@ -21,7 +21,7 @@ exports.getImg = function (req, res, next) {
         var limit = config.static.pagesize;
         var query = {};
         if (kind) {
-            query.kind = parseInt(kind, 10);
+            query.kind = parseInt(kind, 10)+"";
         }
         if (tag!="") {
             query.tag = tag;
@@ -38,7 +38,7 @@ exports.getImg = function (req, res, next) {
                 if (err) {
                     return next();
                 }
-                res.render("admin/pimg/pull", { layout: false, kind: kind, tag: tag, page: page, total: count });
+                res.render("admin/pimg/pull", { layout: false, kind: kind, tag: tag,list:result, page: page, total: count });
             });
         });
     }
@@ -49,24 +49,39 @@ exports.getImg = function (req, res, next) {
 
         download(url, function (data) {
             var myjson = JSON.parse(data);
-            var imglist = myjson.data;
+            var imglist = myjson.imgs;
             for (var i = 0; i < imglist.length - 1; i++) {
                 
                 var imgobj = {};
                 imgobj.desc = imglist[i].desc;
-                imgobj.imgurl = imglist[i].download_url;
-                imgobj.w = imglist[i].image_width;
-                imgobj.h = imglist[i].image_height;
+                imgobj.imgurl = imglist[i].downloadUrl;
+                imgobj.w = imglist[i].imageWidth;
+                imgobj.h = imglist[i].imageHeight;
                 imgobj.bdid = imglist[i].id;
                 imgobj.bdtags = imglist[i].tags;
                 imgobj.kind = kind;
                 imgobj.tag = tag;
                 imgobj.date = imglist[i].date;
-                pimgMod.save(imgobj, function () {
+                pimgMod.save(imgobj, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log(imgobj.bdid + "save");
+                    }
                 });
             }
         })
+        res.json({ res: 1 });
     }
+}
+exports.downloadimg = function (req, res, next) {
+    
+    pimgMod.getByQuery(query, { skip: (page - 1) * limit, limit: limit, sort: { enable: 1 } }, function (err, result) {
+        if (err) {
+            return next();
+        }
+        res.render("admin/pimg/pull", { layout: false, kind: kind, tag: tag, list: result, page: page, total: count });
+    });
 }
 
 function download(url, callback, isgbk) {

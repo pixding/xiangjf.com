@@ -3,6 +3,7 @@ var index = require('./controller/index.js');
 var util = require('./controller/util.js');
 var web = require('./controller/web.js');
 var login = require('./controller/login.js');
+var pimg = require('./controller/pimg.js');
 exports = module.exports = function (app) {
     app.get('/admin/login', login.login);
     app.post('/admin/login', login.login);
@@ -32,6 +33,9 @@ exports = module.exports = function (app) {
     app.post('/admin/set/hpost', login.auth_user, web.hpost);
 
     
+    app.get('/admin/pimg/pull', login.auth_user, pimg.getImg);
+    app.post('/admin/pimg/pull', login.auth_user, pimg.getImg);
+
     app.get('/', index.index);
     app.get('/cate/:cate', index.hotList, index.categoryList);
     app.get('/search',  index.searchList);

@@ -35,7 +35,7 @@ exports.getByQuery = function (query, options, callback) {
 
 //获取总数量
 exports.count = function (query, callback) {
-    db.post.count(query, function (err, count) {
+    db.pimg.count(query, function (err, count) {
         callback(err, count);
     });
 };

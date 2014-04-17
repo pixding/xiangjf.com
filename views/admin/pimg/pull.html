@@ -20,26 +20,30 @@
     <div class="maincon">
         <h3 class="toptitle">图片抓取</h3>
         <ul class="subnav">
-            <li <%if(kind==""){%> class="curr"<%}%> ><a href="/admin/pimg/list">全部</a></li>
-            <% for(var i=1; i<settings.static.category.length;i++){%>
-                <li <%if(kind==i){%> class="curr"<%}%> ><a href="/admin/pimg/list?kind=<%= i%>"><%= settings.static.pimgcategory[i]%></a></li>
+            <li <%if(kind==""){%> class="curr"<%}%> ><a href="/admin/pimg/pull">全部</a></li>
+            <% for(var i=1; i<settings.static.pimgkind.length;i++){%>
+                <li <%if(kind==i){%> class="curr"<%}%> ><a href="/admin/pimg/pull?kind=<%= i%>"><%= settings.static.pimgkind[i]%></a></li>
             <%}%>
         </ul>
         <%if(kind>=1){%>
         <div class="opbox">
-            
-            <a data-cate="<%= kind%>" class="fn-btn fn-btn-big J_getPost" href="javascript:;">同步<%= settings.static.pimgcategory[kind]%>图片到本地</a>
+            <form id="J_pullform">
+            抓取地址：<input type="text" style="width:280px; padding:4px 0;" name="url" />
+            标签：<input type="text" name="tag" style="width:100px; padding:4px 0;" />
+            <input type="hidden" name="kind" value="<%= kind%>" /><a class="fn-btn J_getPost" href="javascript:;">同步图片到本地</a>
 
-            <a data-cate="<%= kind%>" class="fn-btn fn-btn-big J_pull" href="javascript:;">抓取<%= settings.static.pimgcategory[kind]%>图片链接</a>
+            <a class="fn-btn J_pull" href="javascript:;">抓取图片链接</a>
+            </form>
+            
         </div>
         <%}%>
         <table class="fn-table">
             <thead>
                 <tr>
-                    <th>序号</th>
-                    <th>描述</th>
-                    <th>标签</th>
-                    <th>状态</th>
+                    <th style="width:50px;">序号</th>
+                    <th style="width:250px;">描述</th>
+                    <th style="width:100px;">标签</th>
+                    <th style="width:80px;">状态</th>
                     <th>时间</th>
                 </tr>
 
@@ -57,7 +61,7 @@
 
             </tbody>
         </table>
-        <% var base = "/admin/post/lady?type="+type+"&page=";%>
+        <% var base = "/admin//lady?kind="+kind+"&tag="+tag+"&page=";%>
         <% include ../module/pagehelper.html %>
     </div>
 
@@ -67,12 +71,12 @@
 <script type="text/javascript">
     $(function () {
         $(".J_pull").bind("click", function () {
-            var d = $(this).data("cate");
+            var d = $("#J_pullform").serialize();
             $.ajax({
                 type: "POST",
-                data: {cate:d},
+                data: d,
                 datatype: "json",
-                url: "/admin/post/lady",
+                url: "/admin/pimg/pull",
                 success: function (data) {
                     if (data.res == 1) {
                         alert("抓取成功!");
