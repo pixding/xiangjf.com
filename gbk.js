@@ -91,7 +91,21 @@ function download(url, callback, isgbk) {
         callback(null);
     });
 }
+function downloadtuniu(url) {
+    for (var i = 0; i < 100000; i++) {
+        (function (_i) {
+            download(url, function (data) {
+                if (data == null) {
+                    console.log("error" + _i);
+                } else {
+                    console.log("success" + _i);
+                }
+            });
+        })(i);
+    }
+}
 //downloadsoso("http://image.soso.com/pics/channel/getRecomPicByTag.jsp?category=%E5%A3%81%E7%BA%B8&tag=%E5%85%A8%E9%83%A8&start=10&len=130&width=1366&height=768");
 
-downloadxx("http://image.baidu.com/channel/imgs?c=%E7%BE%8E%E5%A5%B3&t=%E5%B0%8F%E6%B8%85%E6%96%B0&s=0&pn=120&rn=60&fr=channel");
+downloadtuniu("http://www.uzai.com/");
+//downloadxx("http://image.baidu.com/channel/imgs?c=%E7%BE%8E%E5%A5%B3&t=%E5%B0%8F%E6%B8%85%E6%96%B0&s=0&pn=120&rn=60&fr=channel");
 //download39("http://image.baidu.com/channel/listjson?pn=0&rn=200&tag1=%E6%98%8E%E6%98%9F&tag2=%E5%88%98%E8%AF%97%E8%AF%97&ftags=&sorttype=0&ie=utf8&oe=utf-8");
