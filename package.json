@@ -12,7 +12,7 @@
 	"dateformat":"1.0.7-1.2.3",
 	"crypto":"0.0.3",
 	"bufferhelper":"*",
-	"cheerio":"*",
+	"cheerio":"0.13.1",
 	"eventproxy":"*",
 	"http-get":"*",
 	"iconv-lite":"*",

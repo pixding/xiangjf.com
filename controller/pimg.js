@@ -1,5 +1,6 @@
 ﻿
 var pimgMod = require('../models/pimg');
+var dimgMod = require('../models/dimg');
 var dateFormat = require('dateformat');
 var lib = require('../common/lib.js');
 var config = require('../config.js').config;
@@ -8,10 +9,57 @@ var path = require('path');
 var request = require('request');
 var fs = require('fs');
 var EventProxy = require('eventproxy').EventProxy;
-var upload_path = path.join(path.dirname(__dirname), 'public');
+var pimgpath = path.join(path.dirname(__dirname), 'public/pimg');
 var http = require('http');
 var iconv = require('iconv-lite');
 var BufferHelper = require('bufferhelper');
+
+
+exports.getdImg = function (req, res, next) {
+    if (req.method == "GET") {
+        var kind = req.query.kind || "";
+        var tag = req.query.tag || "";
+        var page = req.query.page || 1;
+        var limit = config.static.pagesize;
+        var query = {};
+        var tagquery = {};
+        if (kind) {
+            query.kind = parseInt(kind, 10) + "";
+            tagquery.kind = parseInt(kind, 10) + "";
+        }
+        if (tag != "") {
+            query.tag = tag;
+        }
+        dimgMod.count(query, function (err, count) {
+            if (err) {
+                next();
+            }
+            var totalpage = Math.ceil(count / limit) || 1;
+            if (page > totalpage) {
+                page = totalpage;
+            }
+
+            var proxy = new EventProxy();
+            function render(list, tags) {
+                res.render("admin/pimg/list", { layout: false, kind: kind, tag: tag, tags: tags, list: list, page: page, total: count });
+            }
+            proxy.assign("list", "tags", render);
+            dimgMod.getByQuery(query, { skip: (page - 1) * limit, limit: limit, sort: { date: -1 } }, function (err, result) {
+                if (err) {
+                    return next();
+                }
+                proxy.trigger("list", result);
+            });
+
+            dimgMod.getTags(tagquery, function (err, result) {
+                if (err) {
+                    return next();
+                }
+                proxy.trigger("tags", result);
+            });
+        });
+    }
+}
 
 exports.getImg = function (req, res, next) {
     if (req.method == "GET") {
@@ -20,12 +68,15 @@ exports.getImg = function (req, res, next) {
         var page = req.query.page || 1;
         var limit = config.static.pagesize;
         var query = {};
+        var tagquery = {};
         if (kind) {
             query.kind = parseInt(kind, 10)+"";
+            tagquery.kind = parseInt(kind, 10)+"";
         }
         if (tag!="") {
             query.tag = tag;
         }
+
         pimgMod.count(query, function (err, count) {
             if (err) {
                 next();
@@ -34,11 +85,24 @@ exports.getImg = function (req, res, next) {
             if (page > totalpage) {
                 page = totalpage;
             }
-            pimgMod.getByQuery(query, { skip: (page - 1) * limit, limit: limit, sort: { enable: 1 } }, function (err, result) {
+            
+            var proxy = new EventProxy();
+            function render(list, tags) {
+                res.render("admin/pimg/pull", { layout: false, kind: kind, tag: tag, tags:tags, list: list, page: page, total: count });
+            }
+            proxy.assign("list", "tags", render);
+            pimgMod.getByQuery(query, { skip: (page - 1) * limit, limit: limit, sort: { enable: 1,date:-1 } }, function (err, result) {
                 if (err) {
                     return next();
                 }
-                res.render("admin/pimg/pull", { layout: false, kind: kind, tag: tag,list:result, page: page, total: count });
+                proxy.trigger("list", result);
+            });
+            
+            pimgMod.getTags(tagquery, function (err, result) {
+                if (err) {
+                    return next();
+                }
+                proxy.trigger("tags", result);
             });
         });
     }
@@ -48,6 +112,7 @@ exports.getImg = function (req, res, next) {
         var kind = req.body.kind;
 
         download(url, function (data) {
+            console.log(data);
             var myjson = JSON.parse(data);
             var imglist = myjson.imgs;
             for (var i = 0; i < imglist.length - 1; i++) {
@@ -62,7 +127,7 @@ exports.getImg = function (req, res, next) {
                 imgobj.kind = kind;
                 imgobj.tag = tag;
                 imgobj.date = imglist[i].date;
-                pimgMod.save(imgobj, function (err, result) {
+                pimgMod.updateByUnique({bdid:imgobj.bdid},imgobj, function (err, result) {
                     if (err) {
                         console.log(err);
                     } else {
@@ -76,11 +141,41 @@ exports.getImg = function (req, res, next) {
 }
 exports.downloadimg = function (req, res, next) {
     
-    pimgMod.getByQuery(query, { skip: (page - 1) * limit, limit: limit, sort: { enable: 1 } }, function (err, result) {
+    var query = {};
+    query.enable = null;
+
+    pimgMod.getByQuery(query, {}, function (err, result) {
         if (err) {
             return next();
         }
-        res.render("admin/pimg/pull", { layout: false, kind: kind, tag: tag, list: result, page: page, total: count });
+        for (var i = 0; i < result.length; i++) {
+            var pimg = {};
+            pimg.desc = result[i].desc;
+            pimg.w = result[i].w;
+            pimg.h = result[i].h;
+            pimg.tag = result[i].tag;
+            pimg.date = result[i].date;
+            pimg.kind = result[i].kind;
+            pimg.imgurl = result[i].imgurl;
+
+            var d = "20140420";
+            var time = new Date().getTime();
+            var ext = path.extname(pimg.imgurl);
+            var new_name = result[i].bdid+time + ext;
+            var new_path = path.join(pimgpath,d, new_name);
+            
+            pimg.src = d + "/" + new_name;
+            
+            saveImg(pimg.imgurl, new_path);
+            dimgMod.save(pimg, function (err, _res) {
+                if (err) {
+
+                }
+            });
+            pimgMod.updateByUnique({ bdid: result[i].bdid }, { enable: 1 }, function (err, __res) { });
+
+        }
+        res.json({ res: 1 });
     });
 }
 
@@ -117,10 +212,8 @@ function saveImg(url, name) {
         res.on('end', function () {
             fs.writeFile(name, imagedata, 'binary', function (err) {
                 if (err) {
-                    console.log(err);
                     return;
                 }
-                console.log('File saved.')
             })
         })
 

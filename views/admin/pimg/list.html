@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>想减肥_中国最专业的减肥瘦身网站</title>
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/admin.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://resource.pipikou.com/b/js/jquery/jquery.js"></script>
+    <style>
+        .opbox{ float:right; padding:0 0 10px;}
+        .imgtag{ display:inline-block; padding:0 5px; border:1px solid #ccc; color:#39c; line-height:24px; margin:0 5px 5px 0; background:#efefef;}
+        .imgtag.curr{ background:#f60; color:#fff;}
+    </style>
+</head>
+<body>
+<% include ../module/topbar.html %>
+<% var fnav = 'pimg' %>
+<% include ../module/header.html %>
+<div class="grid main fn-clear">
+    <% var snav = 'list' %>
+    <% include ../module/leftside.html %>
+    <div class="maincon">
+        <h3 class="toptitle">图片抓取</h3>
+        <ul class="subnav">
+            <li <%if(kind==""){%> class="curr"<%}%> ><a href="/admin/pimg/list">全部</a></li>
+            <% for(var i=1; i<settings.static.pimgkind.length;i++){%>
+                <li <%if(kind==i){%> class="curr"<%}%> ><a href="/admin/pimg/list?kind=<%= i%>"><%= settings.static.pimgkind[i]%></a></li>
+            <%}%>
+        </ul>
+        <% if(tags.length>0){%>
+            <div>
+                <% for(var i=0;i<tags.length;i++){%>
+                    <a class="imgtag <% if(tags[i]==tag){%>curr<%}%> " href="/admin/pimg/list?kind=<%= kind%>&tag=<%= tags[i]%>"><%= tags[i]%></a>
+                <%}%>
+            </div>
+        <%}%>
+        <table class="fn-table">
+            <thead>
+                <tr>
+                    <th style="width:50px;">序号</th>
+                    <th style="width:250px;">描述</th>
+                    <th style="width:100px;">标签</th>
+                    <th style="width:100px;">查看图片</th>
+                    <th>时间</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <% for(var i=0; i<list.length;i++){%>
+                    <tr>
+                        <td><%= (page-1)*settings.static.pagesize+i+1 %></td>
+                        <td><%= list[i].desc %></td>
+                        <td><%= list[i].tag %></td>
+                        <td><a href="/pimg/<%= list[i].src %>" target="_blank"><%= list[i].src %></a></td>
+                        <td><%= list[i].date %></td>
+                    </tr>
+                <%}%>
+
+            </tbody>
+        </table>
+        <% var base = "/admin/pimg/list?kind="+kind+"&tag="+tag+"&page=";%>
+        <% include ../module/pagehelper.html %>
+    </div>
+
+</div>
+
+<% include ../module/footer.html %>
+</body>
+</html>

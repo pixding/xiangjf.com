@@ -35,6 +35,8 @@ exports = module.exports = function (app) {
     
     app.get('/admin/pimg/pull', login.auth_user, pimg.getImg);
     app.post('/admin/pimg/pull', login.auth_user, pimg.getImg);
+    app.post('/admin/pimg/downloadimg', login.auth_user, pimg.downloadimg);
+    app.get('/admin/pimg/list', login.auth_user, pimg.getdImg);
 
     app.get('/', index.index);
     app.get('/cate/:cate', index.hotList, index.categoryList);
