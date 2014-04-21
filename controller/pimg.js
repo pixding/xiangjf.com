@@ -9,6 +9,7 @@ var path = require('path');
 var request = require('request');
 var fs = require('fs');
 var EventProxy = require('eventproxy').EventProxy;
+var uploadpath = path.join(path.dirname(__dirname), 'public');
 var pimgpath = path.join(path.dirname(__dirname), 'public/pimg');
 var http = require('http');
 var iconv = require('iconv-lite');
@@ -148,6 +149,12 @@ exports.downloadimg = function (req, res, next) {
         if (err) {
             return next();
         }
+        var d = dateFormat(new Date(), "yyyymmdd");
+        var new_path = path.join(pimgpath, d);
+        var exist = fs.existsSync(new_path)
+        if (!exist) {
+            fs.mkdirSync(new_path);
+        }
         for (var i = 0; i < result.length; i++) {
             var pimg = {};
             pimg.desc = result[i].desc;
@@ -158,20 +165,15 @@ exports.downloadimg = function (req, res, next) {
             pimg.kind = result[i].kind;
             pimg.imgurl = result[i].imgurl;
 
-            var d = "20140420";
             var time = new Date().getTime();
             var ext = path.extname(pimg.imgurl);
             var new_name = result[i].bdid+time + ext;
-            var new_path = path.join(pimgpath,d, new_name);
+            var _ipath = path.join(new_path,new_name);
             
             pimg.src = d + "/" + new_name;
             
-            saveImg(pimg.imgurl, new_path);
-            dimgMod.save(pimg, function (err, _res) {
-                if (err) {
-
-                }
-            });
+            saveImg(pimg.imgurl, _ipath);
+            dimgMod.save(pimg, function (err, _res) {});
             pimgMod.updateByUnique({ bdid: result[i].bdid }, { enable: 1 }, function (err, __res) { });
 
         }
@@ -199,8 +201,17 @@ function download(url, callback, isgbk) {
         callback(null);
     });
 }
-function saveImg(url, name) {
 
+exports.singleDown = function (req, res, next) {
+    
+    var downurl = req.body.downurl;
+    var savepath = req.body.savepath;
+    saveImg(downurl, path.join(uploadpath, savepath));
+    res.json({ res: 1 });
+}
+
+function saveImg(url, name) {
+    console.log(url);
     var request = http.get(url, function (res) {
         var imagedata = ''
         res.setEncoding('binary')
@@ -210,9 +221,10 @@ function saveImg(url, name) {
         })
 
         res.on('end', function () {
+            console.log(imagedata);
             fs.writeFile(name, imagedata, 'binary', function (err) {
                 if (err) {
-                    return;
+                    console.log(url+"error");
                 }
             })
         })

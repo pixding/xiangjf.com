@@ -51,7 +51,10 @@
                         <td><%= (page-1)*settings.static.pagesize+i+1 %></td>
                         <td><%= list[i].desc %></td>
                         <td><%= list[i].tag %></td>
-                        <td><a href="/pimg/<%= list[i].src %>" target="_blank"><%= list[i].src %></a></td>
+                        <td>
+                            <a href="/pimg/<%= list[i].src %>" target="_blank"><img src="/pimg/<%= list[i].src %>" width="30" /></a>
+                            <a data-downurl="<%= list[i].imgurl %>" data-path="/pimg/<%= list[i].src %>" href="javascript:;" class="J_reload">抓取</a>
+                        </td>
                         <td><%= list[i].date %></td>
                     </tr>
                 <%}%>
@@ -65,5 +68,53 @@
 </div>
 
 <% include ../module/footer.html %>
+<script>
+    $(function () {
+        $(".J_reload").bind("click", function () {
+            var downurl = $(this).attr("data-downurl");
+            if (downurl.indexOf('a.hi')>-1) {
+                downurl= downurl.replace('a.hi', 'b.hi');
+            }else
+            if (downurl.indexOf('b.hi') > -1) {
+                downurl = downurl.replace('b.hi', 'c.hi');
+            } else
+            if (downurl.indexOf('c.hi') > -1) {
+                downurl = downurl.replace('c.hi', 'd.hi');
+            } else
+            if (downurl.indexOf('d.hi') > -1) {
+                downurl = downurl.replace('d.hi', 'e.hi');
+            } else
+            if (downurl.indexOf('e.hi') > -1) {
+                downurl = downurl.replace('e.hi', 'f.hi');
+            } else
+            if (downurl.indexOf('f.hi') > -1) {
+                downurl = downurl.replace('f.hi', 'g.hi');
+            } else
+            if (downurl.indexOf('g.hi') > -1) {
+                downurl = downurl.replace('g.hi', 'h.hi');
+            } else
+            if (downurl.indexOf('h.hi') > -1) {
+                downurl = downurl.replace('h.hi', 'a.hi');
+            }
+            $(this).attr("data-downurl",downurl);
+            
+            var savepath = $(this).attr("data-path");
+            $.ajax({
+                type: "POST",
+                datatype: "json",
+                data: { downurl: downurl, savepath: savepath},
+                url: "/admin/pimg/downsingle",
+                success: function (data) {
+                    if (data.res == 1) {
+                        alert("加载成功!");
+                    } else {
+                        alert("保存失败！错误代码：" + data.msg);
+                        return false;
+                    }
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
