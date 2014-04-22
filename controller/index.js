@@ -2,7 +2,7 @@
 /*
  * GET home page.
  */
-
+var dimgMod = require('../models/dimg');
 var webMod = require('../models/web');
 var config = require('../config.js').config;
 var postMod = require('../models/post');
@@ -131,4 +131,58 @@ exports.searchList = function (req, res, next) {
             res.render(config.theme + "search", { layout: false, key: key,category:0, list: result, page: page, total: count });
         });
     });
+}
+
+//pins
+exports.pins = function (req, res, next) {
+    var kind = req.params.kind;
+    var query = {};
+    var tagquery = {};
+    if (kind) {
+        query.kind = kind;
+        tagquery.kind = kind;
+    }
+
+    dimgMod.count(query, function (err, count) {
+        if (err) {
+            next();
+        }
+        var proxy = new EventProxy();
+        function render(list, tags) {
+            res.render(config.theme + 'imglist', { layout: false, imglist: list, tags: tags });
+        }
+        proxy.assign("list", "tags", render);
+        dimgMod.getByQuery(query, { limit: 20, sort: { date: -1 } }, function (err, result) {
+            if (err) {
+                return next();
+            }
+            proxy.trigger("list", result);
+        });
+
+        dimgMod.getTags(tagquery, function (err, result) {
+            if (err) {
+                return next();
+            }
+            proxy.trigger("tags", result);
+        });
+    });
+    
+
+    
+};
+
+exports.pinsdata = function (req, res, next) {
+    var page = req.query.page || 1;
+    dimgMod.getByQuery({}, {skip: page*10,  limit: 10, sort: { date: -1 } }, function (err, result) {
+        if (err) {
+            return next();
+        }
+        var htm = [];
+        for (var i = 0; i < result.length; i++) {
+            htm.push('{"img":"pimg\/'+result[i].src+'","height":0,"title":"'+result[i].desc+'"}');
+
+        }
+        res.end('[' + htm.join(',') + ']');
+    });
+    
 }

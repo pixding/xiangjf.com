@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>_想减肥</title>
+    
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/xiangjf.css" rel="stylesheet" />
+    <script src="/js/jquery.js"></script>
+
+    <script type="text/javascript" src="/js/wind.js"></script>
+</head>
+<body>
+    <% include module/indextop.html %>
+    <style>
+        .pins-top{ border:1px solid #ccc; width:100%; display:table; box-shadow:0 0 5px #ccc;}
+        .pins-top .kind{ width:30px; position:relative; font-size:24px; color:#fff; background:#42A85B; font-weight:bold; display:table-cell; padding:10px 20px; vertical-align:middle; height:100%;}
+        .pins-top .taglist{display:table-cell;padding:10px;}
+        .pins-top .taglist li{ float:left; padding:0 15px; line-height:30px; margin:0 20px 10px 0; border:1px solid #ccc;}
+    
+        img{ border:0px; }
+		.container {position:relative;font-size:12px;border:0px solid green;padding:0;margin:0;text-align:center;}
+		#loading {margin-top:2px;font-size:12px;border-radius:3px;border:1px solid #ccc;text-align:center;line-height:30px;background: #eee;}
+		#noshow {margin-top:2px;font-size:12px;border-radius:3px;border:1px solid #ccc;text-align:center;line-height:30px;background: #eee;}
+		.pin {width:210px;border:1px solid #ccc;border-radius:3px;list-style:none;position:absolute;text-align:center; }
+		.pin div{ margin:5px;display:block;}
+		.pin .img{ border:0px solid #eee;}
+		.pin .btn {position:absolute;border-radius:3px;background: #eee;line-height:20px;width:60px;border:1px solid #ccc;cursor:pointer; display:none;}
+		.pin .title{ background: #eee;line-height:24px;border:1px solid #ccc;}
+		.pin .like{ top:8px;left:6px;}
+		.pin .comments{ top:8px;right:6px;}
+		 .hide {display:none;}
+        
+        </style>
+    <div class="grid fn-clear">
+        
+        <div class="pins-top">
+            <div class="kind">
+                壁纸
+            </div>
+            <div class="taglist">
+                <ul>
+                    <%for(var i=0;i<tags.length;i++){%>
+                    <li>
+                        <%= tags[i]%>
+                    </li>
+                    <%}%>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="container ">
+            <%for(var i=0;i<imglist.length;i++){%>
+            <div class="pin"><a href="#"><div class="img"><img src="/pimg/<%= imglist[i].src%>" width="200"  alt=""></div></a><div class="title"><%= imglist[i].desc%></div><div class="like btn">喜欢</div><div class="comments btn">评论</div></div>
+            <%}%>
+        </div>
+        <div id="loading">正在加载中……</div>
+        <div id="noshow">亲，已经没有了！</div>
+    </div>
+
+    <% include module/footer.html %>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".container").windswaterflow({
+                itemSelector: '.pin',
+                loadSelector: '#loading',
+                noSelector: '#noshow',
+                boxTemplate: '<div class="pin hide"><a href="#"><div class="img"><img src="{img}" style="height:{height}px; width:200px;" alt="" /></div></a><div class="title">{title}</div><div class="like btn">喜欢</div><div class="comments btn">评论</div></div>',
+                columnWidth: 200,
+                marginWidth: 14,
+                marginHeight: 16,
+                ajaxServer: 'pins/data',
+                boxParam: 'num',
+                pageParam: 'page',
+                maxPage: 0,
+                init: true,
+                initBoxNumber: 20,
+                scroll: true,
+                scrollBoxNumber: 10,
+                callback: function () {
+                    $(".pin").mouseover(function () {
+                        $(this).find(".btn").show();
+                    }).mouseout(function () {
+                        $(this).find('.btn').hide();
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
