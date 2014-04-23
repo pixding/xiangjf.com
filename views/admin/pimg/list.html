@@ -71,33 +71,7 @@
 <script>
     $(function () {
         $(".J_reload").bind("click", function () {
-            var downurl = $(this).attr("data-downurl");
-            if (downurl.indexOf('a.hi')>-1) {
-                downurl= downurl.replace('a.hi', 'b.hi');
-            }else
-            if (downurl.indexOf('b.hi') > -1) {
-                downurl = downurl.replace('b.hi', 'c.hi');
-            } else
-            if (downurl.indexOf('c.hi') > -1) {
-                downurl = downurl.replace('c.hi', 'd.hi');
-            } else
-            if (downurl.indexOf('d.hi') > -1) {
-                downurl = downurl.replace('d.hi', 'e.hi');
-            } else
-            if (downurl.indexOf('e.hi') > -1) {
-                downurl = downurl.replace('e.hi', 'f.hi');
-            } else
-            if (downurl.indexOf('f.hi') > -1) {
-                downurl = downurl.replace('f.hi', 'g.hi');
-            } else
-            if (downurl.indexOf('g.hi') > -1) {
-                downurl = downurl.replace('g.hi', 'h.hi');
-            } else
-            if (downurl.indexOf('h.hi') > -1) {
-                downurl = downurl.replace('h.hi', 'a.hi');
-            }
-            $(this).attr("data-downurl",downurl);
-            
+            var downurl = $(this).attr("data-downurl")+"?rn="+Math.random();
             var savepath = $(this).attr("data-path");
             $.ajax({
                 type: "POST",

@@ -113,7 +113,6 @@ exports.getImg = function (req, res, next) {
         var kind = req.body.kind;
 
         download(url, function (data) {
-            console.log(data);
             var myjson = JSON.parse(data);
             var imglist = myjson.imgs;
             for (var i = 0; i < imglist.length - 1; i++) {
@@ -131,9 +130,7 @@ exports.getImg = function (req, res, next) {
                 pimgMod.updateByUnique({bdid:imgobj.bdid},imgobj, function (err, result) {
                     if (err) {
                         console.log(err);
-                    } else {
-                        console.log(imgobj.bdid + "save");
-                    }
+                    } 
                 });
             }
         })
@@ -211,7 +208,6 @@ exports.singleDown = function (req, res, next) {
 }
 
 function saveImg(url, name) {
-    console.log(url);
     var request = http.get(url, function (res) {
         var imagedata = ''
         res.setEncoding('binary')
@@ -221,7 +217,6 @@ function saveImg(url, name) {
         })
 
         res.on('end', function () {
-            console.log(imagedata);
             fs.writeFile(name, imagedata, 'binary', function (err) {
                 if (err) {
                     console.log(url+"error");

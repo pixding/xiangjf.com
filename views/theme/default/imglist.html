@@ -3,7 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>_想减肥</title>
-    
+    <meta content="想减肥 | www.xiangjf.com" name="author">
+    <meta content="Copyright (c) 2014 xiangjf.com" name="Copyright">
     <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/css/xiangjf.css" rel="stylesheet" />
     <script src="/js/jquery.js"></script>
@@ -17,40 +18,14 @@
         .pins-top .kind{ width:30px; position:relative; font-size:24px; color:#fff; background:#42A85B; font-weight:bold; display:table-cell; padding:10px 20px; vertical-align:middle; height:100%;}
         .pins-top .taglist{display:table-cell;padding:10px;}
         .pins-top .taglist li{ float:left; padding:0 15px; line-height:30px; margin:0 20px 10px 0; border:1px solid #ccc;}
-    
-        #container {
-        padding: 20px 0;
-        }
+        .pins-top .taglist li a{ display:block;}
+
+        #container {padding: 20px 0;}
         #container ul{ position:absolute;}
-        #container li {
-            background-color: #ffffff;
-            -moz-border-radius: 4px;
-            -webkit-border-radius: 4px;
-            border-radius: 4px;
-            box-shadow:0 1px 2px 0 rgba(210, 210, 210, 0.31);
-            
-        }
-        #container li img {
-            display: block;
-            margin: 0;
-            -moz-border-radius: 2px;
-            -webkit-border-radius: 2px;
-            border-radius: 2px;
-        }
-        #container li .desc{
-            padding:5px 10px;
-            
-            
-        }
-        #container li .desc a{
-            color:#333;font-size:14px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            width:188px;
-            display:block;
-            overflow:hidden;
-            
-        }
+        #container li {background-color: #ffffff;-moz-border-radius: 4px;-webkit-border-radius: 4px;border-radius: 4px;box-shadow:0 1px 2px 0 rgba(210, 210, 210, 0.31);}
+        #container li img {display: block;-moz-border-radius: 2px; -webkit-border-radius: 2px;border-radius: 2px;}
+        #container li .desc{padding:5px 10px;}
+        #container li .desc a{color:#333;font-size:14px;text-overflow: ellipsis;white-space: nowrap;width:188px;display:block;overflow:hidden;}
         </style>
     <div class="grid fn-clear">
         
@@ -60,16 +35,19 @@
             </div>
             <div class="taglist">
                 <ul>
+                    <li>
+                        <a href="/pins_<%= kind%>" >全部</a>
+                    </li>
                     <%for(var i=0;i<tags.length;i++){%>
                     <li>
-                        <%= tags[i]%>
+                        <a href="/pins_<%= kind%>?tag=<%= tags[i]%>" ><%= tags[i]%></a>
                     </li>
                     <%}%>
                 </ul>
             </div>
         </div>
         
-        <div id="container" data-num="20">
+        <div id="container" data-kind="<%= kind%>" data-max="<%= maxnum%>" data-tag="<%= tag%>">
             <ul>
             <%for(var i=0;i<imglist.length;i++){%>
             <li class="item">
@@ -84,81 +62,66 @@
             <%}%>
             </ul>
         </div>
+        <%
+        var url = "/pins_"+kind+"?tag="+tag+"&page=";
+        var totalpage = Math.ceil(total/100)
+        %>
+        <div class="entrypage">
+			<ul class="pagelist">
+                <% for(var j=1; j<=totalpage;j++){%>
+                <li <%if(j==page){%> class="curr"<%}%>><a href="<%=url+j%>"><%= j %></a></li>
+                <%}%>
+			</ul>
+		</div>
     </div>
 
    
     <script type="text/javascript">
-
-        // code written by Mark Holton
-        // MIT license
-        // initial release 12/15/2010
-        // https://github.com/holtonma/infini_scroll (soon to be public repo)
-        // version 0.1
-        // requires jQuery (I wrote it with 1.4, but it likely works with earlier versions, 
-        // will check into that later)
-        // if you re-use, ask that you keep this in the header
-        // http://markholton.com
-
-        // USAGE: 
-        /*
-          $('#posts').infiniScroll();   // initialize
-          $('#posts').infiniScroll({ // calls the init method overrides defaults
-            'interval' : 200
-            ,'root_url' : '/my_posts'
-            ,'loading_elem': 'loading'
-            ,'data_elem': 'leaderboard'
-            ,'num' : 12
-          });
-        */
-
         (function ($) {
-
             var _checkLevel = function () {
                 // if it's low enough, grab latest data
                 if (!_levelReached()) {
                     return methods.pollLevel();
                 } else {
-                    if (settings.freshest_id < settings.lowest_id) {
-                        $('#' + settings.loading_elem).show();
+                    var len = $("#container li").length;
+                    var kind = $("#container").data("kind");
+                    var tag = $("#container").data("tag");
+                    var max = $("#container").data("max");
+                    if (max > len) {
                         $.ajax({
                             type: "GET",
-                            url: settings.root_url + "?kind=3&pn=" + settings.freshest_id + "&rn=40",
+                            url: settings.ajax_url + "?&pn=" + len,
                             dataType: 'json',
-                            timeout: 3000,
+                            data: { kind: kind, tag: tag,rn:settings.rn },
                             success: function (data) {
                                 var htm = [];
                                 for (var i = 0; i < data.list.length; i++) {
-                                    var h = data.list[i].h/data.list[i].w*208;
+                                    var h = data.list[i].h / data.list[i].w * 208;
                                     htm.push('<li class="item">');
                                     htm.push('<a href="#">');
-                                    htm.push('<img src="/pimg/'+data.list[i].src+'" width="208" height="'+h+'"  alt="">');
+                                    htm.push('<img src="/pimg/' + data.list[i].src + '" width="208" height="' + h + '"  alt="">');
                                     htm.push('</a>');
                                     htm.push('<div class="desc">');
-                                    htm.push('<a href="#" title="'+data.list[i].desc+'">'+data.list[i].desc+'</a>');
+                                    htm.push('<a href="#" title="' + data.list[i].desc + '">' + data.list[i].desc + '</a>');
                                     htm.push('</div>');
                                     htm.push('</li>');
                                 }
-                                
-                                $('#' + settings.data_elem).find("ul").append(htm.join(''));
-                                var l = $('#' + settings.data_elem).find("li").length;
+
+                                $('#container').find("ul").append(htm.join(''));
                                 $('#container li').wookmark({
                                     offset: 10,
                                     container: $('#container')
                                 });
-                                settings.freshest_id = l;
-                                methods.pollLevel()
+                                methods.pollLevel();
                             }
                         });
-                    }  // do not make ajax request if it's the only one left
-                } // check if it's low enough 
+                    }
+                } 
             };
-
             var _setLastID = function (elem, lastID) {
                 elem.data("lastID", lastID);
             };
-
             var _levelReached = function () {
-                // is it low enough to add elements to bottom?
                 var pageHeight = Math.max(document.body.scrollHeight ||
                   document.body.offsetHeight);
                 var viewportHeight = window.innerHeight ||
@@ -167,57 +130,29 @@
                 var scrollHeight = window.pageYOffset ||
                   document.documentElement.scrollTop ||
                   document.body.scrollTop || 0;
-                // Trigger for scrolls within 20 pixels from page bottom
-                console.log(pageHeight - viewportHeight - scrollHeight);
                 return pageHeight - viewportHeight - scrollHeight < 30;
             };
-
             /* PUBLIC METHODS */
             var methods = {
-                init: function (options) {
-                    $('#' + settings.loading_elem).hide();
-                },
-
                 pollLevel: function () {
-                    // checking every so often:  
                     setTimeout(_checkLevel, 100);
                 }
             };
-
-            var settings = {
-                'root_url': '/pins/data'
-              , 'loading_elem': 'spinner'
-              , 'data_elem': 'container'
-              , 'freshest_id': 20
-              , 'num': 20
-              , 'lowest_id': 200
-              , 'sort': 'desc'
-            };
-
-            $.fn.infiniScroll = function (method) {
-                // Method calling logic
-                if (methods[method]) {
-                    return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-                } else if (typeof method === 'object' || !method) {
-                    return methods.init.apply(this, arguments);
-                } else {
-                    $.error('Method ' + method + ' does not exist on jQuery.infiniScroll');
-                }
+            var settings = {"rn": 25,"ajax_url": '/pins/data'};
+            $.fn.infiniScroll = function (setting) {
+                $.extend(settings, setting);
+                methods.pollLevel();
             }
 
         })(jQuery);
-
-
-        $('#container').infiniScroll('pollLevel');
         $(function () {
             $('#container li').wookmark({
                 offset: 10,
                 container: $('#container')
             });
+            $("#container").infiniScroll();
         });
-
-
-
     </script>
+    <% include module/footer.html %>
 </body>
 </html>

@@ -135,6 +135,8 @@ exports.searchList = function (req, res, next) {
 
 //pins
 exports.pins = function (req, res, next) {
+    var pagesize = 100;
+    var page = req.query.page || 1;
     var kind = req.params.kind;
     var query = {};
     var tagquery = {};
@@ -142,17 +144,27 @@ exports.pins = function (req, res, next) {
         query.kind = kind;
         tagquery.kind = kind;
     }
-
+    var tag = req.query.tag||"";
+    if (tag!="") {
+        query.tag = tag;
+    }
     dimgMod.count(query, function (err, count) {
         if (err) {
             next();
         }
+        var pagemaxnum = pagesize;
+        var totalpage = Math.ceil(count / pagesize) || 1;
+        if (page >= totalpage) {
+            page = totalpage;
+            pagemaxnum = count - (page - 1) * pagesize;
+        }
+        
         var proxy = new EventProxy();
         function render(list, tags) {
-            res.render(config.theme + 'imglist', { layout: false, imglist: list, tags: tags });
+            res.render(config.theme + 'imglist', { layout: false,maxnum:pagemaxnum, imglist: list,kind:kind,total:count,page:page, tag:tag, tags: tags });
         }
         proxy.assign("list", "tags", render);
-        dimgMod.getByQuery(query, { limit: 20, sort: { date: -1 } }, function (err, result) {
+        dimgMod.getByQuery(query, { skip:(page-1)*pagesize, limit: 25, sort: { date: -1 } }, function (err, result) {
             if (err) {
                 return next();
             }
@@ -173,11 +185,15 @@ exports.pins = function (req, res, next) {
 
 exports.pinsdata = function (req, res, next) {
     var kind = req.query.kind;
+    var tag = req.query.tag;
     var pn = req.query.pn || 20;
     var rn = req.query.rn || 20;
     var query = {};
     if (kind) {
         query.kind = kind;
+    }
+    if (tag) {
+        query.tag = tag;
     }
     dimgMod.getByQuery(query, { skip: pn, limit: rn, sort: { date: -1 } }, function (err, result) {
         if (err) {
