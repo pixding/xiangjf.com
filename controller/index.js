@@ -172,17 +172,19 @@ exports.pins = function (req, res, next) {
 };
 
 exports.pinsdata = function (req, res, next) {
-    var page = req.query.page || 1;
-    dimgMod.getByQuery({}, {skip: page*10,  limit: 10, sort: { date: -1 } }, function (err, result) {
+    var kind = req.query.kind;
+    var pn = req.query.pn || 20;
+    var rn = req.query.rn || 20;
+    var query = {};
+    if (kind) {
+        query.kind = kind;
+    }
+    dimgMod.getByQuery(query, { skip: pn, limit: rn, sort: { date: -1 } }, function (err, result) {
         if (err) {
             return next();
         }
-        var htm = [];
-        for (var i = 0; i < result.length; i++) {
-            htm.push('{"img":"pimg\/'+result[i].src+'","height":0,"title":"'+result[i].desc+'"}');
-
-        }
-        res.end('[' + htm.join(',') + ']');
+        res.json({ list: result });
     });
     
 }
+

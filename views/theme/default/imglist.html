@@ -40,11 +40,16 @@
         #container li .desc{
             padding:5px 10px;
             
+            
         }
         #container li .desc a{
             color:#333;font-size:14px;
             text-overflow: ellipsis;
             white-space: nowrap;
+            width:188px;
+            display:block;
+            overflow:hidden;
+            
         }
         </style>
     <div class="grid fn-clear">
@@ -64,16 +69,16 @@
             </div>
         </div>
         
-        <div id="container">
+        <div id="container" data-num="20">
             <ul>
             <%for(var i=0;i<imglist.length;i++){%>
             <li class="item">
                 <a href="#">
-                    <img src="/pimg/<%= imglist[i].src%>" width="208"  alt="">
+                    <img src="/pimg/<%= imglist[i].src%>" width="208" height="<%= imglist[i].h/imglist[i].w*208%>"  alt="">
                     
                 </a>
                 <div class="desc">
-                    <a href="#"><%= imglist[i].desc%></a>
+                    <a href="#" title="<%= imglist[i].desc%>"><%= imglist[i].desc%></a>
                 </div>
             </li>
             <%}%>
@@ -84,10 +89,135 @@
    
     <script type="text/javascript">
 
+        // code written by Mark Holton
+        // MIT license
+        // initial release 12/15/2010
+        // https://github.com/holtonma/infini_scroll (soon to be public repo)
+        // version 0.1
+        // requires jQuery (I wrote it with 1.4, but it likely works with earlier versions, 
+        // will check into that later)
+        // if you re-use, ask that you keep this in the header
+        // http://markholton.com
+
+        // USAGE: 
+        /*
+          $('#posts').infiniScroll();   // initialize
+          $('#posts').infiniScroll({ // calls the init method overrides defaults
+            'interval' : 200
+            ,'root_url' : '/my_posts'
+            ,'loading_elem': 'loading'
+            ,'data_elem': 'leaderboard'
+            ,'num' : 12
+          });
+        */
+
+        (function ($) {
+
+            var _checkLevel = function () {
+                // if it's low enough, grab latest data
+                if (!_levelReached()) {
+                    return methods.pollLevel();
+                } else {
+                    if (settings.freshest_id < settings.lowest_id) {
+                        $('#' + settings.loading_elem).show();
+                        $.ajax({
+                            type: "GET",
+                            url: settings.root_url + "?kind=3&pn=" + settings.freshest_id + "&rn=40",
+                            dataType: 'json',
+                            timeout: 3000,
+                            success: function (data) {
+                                var htm = [];
+                                for (var i = 0; i < data.list.length; i++) {
+                                    var h = data.list[i].h/data.list[i].w*208;
+                                    htm.push('<li class="item">');
+                                    htm.push('<a href="#">');
+                                    htm.push('<img src="/pimg/'+data.list[i].src+'" width="208" height="'+h+'"  alt="">');
+                                    htm.push('</a>');
+                                    htm.push('<div class="desc">');
+                                    htm.push('<a href="#" title="'+data.list[i].desc+'">'+data.list[i].desc+'</a>');
+                                    htm.push('</div>');
+                                    htm.push('</li>');
+                                }
+                                
+                                $('#' + settings.data_elem).find("ul").append(htm.join(''));
+                                var l = $('#' + settings.data_elem).find("li").length;
+                                $('#container li').wookmark({
+                                    offset: 10,
+                                    container: $('#container')
+                                });
+                                settings.freshest_id = l;
+                                methods.pollLevel()
+                            }
+                        });
+                    }  // do not make ajax request if it's the only one left
+                } // check if it's low enough 
+            };
+
+            var _setLastID = function (elem, lastID) {
+                elem.data("lastID", lastID);
+            };
+
+            var _levelReached = function () {
+                // is it low enough to add elements to bottom?
+                var pageHeight = Math.max(document.body.scrollHeight ||
+                  document.body.offsetHeight);
+                var viewportHeight = window.innerHeight ||
+                  document.documentElement.clientHeight ||
+                  document.body.clientHeight || 0;
+                var scrollHeight = window.pageYOffset ||
+                  document.documentElement.scrollTop ||
+                  document.body.scrollTop || 0;
+                // Trigger for scrolls within 20 pixels from page bottom
+                console.log(pageHeight - viewportHeight - scrollHeight);
+                return pageHeight - viewportHeight - scrollHeight < 30;
+            };
+
+            /* PUBLIC METHODS */
+            var methods = {
+                init: function (options) {
+                    $('#' + settings.loading_elem).hide();
+                },
+
+                pollLevel: function () {
+                    // checking every so often:  
+                    setTimeout(_checkLevel, 100);
+                }
+            };
+
+            var settings = {
+                'root_url': '/pins/data'
+              , 'loading_elem': 'spinner'
+              , 'data_elem': 'container'
+              , 'freshest_id': 20
+              , 'num': 20
+              , 'lowest_id': 200
+              , 'sort': 'desc'
+            };
+
+            $.fn.infiniScroll = function (method) {
+                // Method calling logic
+                if (methods[method]) {
+                    return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+                } else if (typeof method === 'object' || !method) {
+                    return methods.init.apply(this, arguments);
+                } else {
+                    $.error('Method ' + method + ' does not exist on jQuery.infiniScroll');
+                }
+            }
+
+        })(jQuery);
+
+
+        $('#container').infiniScroll('pollLevel');
+        $(function () {
             $('#container li').wookmark({
                 offset: 10,
                 container: $('#container')
             });
+        });
+
+
+
     </script>
 </body>
 </html>
