@@ -111,29 +111,53 @@ exports.getImg = function (req, res, next) {
         var url = req.body.url;
         var tag = req.body.tag;
         var kind = req.body.kind;
+        if (url.indexOf("listjson") > -1) {
+            download(url, function (data) {
+                var myjson = JSON.parse(data);
+                var imglist = myjson.data;
+                for (var i = 0; i < imglist.length - 1; i++) {
 
-        download(url, function (data) {
-            var myjson = JSON.parse(data);
-            var imglist = myjson.imgs;
-            for (var i = 0; i < imglist.length - 1; i++) {
-                
-                var imgobj = {};
-                imgobj.desc = imglist[i].desc;
-                imgobj.imgurl = imglist[i].downloadUrl;
-                imgobj.w = imglist[i].imageWidth;
-                imgobj.h = imglist[i].imageHeight;
-                imgobj.bdid = imglist[i].id;
-                imgobj.bdtags = imglist[i].tags;
-                imgobj.kind = kind;
-                imgobj.tag = tag;
-                imgobj.date = imglist[i].date;
-                pimgMod.updateByUnique({bdid:imgobj.bdid},imgobj, function (err, result) {
-                    if (err) {
-                        console.log(err);
-                    } 
-                });
-            }
-        })
+                    var imgobj = {};
+                    imgobj.desc = imglist[i].desc;
+                    imgobj.imgurl = imglist[i].download_url;
+                    imgobj.w = imglist[i].image_width;
+                    imgobj.h = imglist[i].image_height;
+                    imgobj.bdid = imglist[i].id;
+                    imgobj.bdtags = imglist[i].tags;
+                    imgobj.kind = kind;
+                    imgobj.tag = tag;
+                    imgobj.date = imglist[i].date;
+                    pimgMod.updateByUnique({ bdid: imgobj.bdid }, imgobj, function (err, result) {
+                        if (err) {
+                            console.log(err);
+                        }
+                    });
+                }
+            })
+        } else {
+            download(url, function (data) {
+                var myjson = JSON.parse(data);
+                var imglist = myjson.imgs;
+                for (var i = 0; i < imglist.length - 1; i++) {
+
+                    var imgobj = {};
+                    imgobj.desc = imglist[i].desc;
+                    imgobj.imgurl = imglist[i].downloadUrl;
+                    imgobj.w = imglist[i].imageWidth;
+                    imgobj.h = imglist[i].imageHeight;
+                    imgobj.bdid = imglist[i].id;
+                    imgobj.bdtags = imglist[i].tags;
+                    imgobj.kind = kind;
+                    imgobj.tag = tag;
+                    imgobj.date = imglist[i].date;
+                    pimgMod.updateByUnique({ bdid: imgobj.bdid }, imgobj, function (err, result) {
+                        if (err) {
+                            console.log(err);
+                        }
+                    });
+                }
+            })
+        }
         res.json({ res: 1 });
     }
 }
