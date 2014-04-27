@@ -39,7 +39,9 @@
             <form id="J_pullform">
             抓取地址：<input type="text" style="width:280px; padding:4px 0;" name="url" />
             标签：<input type="text" name="tag" style="width:100px; padding:4px 0;" />
-            <input type="hidden" name="kind" value="<%= kind%>" /><a class="fn-btn J_getPost" href="javascript:;">同步图片到本地</a>
+            <input type="hidden" name="kind" value="<%= kind%>" />
+            <a class="fn-btn J_thumb" href="javascript:;">生成208宽缩略图</a>
+            <a class="fn-btn J_getPost" href="javascript:;">同步图片到本地</a>
 
             <a class="fn-btn J_pull" href="javascript:;">抓取图片链接</a>
             </form>
@@ -109,6 +111,23 @@
                         location.reload();
                     } else {
                         alert("保存失败！错误代码：" + data.msg);
+                        return false;
+                    }
+                }
+            });
+        });
+
+        $(".J_thumb").bind("click", function () {
+            $.ajax({
+                type: "POST",
+                datatype: "json",
+                url: "/admin/pimg/thumbimg",
+                success: function (data) {
+                    if (data.res == 1) {
+                        alert("生成成功!");
+                        location.reload();
+                    } else {
+                        alert("生成失败！错误代码：" + data.msg);
                         return false;
                     }
                 }

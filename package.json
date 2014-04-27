@@ -18,6 +18,7 @@
 	"iconv-lite":"*",
 	"needle":"*",
 	"path":"*",
-	"request":"*"
+	"request":"*",
+	"imagemagick":"*"
   }
 }

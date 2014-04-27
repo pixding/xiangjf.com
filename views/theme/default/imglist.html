@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>_想减肥</title>
+    <title><%= settings.static.pimgkind[kind]%>_图库_想减肥</title>
     <meta content="想减肥 | www.xiangjf.com" name="author">
     <meta content="Copyright (c) 2014 xiangjf.com" name="Copyright">
     <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
@@ -31,7 +31,7 @@
         
         <div class="pins-top">
             <div class="kind">
-                壁纸
+                <label><%= settings.static.pimgkind[kind]%></label>
             </div>
             <div class="taglist">
                 <ul>
@@ -52,7 +52,7 @@
             <%for(var i=0;i<imglist.length;i++){%>
             <li class="item">
                 <a href="#">
-                    <img src="/pimg/<%= imglist[i].src%>" width="208" height="<%= imglist[i].h/imglist[i].w*208%>"  alt="">
+                    <img src="/pimgs/<%= imglist[i].src%>" width="208" height="<%= imglist[i].h/imglist[i].w*208%>"  alt="">
                     
                 </a>
                 <div class="desc">
@@ -99,7 +99,7 @@
                                     var h = data.list[i].h / data.list[i].w * 208;
                                     htm.push('<li class="item">');
                                     htm.push('<a href="#">');
-                                    htm.push('<img src="/pimg/' + data.list[i].src + '" width="208" height="' + h + '"  alt="">');
+                                    htm.push('<img src="/pimgs/' + data.list[i].src + '" width="208" height="' + h + '"  alt="">');
                                     htm.push('</a>');
                                     htm.push('<div class="desc">');
                                     htm.push('<a href="#" title="' + data.list[i].desc + '">' + data.list[i].desc + '</a>');

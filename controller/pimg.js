@@ -14,7 +14,7 @@ var pimgpath = path.join(path.dirname(__dirname), 'public/pimg');
 var http = require('http');
 var iconv = require('iconv-lite');
 var BufferHelper = require('bufferhelper');
-
+var im = require('imagemagick');
 
 exports.getdImg = function (req, res, next) {
     if (req.method == "GET") {
@@ -172,12 +172,15 @@ exports.downloadimg = function (req, res, next) {
         }
         var d = dateFormat(new Date(), "yyyymmdd");
         var new_path = path.join(pimgpath, d);
+        var s_path = path.join(pimgpath + "s", d);
         var exist = fs.existsSync(new_path)
         if (!exist) {
             fs.mkdirSync(new_path);
+            fs.mkdirSync(s_path);
         }
         for (var i = 0; i < result.length; i++) {
             var pimg = {};
+            pimg.bdid = result[i].bdid;
             pimg.desc = result[i].desc;
             pimg.w = result[i].w;
             pimg.h = result[i].h;
@@ -193,13 +196,40 @@ exports.downloadimg = function (req, res, next) {
             
             pimg.src = d + "/" + new_name;
             
-            saveImg(pimg.imgurl, _ipath);
-            dimgMod.save(pimg, function (err, _res) {});
-            pimgMod.updateByUnique({ bdid: result[i].bdid }, { enable: 1 }, function (err, __res) { });
-
+            saveImg(pimg, _ipath, function (_pimg) {
+                dimgMod.save(_pimg, function (err, _res) { });
+                pimgMod.updateByUnique({ bdid: _pimg.bdid }, { enable: 1 }, function (err, __res) { });
+            });
         }
         res.json({ res: 1 });
     });
+}
+exports.thumbimg = function (req, res, next) {
+    var query = {};
+    query.thumb = null;
+
+    dimgMod.getByQuery(query, {}, function (err, result) {
+        if (err) {
+            return next();
+        }
+        console.log(result.length);
+        for (var i = 0; i < result.length; i++) {
+            
+            var oldsrc = path.join(pimgpath, result[i].src);
+            var newsrc = path.join(pimgpath + "s", result[i].src);
+
+            im.convert([oldsrc, '-resize', '208', newsrc],
+            function (err, stdout) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+            });
+            dimgMod.update(result[i]._id.toString(), { thumb: 1 }, function (err, __res) { });
+        }
+        res.json({ res: 1 });
+    });
+
 }
 
 function download(url, callback, isgbk) {
@@ -231,8 +261,8 @@ exports.singleDown = function (req, res, next) {
     res.json({ res: 1 });
 }
 
-function saveImg(url, name) {
-    var request = http.get(url, function (res) {
+function saveImg(pimg, name,callback) {
+    var request = http.get(pimg.imgurl, function (res) {
         var imagedata = ''
         res.setEncoding('binary')
 
@@ -243,8 +273,12 @@ function saveImg(url, name) {
         res.on('end', function () {
             fs.writeFile(name, imagedata, 'binary', function (err) {
                 if (err) {
-                    console.log(url+"error");
+                    return;
                 }
+                if (imagedata.length > 100) {
+                    callback(pimg);
+                }
+
             })
         })
 

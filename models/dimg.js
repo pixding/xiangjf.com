@@ -39,8 +39,18 @@ exports.count = function (query, callback) {
         callback(err, count);
     });
 };
-
-
+//根据标识更新网站设置对像
+exports.updateByUnique = function (query, obj, callback) {
+    db.dimg.update(query, { $set: obj }, { upsert: true }, function (err, result) {
+        callback(err, result);
+    });
+}
+//用ID更新文章
+exports.update = function (id, obj, callback) {
+    db.dimg.update({ _id: db.ObjectID.createFromHexString(id) }, { $set: obj }, function (err, result) {
+        callback(err, result);
+    })
+};
 //得到分类下面的标签
 exports.getTags = function (query, callback) {
     db.dimg.distinct("tag", query, function (err, result) {
