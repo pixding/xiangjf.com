@@ -57,3 +57,14 @@ exports.getTags = function (query, callback) {
         callback(err, result);
     });
 }
+
+exports.getTagFirstOne = function (kind,callback) {
+    db.dimg.group(["tag"], { kind: kind }, { "src": 0, "w": 0, "h": 0, "desc": "" }, function (obj, prev) {
+        prev.src = obj.src;
+        prev.w = obj.w;
+        prev.h = obj.h;
+        prev.desc = obj.desc;
+    }, function (err, result) {
+        callback(err, result);
+    });
+}

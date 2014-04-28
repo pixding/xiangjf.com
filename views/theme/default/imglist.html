@@ -17,8 +17,10 @@
         .pins-top{ border:1px solid #ccc; width:100%; display:table; box-shadow:0 0 5px #ccc;}
         .pins-top .kind{ width:30px; position:relative; font-size:24px; color:#fff; background:#42A85B; font-weight:bold; display:table-cell; padding:10px 20px; vertical-align:middle; height:100%;}
         .pins-top .taglist{display:table-cell;padding:10px;}
-        .pins-top .taglist li{ float:left; padding:0 15px; line-height:30px; margin:0 20px 10px 0; border:1px solid #ccc;}
+        .pins-top .taglist li{ float:left; padding:0 15px; line-height:30px; margin:0 20px 10px 0; }
         .pins-top .taglist li a{ display:block;}
+        .pins-top .taglist li.curr{ background:#E64E40;}
+        .pins-top .taglist li.curr a{ color:#fff;}
 
         #container {padding: 20px 0;}
         #container ul{ position:absolute;}
@@ -35,11 +37,11 @@
             </div>
             <div class="taglist">
                 <ul>
-                    <li>
+                    <li <% if(tag==""){%> class="curr" <%}%> >
                         <a href="/pins_<%= kind%>" >全部</a>
                     </li>
                     <%for(var i=0;i<tags.length;i++){%>
-                    <li>
+                    <li <% if(tag!=""&&tag==tags[i]){%> class="curr" <%}%> >
                         <a href="/pins_<%= kind%>?tag=<%= tags[i]%>" ><%= tags[i]%></a>
                     </li>
                     <%}%>
@@ -68,7 +70,7 @@
         %>
         <div class="entrypage">
 			<ul class="pagelist">
-                <% for(var j=1; j<=totalpage;j++){%>
+                <% for(var j=1; j<=totalpage&&j<=10;j++){%>
                 <li <%if(j==page){%> class="curr"<%}%>><a href="<%=url+j%>"><%= j %></a></li>
                 <%}%>
 			</ul>

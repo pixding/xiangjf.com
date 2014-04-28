@@ -40,6 +40,7 @@
             抓取地址：<input type="text" style="width:280px; padding:4px 0;" name="url" />
             标签：<input type="text" name="tag" style="width:100px; padding:4px 0;" />
             <input type="hidden" name="kind" value="<%= kind%>" />
+            <a class="fn-btn J_remove" href="javascript:;">删除未下载</a>
             <a class="fn-btn J_thumb" href="javascript:;">生成208宽缩略图</a>
             <a class="fn-btn J_getPost" href="javascript:;">同步图片到本地</a>
 
@@ -98,6 +99,25 @@
                     }
                 }
             });
+        });
+
+        $(".J_remove").bind("click", function () {
+            if (window.confirm("确认删除嘛?")) {
+                $.ajax({
+                    type: "POST",
+                    datatype: "json",
+                    url: "/admin/pimg/delnodown",
+                    success: function (data) {
+                        if (data.res == 1) {
+                            alert("删除成功!");
+                            location.reload();
+                        } else {
+                            alert("删除失败！错误代码：" + data.msg);
+                            return false;
+                        }
+                    }
+                });
+            }
         });
 
         $(".J_getPost").bind("click", function () {

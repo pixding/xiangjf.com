@@ -16,6 +16,9 @@ var iconv = require('iconv-lite');
 var BufferHelper = require('bufferhelper');
 var im = require('imagemagick');
 
+
+
+
 exports.getdImg = function (req, res, next) {
     if (req.method == "GET") {
         var kind = req.query.kind || "";
@@ -201,6 +204,19 @@ exports.downloadimg = function (req, res, next) {
                 pimgMod.updateByUnique({ bdid: _pimg.bdid }, { enable: 1 }, function (err, __res) { });
             });
         }
+        res.json({ res: 1 });
+    });
+}
+exports.delNodown = function (req, res, next) {
+    var query = {};
+    query.enable = null;
+    pimgMod.remove(query, function (err, result) {
+        if (err) {
+            res.json({ res: -1, msg: err });
+            return;
+
+        }
+        console.log(result);
         res.json({ res: 1 });
     });
 }

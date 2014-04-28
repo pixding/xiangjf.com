@@ -39,12 +39,14 @@ exports = module.exports = function (app) {
     app.get('/admin/pimg/list', login.auth_user, pimg.getdImg);
     app.post('/admin/pimg/downsingle', login.auth_user, pimg.singleDown);
     app.post('/admin/pimg/thumbimg', login.auth_user, pimg.thumbimg);
+    app.post('/admin/pimg/delnodown', login.auth_user, pimg.delNodown);
 
     app.get('/', index.index);
     app.get('/cate/:cate', index.hotList, index.categoryList);
     app.get('/search',  index.searchList);
     app.get('/key_:key', index.hotList, index.searchList);
     app.get('/detail_:id', index.hotList, index.detail);
+    app.get('/pins', index.index);
     app.get('/pins_:kind', index.pins);
     app.get('/pins/data', index.pinsdata);
     app.get('*', function (req, res) {

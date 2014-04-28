@@ -8,23 +8,13 @@ var config = require('../config.js').config;
 var postMod = require('../models/post');
 var EventProxy = require('eventproxy').EventProxy;
 
-
 exports.index = function (req, res, next) {
-
-    webMod.getByUnique("ibanner", function (err, result) {
-        if (err) {
-            return next();
-        }
-        webMod.getByUnique("list1", function (err1, result1) {
-            if (err1) {
-                return next();
-            }
-            res.render(config.theme + 'index', { layout: false, banner: result ? result.obj : [], hotlist: result1?result1.obj:[] });
-        });
-        
+    dimgMod.getTagFirstOne("5", function (err, result) {
+        console.log(result);
+        res.render(config.theme + 'imgindex', { layout: false });
     });
-    
-};
+
+}
 //详情页
 exports.detail = function (req, res,next) {
     var idpage = req.params.id;

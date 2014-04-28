@@ -28,6 +28,12 @@ exports.removeById = function (id, callback) {
         callback(err, result);
     });
 }
+//根据条件移除图片
+exports.remove = function (query, callback) {
+    db.pimg.remove(query, function (err, result) {
+        callback(err, result);
+    });
+}
 //根据条件获取图片列表
 exports.getByQuery = function (query, options, callback) {
     db.pimg.find(query, options).toArray(callback);
