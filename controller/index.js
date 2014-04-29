@@ -11,7 +11,10 @@ var EventProxy = require('eventproxy').EventProxy;
 exports.index = function (req, res, next) {
     dimgMod.getTagFirstOne("5", function (err, result) {
         console.log(result);
-        res.render(config.theme + 'imgindex', { layout: false });
+        result.sort(function (a, b) {
+            return a.w / a.h - b.w / b.h;
+        });
+        res.render(config.theme + 'imgindex', { layout: false, imglist: result });
     });
 
 }
