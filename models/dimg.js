@@ -59,11 +59,14 @@ exports.getTags = function (query, callback) {
 }
 
 exports.getTagFirstOne = function (kind,callback) {
-    db.dimg.group(["tag"], { kind: kind }, { "src": 0, "w": 0, "h": 0, "desc": "" }, function (obj, prev) {
-        prev.src = obj.src;
-        prev.w = obj.w;
-        prev.h = obj.h;
-        prev.desc = obj.desc;
+    db.dimg.group(["tag"], { kind: kind }, { "src": 0, "w": 0, "h": 0, "desc": "", "date": "2013-01-01" }, function (obj, prev) {
+        if (prev.date < obj.date) {
+            prev.src = obj.src;
+            prev.w = obj.w;
+            prev.h = obj.h;
+            prev.desc = obj.desc;
+            prev.date = obj.date;
+        }
     }, function (err, result) {
         callback(err, result);
     });
