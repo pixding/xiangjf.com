@@ -80,7 +80,6 @@ exports.getImg = function (req, res, next) {
         if (tag!="") {
             query.tag = tag;
         }
-
         pimgMod.count(query, function (err, count) {
             if (err) {
                 next();
@@ -111,10 +110,17 @@ exports.getImg = function (req, res, next) {
         });
     }
     if (req.method == "POST") {
-        var url = req.body.url;
+        //var url = req.body.url;
         var tag = req.body.tag;
         var kind = req.body.kind;
+        var geturl = ["", "http://image.baidu.com/channel/listjson?pn=0&rn=300&tag1=明星&sorttype=0&fr=channel&tag2=",
+            "http://image.baidu.com/channel/listjson?fr=channel&tag1=搞笑&sorttype=0&pn=0&rn=300&tag2=",
+            "http://image.baidu.com/channel/imgs?c=美女&s=0&pn=0&rn=300&fr=channel&t=",
+            "http://image.baidu.com/channel/imgs?c=汽车&s=0&pn=0&rn=300&fr=channel&t=",
+            "http://image.baidu.com/channel/imgs?c=家居&s=0&pn=0&rn=300&fr=channel&t="];
+        var url = geturl[kind] + tag;
         if (url.indexOf("listjson") > -1) {
+
             download(url, function (data) {
                 var myjson = JSON.parse(data);
                 var imglist = myjson.data;
@@ -137,7 +143,8 @@ exports.getImg = function (req, res, next) {
                     });
                 }
             })
-        } else {
+        }
+        if (url.indexOf("imgs") > -1) {
             download(url, function (data) {
                 var myjson = JSON.parse(data);
                 var imglist = myjson.imgs;
@@ -216,7 +223,6 @@ exports.delNodown = function (req, res, next) {
             return;
 
         }
-        console.log(result);
         res.json({ res: 1 });
     });
 }

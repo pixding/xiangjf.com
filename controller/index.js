@@ -8,7 +8,11 @@ var config = require('../config.js').config;
 var postMod = require('../models/post');
 var EventProxy = require('eventproxy').EventProxy;
 
-exports.index = function (req, res, next) {
+exports.pinsdetail = function (req, res, next) {
+    res.render(config.theme + 'imgdetail', { layout: false });
+}
+
+exports.imgindex = function (req, res, next) {
     dimgMod.getTagFirstOne("5", function (err, result) {
         console.log(result);
         result.sort(function (a, b) {
@@ -18,6 +22,21 @@ exports.index = function (req, res, next) {
     });
 
 }
+
+exports.index = function (req, res, next) {
+
+    webMod.getByUnique("ibanner", function (err, result) {
+        if (err) {
+            return next();
+        }
+        webMod.getByUnique("list1", function (err1, result1) {
+            if (err1) {
+                return next();
+            }
+            res.render(config.theme + 'index', { layout: false, banner: result ? result.obj : [], hotlist: result1 ? result1.obj : [] });
+        });
+    });
+};
 //详情页
 exports.detail = function (req, res,next) {
     var idpage = req.params.id;

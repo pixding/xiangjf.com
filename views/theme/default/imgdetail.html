@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>_图库_想减肥</title>
+    <meta content="想减肥 | www.xiangjf.com" name="author">
+    <meta content="Copyright (c) 2014 xiangjf.com" name="Copyright">
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/xiangjf.css" rel="stylesheet" />
+    <script src="/js/jquery.js"></script>
+
+    <script type="text/javascript" src="/js/wookmark.js"></script>
+</head>
+<body>
+    <% include module/indextop.html %>
+    
+    <div class="grid fn-clear">
+        
+        <div class="breadhead">
+            <a href="#">主页</a> &gt;
+            <a href="#">图库</a> &gt;
+            <label>汽车</label>
+        </div>
+        <style>
+            .mainimgbox{ box-shadow:0 0 3px #ccc;}
+            .detailimg{ width:810px;}
+            .detailimg .t{ height:30px; padding:10px 0;}
+            .detailimg .imgmain{ min-height:300px;  padding:20px; text-align:center;}
+            .detailimg .imgmain img{ max-width:770px; vertical-align:middle;}
+            .sideimg{ width:270px;}
+        </style>
+        <div class="mainimgbox fn-clear">
+            <div class="detailimg fn-left">
+                <div class="t">
+                    <a href="#">下载</a>
+                </div>
+                <div class="imgmain">
+                    <img src="http://localhost:3001/pimgs/20140428/112350095871398650894806.jpg" />
+                </div>
+            </div>
+            <div class="sideimg fn-left">
+                <h3>相关标签</h3>
+                <ul>
+                    <%for(var i=0; i<9; i++){%>
+                    <li><a href="#">豪车</a></li>
+                    <%}%>
+                </ul>
+                <h3>相关图片</h3>
+                <ul>
+                    <%for(var i=0; i<9; i++){%>
+                    <li><a href="#" style="width:70px; display:inline-block; height:70px; overflow:hidden;"><img src="http://localhost:3001/pimg/20140504/113195362151399172134751.jpg" /></a></li>
+                    <%}%>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+
+   
+    <script type="text/javascript">
+        (function ($) {
+            var _checkLevel = function () {
+                // if it's low enough, grab latest data
+                if (!_levelReached()) {
+                    return methods.pollLevel();
+                } else {
+                    var len = $("#container li").length;
+                    var kind = $("#container").data("kind");
+                    var tag = $("#container").data("tag");
+                    var max = $("#container").data("max");
+                    if (max > len) {
+                        $.ajax({
+                            type: "GET",
+                            url: settings.ajax_url + "?&pn=" + len,
+                            dataType: 'json',
+                            data: { kind: kind, tag: tag,rn:settings.rn },
+                            success: function (data) {
+                                var htm = [];
+                                for (var i = 0; i < data.list.length; i++) {
+                                    var h = data.list[i].h / data.list[i].w * 208;
+                                    htm.push('<li class="item">');
+                                    htm.push('<a href="#">');
+                                    htm.push('<img src="/pimgs/' + data.list[i].src + '" width="208" height="' + h + '"  alt="">');
+                                    htm.push('</a>');
+                                    htm.push('<div class="desc">');
+                                    htm.push('<a href="#" title="' + data.list[i].desc + '">' + data.list[i].desc + '</a>');
+                                    htm.push('</div>');
+                                    htm.push('</li>');
+                                }
+
+                                $('#container').find("ul").append(htm.join(''));
+                                $('#container li').wookmark({
+                                    offset: 10,
+                                    container: $('#container')
+                                });
+                                methods.pollLevel();
+                            }
+                        });
+                    }
+                } 
+            };
+            var _setLastID = function (elem, lastID) {
+                elem.data("lastID", lastID);
+            };
+            var _levelReached = function () {
+                var pageHeight = Math.max(document.body.scrollHeight ||
+                  document.body.offsetHeight);
+                var viewportHeight = window.innerHeight ||
+                  document.documentElement.clientHeight ||
+                  document.body.clientHeight || 0;
+                var scrollHeight = window.pageYOffset ||
+                  document.documentElement.scrollTop ||
+                  document.body.scrollTop || 0;
+                return pageHeight - viewportHeight - scrollHeight < 30;
+            };
+            /* PUBLIC METHODS */
+            var methods = {
+                pollLevel: function () {
+                    setTimeout(_checkLevel, 100);
+                }
+            };
+            var settings = {"rn": 25,"ajax_url": '/pins/data'};
+            $.fn.infiniScroll = function (setting) {
+                $.extend(settings, setting);
+                methods.pollLevel();
+            }
+
+        })(jQuery);
+        $(function () {
+            $('#container li').wookmark({
+                offset: 10,
+                container: $('#container')
+            });
+            $("#container").infiniScroll();
+        });
+    </script>
+    <% include module/footer.html %>
+</body>
+</html>

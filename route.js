@@ -46,9 +46,10 @@ exports = module.exports = function (app) {
     app.get('/search',  index.searchList);
     app.get('/key_:key', index.hotList, index.searchList);
     app.get('/detail_:id', index.hotList, index.detail);
-    app.get('/pins', index.index);
+    app.get('/pins', index.imgindex);
     app.get('/pins_:kind', index.pins);
     app.get('/pins/data', index.pinsdata);
+    app.get('/pins/detail_:id', index.pinsdetail);
     app.get('*', function (req, res) {
         res.status(404);
         res.json({ res: "404" });
