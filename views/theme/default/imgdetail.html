@@ -23,34 +23,148 @@
         </div>
         <style>
             .mainimgbox{ box-shadow:0 0 3px #ccc;}
-            .detailimg{ width:810px;}
-            .detailimg .t{ height:30px; padding:10px 0;}
-            .detailimg .imgmain{ min-height:300px;  padding:20px; text-align:center;}
+            .detailimg{ width:809px; box-shadow:2px 0 3px 0 rgba(180, 180, 180, 0.4); }
+            .detailimg .t{ height:30px; padding:10px 30px 5px 30px;}
+            .detailimg .imgmain{ min-height:250px; line-height:250px;  padding:10px 20px; text-align:center;}
             .detailimg .imgmain img{ max-width:770px; vertical-align:middle;}
-            .sideimg{ width:270px;}
-        </style>
+            .sideimg{ width:250px; padding:10px;}
+            .sideimg .h3tag{border-bottom: 1px solid #DDDDE0;color: #484A52;font-size: 18px;font-weight: 400;line-height: 30px;margin: 0;text-indent: 0;}
+        
+            
+            .r-taglist{ padding:10px 0;}
+            .r-taglist .tag, .r-taglist .tag span {
+                background: url("http://img0.bdstatic.com/img/image/wantu/detail/button-bg-comments.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+                display: inline-block;
+                height: 29px;
+            }
+            .r-taglist .tag {
+                background-position: right -427px;
+                font-size: 12px;
+                margin: 0 4px 8px;
+            }
+             .r-taglist .tag span {
+                background-position: left -427px;
+                color: #696969;
+                left: -4px;
+                line-height: 29px;
+                margin: 0 2px 0 0;
+                max-width: 120px;
+                overflow: hidden;
+                padding: 0 1px 0 8px;
+                position: relative;
+                text-decoration: none;
+                text-overflow: ellipsis;
+                vertical-align: middle;
+                white-space: nowrap;
+                word-break: keep-all;
+            }
+             .r-taglist .tag:hover, .r-taglist .hot-1 {
+                background-position: right -456px;
+                color: #FFFFFF;
+            }
+            .r-taglist .tag:hover span, .r-taglist .hot-1 span {
+                background-position: left -456px;
+                color: #FFFFFF;
+            }
+            .r-taglist .thumb {
+                display: inline-block;
+                height: 74px;
+                margin: 0 2px 2px 0;
+                overflow: hidden;
+                position: relative;
+                width: 74px;
+            }
+            
+
+#btns-area .btn {
+    background: url("http://img0.bdstatic.com/img/image/wantu/detail/button-bg-comments.png") no-repeat scroll left -50px rgba(0, 0, 0, 0);
+    color: #666666;
+    float: right;
+    height: 29px;
+    line-height: 30px;
+    margin-right: 8px;
+    overflow: visible;
+    position: relative;
+    text-decoration: none;
+}
+#btns-area .download-btn {
+    background-position: left -137px;
+}
+#btns-area .download-btn:hover {
+    background-position: left -282px;
+}
+#btns-area .btn .btn-content {
+    line-height: 30px;
+    padding: 0 6px 0 25px;
+    text-align: center;
+}
+#btns-area .btn:hover .btn-content {
+    color:#fff;
+}
+#btns-area .btn .btn-right-border {
+    background: url("http://img0.bdstatic.com/img/image/wantu/detail/button-bg-comments.png") no-repeat scroll right -50px rgba(0, 0, 0, 0);
+    height: 29px;
+    min-width: 0;
+    overflow: hidden;
+    position: absolute;
+    right: -3px;
+    top: 0;
+    width: 3px;
+}
+#btns-area .btn:hover .btn-right-border {
+    background-position:right -79px;
+}
+            </style>
         <div class="mainimgbox fn-clear">
             <div class="detailimg fn-left">
-                <div class="t">
-                    <a href="#">下载</a>
+                <div class="t" id="btns-area">
+                    <a data-bind="" class="btn-with-num download-btn btn" href="/channel/listdownload?word=download&amp;fr=detail&amp;ie=utf8&amp;countop=0&amp;url=http%3A%2F%2Fe.hiphotos.baidu.com%2Fimage%2Fs%253D550%253Bc%253Dwantu%252C8%252C95%2Fsign%3D274bd2b9d60735fa95f04ebcae6a6c8e%2F8694a4c27d1ed21b82a75e47af6eddc451da3f21.jpg%3Freferer%3D7b65ea517b310a559d33eac479e0&amp;image_id=11043951500&amp;col=%E6%91%84%E5%BD%B1&amp;tag=undefined"><span class="btn-content">下载<code data-bind="num:txt">(4)</code></span><span class="btn-right-border"></span></a>
                 </div>
                 <div class="imgmain">
-                    <img src="http://localhost:3001/pimgs/20140428/112350095871398650894806.jpg" />
+                    <img src="http://localhost:3001/pimg/20140428/95494261851398652062766.jpg" />
                 </div>
             </div>
             <div class="sideimg fn-left">
-                <h3>相关标签</h3>
-                <ul>
-                    <%for(var i=0; i<9; i++){%>
-                    <li><a href="#">豪车</a></li>
-                    <%}%>
-                </ul>
-                <h3>相关图片</h3>
-                <ul>
-                    <%for(var i=0; i<9; i++){%>
-                    <li><a href="#" style="width:70px; display:inline-block; height:70px; overflow:hidden;"><img src="http://localhost:3001/pimg/20140504/113195362151399172134751.jpg" /></a></li>
-                    <%}%>
-                </ul>
+                <h3 class="h3tag">相关标签</h3>
+                <div class="r-taglist">
+                    <a class="tag hot-1" title="摄影&gt;静物" href="/channel?c=%E6%91%84%E5%BD%B1&amp;t=%E9%9D%99%E7%89%A9">
+                        <span>可爱</span>
+                    </a>
+                    <a class="tag" title="摄影&gt;静物" href="/channel?c=%E6%91%84%E5%BD%B1&amp;t=%E9%9D%99%E7%89%A9">
+                        <span>气质</span>
+                    </a>
+                    <a class="tag" title="摄影&gt;静物" href="/channel?c=%E6%91%84%E5%BD%B1&amp;t=%E9%9D%99%E7%89%A9">
+                        <span>甜素纯</span>
+                    </a>
+                    <a class="tag" title="摄影&gt;静物" href="/channel?c=%E6%91%84%E5%BD%B1&amp;t=%E9%9D%99%E7%89%A9">
+                        <span>小户型</span>
+                    </a>
+                    <a class="tag" title="摄影&gt;静物" href="/channel?c=%E6%91%84%E5%BD%B1&amp;t=%E9%9D%99%E7%89%A9">
+                        <span>美式乡村</span>
+                    </a>
+                    <a class="tag" title="摄影&gt;静物" href="/channel?c=%E6%91%84%E5%BD%B1&amp;t=%E9%9D%99%E7%89%A9">
+                        <span>童趣</span>
+                    </a>
+                    <a class="tag" title="摄影&gt;静物" href="/channel?c=%E6%91%84%E5%BD%B1&amp;t=%E9%9D%99%E7%89%A9">
+                        <span>田园</span>
+                    </a>
+                    <a class="tag" title="摄影&gt;静物" href="/channel?c=%E6%91%84%E5%BD%B1&amp;t=%E9%9D%99%E7%89%A9">
+                        <span>彪悍的空间利用</span>
+                    </a>
+                </div>
+                <h3 class="h3tag">相关图片</h3>
+                <div class="r-taglist">
+                    <a class="thumb" href="/detail/newindex?col=%E6%91%84%E5%BD%B1&amp;tag=%E5%85%A8%E9%83%A8&amp;sort=0&amp;setid=-1&amp;pid=11642493664&amp;pn=0&amp;from=1"><img style=" width: 96px; top: 0px; left: -16px;" src="http://localhost:3001/pimgs/20140504/110942769671399172134745.jpg"></a>
+                    <a class="thumb" href="/detail/newindex?col=%E6%91%84%E5%BD%B1&amp;tag=%E5%85%A8%E9%83%A8&amp;sort=0&amp;setid=-1&amp;pid=11642493664&amp;pn=0&amp;from=1"><img style="width: 96px; top: 0px; left: -16px;" src="http://localhost:3001/pimgs/20140504/110942769671399172134745.jpg"></a>
+                    <a class="thumb" href="/detail/newindex?col=%E6%91%84%E5%BD%B1&amp;tag=%E5%85%A8%E9%83%A8&amp;sort=0&amp;setid=-1&amp;pid=11642493664&amp;pn=0&amp;from=1"><img style=" width: 96px; top: 0px; left: -16px;" src="http://localhost:3001/pimgs/20140504/110942769671399172134745.jpg"></a>
+                    <a class="thumb" href="/detail/newindex?col=%E6%91%84%E5%BD%B1&amp;tag=%E5%85%A8%E9%83%A8&amp;sort=0&amp;setid=-1&amp;pid=11642493664&amp;pn=0&amp;from=1"><img style="width: 96px; top: 0px; left: -16px;" src="http://localhost:3001/pimgs/20140504/110942769671399172134745.jpg"></a>
+                    <a class="thumb" href="/detail/newindex?col=%E6%91%84%E5%BD%B1&amp;tag=%E5%85%A8%E9%83%A8&amp;sort=0&amp;setid=-1&amp;pid=11642493664&amp;pn=0&amp;from=1"><img style="width: 96px; top: 0px; left: -16px;" src="http://localhost:3001/pimgs/20140504/110942769671399172134745.jpg"></a>
+                    <a class="thumb" href="/detail/newindex?col=%E6%91%84%E5%BD%B1&amp;tag=%E5%85%A8%E9%83%A8&amp;sort=0&amp;setid=-1&amp;pid=11642493664&amp;pn=0&amp;from=1"><img style=" width: 96px; top: 0px; left: -16px;" src="http://localhost:3001/pimgs/20140504/110942769671399172134745.jpg"></a>
+                <a class="thumb" href="/detail/newindex?col=%E6%91%84%E5%BD%B1&amp;tag=%E5%85%A8%E9%83%A8&amp;sort=0&amp;setid=-1&amp;pid=11642493664&amp;pn=0&amp;from=1"><img style="width: 96px; top: 0px; left: -16px;" src="http://localhost:3001/pimgs/20140504/110942769671399172134745.jpg"></a>
+                <a class="thumb" href="/detail/newindex?col=%E6%91%84%E5%BD%B1&amp;tag=%E5%85%A8%E9%83%A8&amp;sort=0&amp;setid=-1&amp;pid=11642493664&amp;pn=0&amp;from=1"><img style="width: 96px; top: 0px; left: -16px;" src="http://localhost:3001/pimgs/20140504/110942769671399172134745.jpg"></a>
+                <a class="thumb" href="/detail/newindex?col=%E6%91%84%E5%BD%B1&amp;tag=%E5%85%A8%E9%83%A8&amp;sort=0&amp;setid=-1&amp;pid=11642493664&amp;pn=0&amp;from=1"><img style=" width: 96px; top: 0px; left: -16px;" src="http://localhost:3001/pimgs/20140504/110942769671399172134745.jpg"></a>
+                        
+                </div>
             </div>
         </div>
 
