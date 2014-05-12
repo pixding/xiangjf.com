@@ -9,7 +9,34 @@ var postMod = require('../models/post');
 var EventProxy = require('eventproxy').EventProxy;
 
 exports.pinsdetail = function (req, res, next) {
-    res.render(config.theme + 'imgdetail', { layout: false });
+    var id = req.params.id;
+    if (id.length != 24) {
+        return next();
+    }
+    dimgMod.getById(id, function (err, imgmod) {
+        if (err || !imgmod) {
+            return next();
+        }
+        var kind = imgmod.kind;
+
+        var proxy = new EventProxy();
+        function render(taglist,imglist) {
+            res.render(config.theme + 'imgdetail', { layout: false,imgmod:imgmod, taglist: taglist, imglist: imglist });
+        }
+        proxy.assign("gettaglist","getimglist",render);
+
+        dimgMod.getTags({kind:kind}, function (err, result) {
+            if (err) {
+                return next();
+            }
+            proxy.trigger("gettaglist", result);
+        });
+        
+        dimgMod.getByQuery({ kind: kind, _id: { $gt: imgmod._id } }, { limit: 12, sort: { _id: 1 } }, function (err, result) {
+            proxy.trigger("getimglist", result);
+        });
+        
+    });
 }
 
 exports.imgindex = function (req, res, next) {

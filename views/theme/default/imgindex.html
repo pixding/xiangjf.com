@@ -23,8 +23,8 @@
         .imgkind .columns{ width:104px;}
         .imgkind .column-t{ height:157px;}
         .imgkind .column-t:first-child{ margin-bottom:6px;}
-        .imgkind .column .imga{ display:block; height:100%;}
-        .imgkind .column .imga img{ width:100%; height:100%; }
+        .imgkind .column .imga{ display:block; height:100%; overflow:hidden;}
+
     </style>
 </head>
 <body>
@@ -73,48 +73,48 @@
             </div>
             <div class="column">
                 <a href="#" class="imga">
-                    <img src="/pimgs/<%= imglist[0].src %>" />
+                    <img src="/pimg/<%= imglist[0].src %>" />
                     <p><%= imglist[0].date %></p>
                 </a>
             </div>
             <div class="column columns">
                 <div class="column-t">
                     <a href="#" class="imga">
-                        <img src="/pimgs/<%= imglist[2].src %>" />
+                        <img src="/pimg/<%= imglist[2].src %>" />
                     </a>
                 </div>
                 <div class="column-t">
                     <a href="#" class="imga">
-                        <img src="/pimgs/<%= imglist[3].src %>" />
+                        <img src="/pimg/<%= imglist[3].src %>" />
                     </a>
                 </div>
             </div>
             <div class="column columns">
                 <div class="column-t">
                     <a href="#" class="imga">
-                        <img src="/pimgs/<%= imglist[2].src %>" />
+                        <img src="/pimg/<%= imglist[2].src %>" />
                     </a>
                 </div>
                 <div class="column-t">
                     <a href="#" class="imga">
-                        <img src="/pimgs/<%= imglist[3].src %>" />
+                        <img src="/pimg/<%= imglist[3].src %>" />
                     </a>
                 </div>
             </div>
             <div class="column">
                 <a href="#" class="imga">
-                    <img src="/pimgs/<%= imglist[1].src %>" />
+                    <img src="/pimg/<%= imglist[1].src %>" />
                 </a>
             </div>
             <div class="column">
                 <div class="column-t">
                     <a href="#" class="imga">
-                        <img src="/pimgs/<%= imglist[4].src %>" />
+                        <img src="/pimg/<%= imglist[4].src %>" />
                     </a>
                 </div>
                 <div class="column-t">
                     <a href="#" class="imga">
-                        <img src="/pimgs/<%= imglist[1].src %>" />
+                        <img src="/pimg/<%= imglist[1].src %>" />
                     </a>
                 </div>
             </div>
