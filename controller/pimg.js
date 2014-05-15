@@ -283,16 +283,15 @@ exports.singleDown = function (req, res, next) {
     res.json({ res: 1 });
 }
 
-function saveImg(pimg, name,callback) {
+function saveImg(pimg, name, callback) {
+
     var request = http.get(pimg.imgurl, function (res) {
         var imagedata = ''
         res.setEncoding('binary')
 
         res.on('data', function (chunk) {
             imagedata += chunk
-        })
-
-        res.on('end', function () {
+        }).on('end', function () {
             fs.writeFile(name, imagedata, 'binary', function (err) {
                 if (err) {
                     return;
@@ -302,7 +301,13 @@ function saveImg(pimg, name,callback) {
                 }
 
             })
-        })
+        }).on('error', function (err) {
+            console.log(url + err);
+            return;
+        });
 
-    })
+    }).on('error', function (err) {
+        console.log(name);
+        return;
+    });
 }

@@ -23,8 +23,8 @@
         .imgkind .columns{ width:104px;}
         .imgkind .column-t{ height:157px;}
         .imgkind .column-t:first-child{ margin-bottom:6px;}
-        .imgkind .column .imga{ display:block; height:100%; overflow:hidden;}
-
+        .imgkind .column .imga{ display:block; width:100%;position:relative; height:100%; overflow:hidden;}
+       .imgkind .column .imga img{ display:block;}
     </style>
 </head>
 <body>
@@ -73,8 +73,9 @@
             </div>
             <div class="column">
                 <a href="#" class="imga">
-                    <img src="/pimg/<%= imglist[0].src %>" />
-                    <p><%= imglist[0].date %></p>
+                    <img style="<%if (imglist[5].h / imglist[5].w > 320 / 208)
+                    {%> margin-top:<%= imglist[5].mt%>px; width:208px;  <%}%> <%if (imglist[5].h / imglist[5].w < 320 / 208)
+                    {%> margin-left:<%= imglist[5].ml%>px; height:320px;  <%}%>" src="/pimg/<%= imglist[5].src %>" />
                 </a>
             </div>
             <div class="column columns">

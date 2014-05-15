@@ -40,11 +40,23 @@ exports.pinsdetail = function (req, res, next) {
 }
 
 exports.imgindex = function (req, res, next) {
-    dimgMod.getTagFirstOne("5", function (err, result) {
+    dimgMod.getTagFirstOne("3", function (err, result) {
         console.log(result);
         result.sort(function (a, b) {
             return a.w / a.h - b.w / b.h;
         });
+        for (var i = 0; i < result.length; i++) {
+            if (result[i].h / result[i].w > 320 / 208) {
+                
+                result[i].mt = (result[i].h / result[i].w - 320 / 208) * -104;
+                
+            }
+            else {
+                result[i].ml = (result[i].w / result[i].h - 208 / 320) * -160;
+                
+            }
+            
+        }
         res.render(config.theme + 'imgindex', { layout: false, imglist: result });
     });
 

@@ -292,9 +292,13 @@ function saveImg(url, name) {
 
         res.on('end', function () {
             fs.writeFile(name, imagedata, 'binary', function (err) {
-                if (err) throw err
+                if (err) return;
             })
         })
+        res.on('error', function (err) {
+            console.log(url + err);
+            return;
+        });
 
     })
 }
