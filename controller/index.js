@@ -8,59 +8,9 @@ var config = require('../config.js').config;
 var postMod = require('../models/post');
 var EventProxy = require('eventproxy').EventProxy;
 
-exports.pinsdetail = function (req, res, next) {
-    var id = req.params.id;
-    if (id.length != 24) {
-        return next();
-    }
-    dimgMod.getById(id, function (err, imgmod) {
-        if (err || !imgmod) {
-            return next();
-        }
-        var kind = imgmod.kind;
 
-        var proxy = new EventProxy();
-        function render(taglist,imglist) {
-            res.render(config.theme + 'imgdetail', { layout: false,imgmod:imgmod, taglist: taglist, imglist: imglist });
-        }
-        proxy.assign("gettaglist","getimglist",render);
 
-        dimgMod.getTags({kind:kind}, function (err, result) {
-            if (err) {
-                return next();
-            }
-            proxy.trigger("gettaglist", result);
-        });
-        
-        dimgMod.getByQuery({ kind: kind, _id: { $gt: imgmod._id } }, { limit: 12, sort: { _id: 1 } }, function (err, result) {
-            proxy.trigger("getimglist", result);
-        });
-        
-    });
-}
 
-exports.imgindex = function (req, res, next) {
-    dimgMod.getTagFirstOne("3", function (err, result) {
-        console.log(result);
-        result.sort(function (a, b) {
-            return a.w / a.h - b.w / b.h;
-        });
-        for (var i = 0; i < result.length; i++) {
-            if (result[i].h / result[i].w > 320 / 208) {
-                
-                result[i].mt = (result[i].h / result[i].w - 320 / 208) * -104;
-                
-            }
-            else {
-                result[i].ml = (result[i].w / result[i].h - 208 / 320) * -160;
-                
-            }
-            
-        }
-        res.render(config.theme + 'imgindex', { layout: false, imglist: result });
-    });
-
-}
 
 exports.index = function (req, res, next) {
 
@@ -184,74 +134,6 @@ exports.searchList = function (req, res, next) {
     });
 }
 
-//pins
-exports.pins = function (req, res, next) {
-    var pagesize = 100;
-    var page = req.query.page || 1;
-    var kind = req.params.kind;
-    var query = {};
-    var tagquery = {};
-    if (kind) {
-        query.kind = kind;
-        tagquery.kind = kind;
-    }
-    var tag = req.query.tag||"";
-    if (tag!="") {
-        query.tag = tag;
-    }
-    dimgMod.count(query, function (err, count) {
-        if (err) {
-            next();
-        }
-        var pagemaxnum = pagesize;
-        var totalpage = Math.ceil(count / pagesize) || 1;
-        if (page >= totalpage) {
-            page = totalpage;
-            pagemaxnum = count - (page - 1) * pagesize;
-        }
-        
-        var proxy = new EventProxy();
-        function render(list, tags) {
-            res.render(config.theme + 'imglist', { layout: false,maxnum:pagemaxnum, imglist: list,kind:kind,total:count,page:page, tag:tag, tags: tags });
-        }
-        proxy.assign("list", "tags", render);
-        dimgMod.getByQuery(query, { skip:(page-1)*pagesize, limit: 25, sort: { date: -1 } }, function (err, result) {
-            if (err) {
-                return next();
-            }
-            proxy.trigger("list", result);
-        });
 
-        dimgMod.getTags(tagquery, function (err, result) {
-            if (err) {
-                return next();
-            }
-            proxy.trigger("tags", result);
-        });
-    });
-    
 
-    
-};
-
-exports.pinsdata = function (req, res, next) {
-    var kind = req.query.kind;
-    var tag = req.query.tag;
-    var pn = req.query.pn || 20;
-    var rn = req.query.rn || 20;
-    var query = {};
-    if (kind) {
-        query.kind = kind;
-    }
-    if (tag) {
-        query.tag = tag;
-    }
-    dimgMod.getByQuery(query, { skip: pn, limit: rn, sort: { date: -1 } }, function (err, result) {
-        if (err) {
-            return next();
-        }
-        res.json({ list: result });
-    });
-    
-}
 

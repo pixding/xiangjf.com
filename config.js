@@ -14,6 +14,24 @@ config.static = {
     method: {
         getDate: function (d) {
             return dateFormat(d, "yyyy-mm-dd");
+        },
+        initimg: function (img, w, h) {
+            if (img) {
+                if (w / h > img.w / img.h) {
+                    img.h = w / img.w * img.h;
+                    img.w = w;
+                    img.dis = (img.h - h) * -0.5;
+                    img.margin = "top";
+                } else {
+                    img.w = h / img.h * img.w;
+                    img.h = h;
+                    img.dis = (img.w - w) * -0.5;
+                    img.margin = "left";
+                }
+            } else {
+
+            }
+
         }
     }
 }

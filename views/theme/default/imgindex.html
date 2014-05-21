@@ -11,7 +11,7 @@
 
     <style>
         .imgh3{ font-size:32px; font-weight:bold; line-height:44px; color:#424242;}
-        .imgkind{}
+        .imgkind{ margin-bottom:15px;}
         .imgkind .taglist{ width:222px; height:320px; border-radius:3px;overflow:hidden; }
         .imgkind .taglist table{ width:100%; height:100%;}
         .imgkind .taglist td{ width:74px; height:107px; background:#7E65AB; vertical-align:middle; text-align:center;}
@@ -24,13 +24,33 @@
         .imgkind .column-t{ height:157px;}
         .imgkind .column-t:first-child{ margin-bottom:6px;}
         .imgkind .column .imga{ display:block; width:100%;position:relative; height:100%; overflow:hidden;}
-       .imgkind .column .imga img{ display:block;}
+        .imgkind .column .imga img{ display:block;}
     </style>
 </head>
 <body>
     <% include module/indextop.html %>
     <div class="grid fn-clear">
-        <h3 class="imgh3">明星</h3>
+        <%for(var i=0;i<alltaglist.length;i++){%>
+        <%if(alltaglist[i].length>0){ 
+            imglist = alltaglist[i];
+            settings.static.method.initimg(imglist[0],208,320);
+            settings.static.method.initimg(imglist[1],104,157);
+            settings.static.method.initimg(imglist[2],104,157);
+            settings.static.method.initimg(imglist[3],104,157);
+            settings.static.method.initimg(imglist[4],104,157);
+            settings.static.method.initimg(imglist[5],208,320);
+            settings.static.method.initimg(imglist[6],208,157);
+            settings.static.method.initimg(imglist[7],208,157);
+            function setimghtml(img){
+                if(img){
+                var html = '<a href="/pins/detail_'+img._id+'" target="_blank" class="imga"><img style="width:'+img.w+'px; margin-'+img.margin+':'+img.dis+'px; height:'+img.h+'px;" src="/pimg/'+img.src+'" /></a>'
+                return html;
+                }else{
+                return "";
+                }
+            }
+              %>
+        <h3 class="imgh3"><%= settings.static.pimgkind[i+1] %></h3>
         <div class="imgkind fn-clear">
            
             <div class="fn-left taglist">
@@ -72,57 +92,39 @@
                 
             </div>
             <div class="column">
-                <a href="#" class="imga">
-                    <img style="<%if (imglist[5].h / imglist[5].w > 320 / 208)
-                    {%> margin-top:<%= imglist[5].mt%>px; width:208px;  <%}%> <%if (imglist[5].h / imglist[5].w < 320 / 208)
-                    {%> margin-left:<%= imglist[5].ml%>px; height:320px;  <%}%>" src="/pimg/<%= imglist[5].src %>" />
-                </a>
+                 <%- setimghtml(imglist[0])%>
             </div>
             <div class="column columns">
                 <div class="column-t">
-                    <a href="#" class="imga">
-                        <img src="/pimg/<%= imglist[2].src %>" />
-                    </a>
+                    <%- setimghtml(imglist[1])%>
                 </div>
                 <div class="column-t">
-                    <a href="#" class="imga">
-                        <img src="/pimg/<%= imglist[3].src %>" />
-                    </a>
+                    <%- setimghtml(imglist[2])%>
                 </div>
             </div>
             <div class="column columns">
                 <div class="column-t">
-                    <a href="#" class="imga">
-                        <img src="/pimg/<%= imglist[2].src %>" />
-                    </a>
+                    <%- setimghtml(imglist[3])%>
                 </div>
                 <div class="column-t">
-                    <a href="#" class="imga">
-                        <img src="/pimg/<%= imglist[3].src %>" />
-                    </a>
+                    <%- setimghtml(imglist[4])%>
                 </div>
             </div>
             <div class="column">
-                <a href="#" class="imga">
-                    <img src="/pimg/<%= imglist[1].src %>" />
-                </a>
+                <%- setimghtml(imglist[5])%>
             </div>
             <div class="column">
                 <div class="column-t">
-                    <a href="#" class="imga">
-                        <img src="/pimg/<%= imglist[4].src %>" />
-                    </a>
+                    <%- setimghtml(imglist[6])%>
                 </div>
                 <div class="column-t">
-                    <a href="#" class="imga">
-                        <img src="/pimg/<%= imglist[1].src %>" />
-                    </a>
+                    <%- setimghtml(imglist[7])%>
                 </div>
             </div>
             
         </div>
-        
-        
+            <%}%>
+        <%}%>
         
     </div>
 

@@ -1,9 +1,11 @@
 ﻿var admin = require('./controller/admin.js');
-var index = require('./controller/index.js');
 var util = require('./controller/util.js');
 var web = require('./controller/web.js');
 var login = require('./controller/login.js');
 var pimg = require('./controller/pimg.js');
+
+var index = require('./controller/index.js');
+var index_img = require('./controller/index-img.js');
 exports = module.exports = function (app) {
     app.get('/admin/login', login.login);
     app.post('/admin/login', login.login);
@@ -46,10 +48,10 @@ exports = module.exports = function (app) {
     app.get('/search',  index.searchList);
     app.get('/key_:key', index.hotList, index.searchList);
     app.get('/detail_:id', index.hotList, index.detail);
-    app.get('/pins', index.imgindex);
-    app.get('/pins_:kind', index.pins);
-    app.get('/pins/data', index.pinsdata);
-    app.get('/pins/detail_:id', index.pinsdetail);
+    app.get('/pins', index_img.imgindex);
+    app.get('/pins_:kind', index_img.pins);
+    app.get('/pins/data', index_img.pinsdata);
+    app.get('/pins/detail_:id', index_img.pinsdetail);
     app.get('*', function (req, res) {
         res.status(404);
         res.json({ res: "404" });
