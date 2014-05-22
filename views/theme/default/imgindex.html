@@ -14,9 +14,27 @@
         .imgkind{ margin-bottom:15px;}
         .imgkind .taglist{ width:222px; height:320px; border-radius:3px;overflow:hidden; }
         .imgkind .taglist table{ width:100%; height:100%;}
-        .imgkind .taglist td{ width:74px; height:107px; background:#7E65AB; vertical-align:middle; text-align:center;}
-        .imgkind .taglist td:nth-child(2n+1){ background:#846CB0;}
-        
+        .imgkind .taglist td{ width:74px; height:107px; font-size:14px; vertical-align:middle; text-align:center;}
+        .imgkind .taglist .kind1 .tag1{ background:#7E65AB;}
+        .imgkind .taglist .kind1 .tag2{ background:#7459a6;}
+        .imgkind .taglist .kind1 .tag3{ background:#7755b4;}
+        .imgkind .taglist .kind1 .tag4{ background:#61488d;}
+        .imgkind .taglist .kind1 .tag5{ background:#836da9;}
+        .imgkind .taglist .kind1 .tag6{ background:#6945a9;}
+        .imgkind .taglist .kind1 .tag7{ background:#8778a4;}
+        .imgkind .taglist .kind1 .tag8{ background:#7c5fb0;}
+        .imgkind .taglist .kind1 .tag9{ background:#644895;}
+
+        .imgkind .taglist .kind3 .tag1{ background:#EE9C45;}
+        .imgkind .taglist .kind3 .tag2{ background:#e29747;}
+        .imgkind .taglist .kind3 .tag3{ background:#eea14f;}
+        .imgkind .taglist .kind3 .tag4{ background:#eb9841;}
+        .imgkind .taglist .kind3 .tag5{ background:#e3a05a;}
+        .imgkind .taglist .kind3 .tag6{ background:#d58a3b;}
+        .imgkind .taglist .kind3 .tag7{ background:#f19e45;}
+        .imgkind .taglist .kind3 .tag8{ background:#dea76e;}
+        .imgkind .taglist .kind3 .tag9{ background:#f29635;}
+                
         .imgkind .taglist td a{ color:#fff;}
         .imgkind .column{ width:208px;border-radius:3px; overflow:hidden; height:320px; margin-left:5px; float:left;}
         
@@ -54,40 +72,21 @@
         <div class="imgkind fn-clear">
            
             <div class="fn-left taglist">
-                <table >
+                <table  class="kind<%= i+1%>">
+                    <%for(var j=0;j<3;j++){%>
                     <tr>
-                        <td>
-                            <a href="#" target="_blank">小户型</a>
+                        <%for(var k=1;k<4;k++){
+                           var l = j*3+k;
+                        %>
+                        <td class="tag<%= l%>">
+                            <% if(imglist[l]){ %>
+                            <a href="#" target="_blank"><%= imglist[l].tag%></a>
+                            <%}%>
                         </td>
-                        <td>
-                            <a href="#" target="_blank">小户型</a>
-                        </td>
-                        <td>
-                            <a href="#" target="_blank">小户型</a>
-                        </td>
+                        <%}%>
                     </tr>
-                    <tr>
-                        <td>
-                            <a href="#" target="_blank">小户型</a>
-                        </td>
-                        <td>
-                            <a href="#" target="_blank">小户型</a>
-                        </td>
-                        <td>
-                            <a href="#" target="_blank">小户型</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="#" target="_blank">小户型</a>
-                        </td>
-                        <td>
-                            <a href="#" target="_blank">小户型</a>
-                        </td>
-                        <td>
-                            <a href="#" target="_blank">小户型</a>
-                        </td>
-                    </tr>
+                    <%}%>
+                    
                 </table>
                 
             </div>
