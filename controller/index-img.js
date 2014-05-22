@@ -18,7 +18,7 @@ exports.pinsdetail = function (req, res, next) {
 
         var proxy = new EventProxy();
         function render(taglist, imglist) {
-            res.render(config.theme + 'imgdetail', { layout: false, imgmod: imgmod, taglist: taglist, imglist: imglist });
+            res.render(config.theme + 'imgdetail', { layout: false,kind:kind, imgmod: imgmod, taglist: taglist, imglist: imglist });
         }
         proxy.assign("gettaglist", "getimglist", render);
 

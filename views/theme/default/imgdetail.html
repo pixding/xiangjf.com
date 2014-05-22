@@ -12,6 +12,7 @@
     <script type="text/javascript" src="/js/wookmark.js"></script>
 </head>
 <body>
+    <% var category = 99;%>
     <% include module/indextop.html %>
     
     <div class="grid fn-clear">
@@ -119,7 +120,7 @@
         <div class="mainimgbox fn-clear">
             <div class="detailimg fn-left">
                 <div class="t" id="btns-area">
-                    <a data-bind="" class="btn-with-num download-btn btn" href="/channel/listdownload?word=download&amp;fr=detail&amp;ie=utf8&amp;countop=0&amp;url=http%3A%2F%2Fe.hiphotos.baidu.com%2Fimage%2Fs%253D550%253Bc%253Dwantu%252C8%252C95%2Fsign%3D274bd2b9d60735fa95f04ebcae6a6c8e%2F8694a4c27d1ed21b82a75e47af6eddc451da3f21.jpg%3Freferer%3D7b65ea517b310a559d33eac479e0&amp;image_id=11043951500&amp;col=%E6%91%84%E5%BD%B1&amp;tag=undefined"><span class="btn-content">下载<code data-bind="num:txt">(4)</code></span><span class="btn-right-border"></span></a>
+                    <a data-bind="" class="btn-with-num download-btn btn" href="#"><span class="btn-content">下载<code data-bind="num:txt">(4)</code></span><span class="btn-right-border"></span></a>
                 </div>
                 <div class="imgmain">
                     <img src="/pimg/<%= imgmod.src%>" />
@@ -133,7 +134,7 @@
                 <h3 class="h3tag">相关标签</h3>
                 <div class="r-taglist">
                     <% for(var i=0;i<taglist.length;i++){%>
-                    <a class="tag" title="<%= taglist[i]%>" href="#">
+                    <a class="tag" title="<%= taglist[i]%>" href="/pins_<%= kind%>?tag=<%= taglist[i]%>">
                         <span><%= taglist[i]%></span>
                     </a>
                     <%}%>

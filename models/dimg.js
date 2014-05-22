@@ -67,6 +67,7 @@ exports.getTagFirstOne = function (kind,callback) {
             prev.desc = obj.desc;
             prev.date = obj.date;
             prev._id = obj._id;
+            prev.kind = obj.kind;
         }
     }, function (err, result) {
         callback(err, result);

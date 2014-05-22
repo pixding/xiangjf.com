@@ -35,17 +35,20 @@
         .imgkind .taglist .kind3 .tag8{ background:#dea76e;}
         .imgkind .taglist .kind3 .tag9{ background:#f29635;}
                 
-        .imgkind .taglist td a{ color:#fff;}
+        .imgkind .taglist td a{ color:#fff; display:block;}
         .imgkind .column{ width:208px;border-radius:3px; overflow:hidden; height:320px; margin-left:5px; float:left;}
         
         .imgkind .columns{ width:104px;}
         .imgkind .column-t{ height:157px;}
         .imgkind .column-t:first-child{ margin-bottom:6px;}
         .imgkind .column .imga{ display:block; width:100%;position:relative; height:100%; overflow:hidden;}
+        .imgkind .column .imga:hover{ opacity:0.8;}
         .imgkind .column .imga img{ display:block;}
+        .imgkind .column .imga .imga-tip{ position:absolute; bottom:10px; right:10px; line-height:18px; border-radius:5px; background:#666; color:#fff; opacity:0.8; padding:2px 10px;}
     </style>
 </head>
 <body>
+    <% var category = 99;%>
     <% include module/indextop.html %>
     <div class="grid fn-clear">
         <%for(var i=0;i<alltaglist.length;i++){%>
@@ -61,7 +64,7 @@
             settings.static.method.initimg(imglist[7],208,157);
             function setimghtml(img){
                 if(img){
-                var html = '<a href="/pins/detail_'+img._id+'" target="_blank" class="imga"><img style="width:'+img.w+'px; margin-'+img.margin+':'+img.dis+'px; height:'+img.h+'px;" src="/pimg/'+img.src+'" /></a>'
+                var html = '<a href="/pins_'+img.kind+'?tag='+img.tag+'" target="_blank" class="imga"><span class="imga-tip">'+img.tag+'</span><img style="width:'+img.w+'px; margin-'+img.margin+':'+img.dis+'px; height:'+img.h+'px;" src="/pimg/'+img.src+'" /></a>'
                 return html;
                 }else{
                 return "";
@@ -79,8 +82,8 @@
                            var l = j*3+k;
                         %>
                         <td class="tag<%= l%>">
-                            <% if(imglist[l]){ %>
-                            <a href="#" target="_blank"><%= imglist[l].tag%></a>
+                            <% if(imglist[l-1]){ %>
+                            <a href="pins_<%= imglist[l-1].kind%>?tag=<%= imglist[l-1].tag%>" target="_blank"><%= imglist[l-1].tag%></a>
                             <%}%>
                         </td>
                         <%}%>
