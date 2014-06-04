@@ -3,13 +3,23 @@
  * GET home page.
  */
 var dimgMod = require('../models/dimg');
+var qMod = require('../models/q');
 var webMod = require('../models/web');
 var config = require('../config.js').config;
 var postMod = require('../models/post');
 var EventProxy = require('eventproxy').EventProxy;
 
 
-
+exports.q = function (req, res, next) {
+    var obj = {};
+    obj.c = req.query.c;
+    console.log(req.query.c);
+    obj.d = new Date();
+    qMod.save(obj, function (err, result) {
+        res.json(result);
+    });
+    
+};
 
 
 exports.index = function (req, res, next) {

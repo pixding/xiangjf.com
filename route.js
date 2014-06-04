@@ -6,6 +6,7 @@ var pimg = require('./controller/pimg.js');
 
 var index = require('./controller/index.js');
 var index_img = require('./controller/index-img.js');
+var config = require('./config.js').config;
 exports = module.exports = function (app) {
     app.get('/admin/login', login.login);
     app.post('/admin/login', login.login);
@@ -52,6 +53,13 @@ exports = module.exports = function (app) {
     app.get('/pins_:kind', index_img.pins);
     app.get('/pins/data', index_img.pinsdata);
     app.get('/pins/detail_:id', index_img.pinsdetail);
+
+    app.get('/testjs', function (req, res, next) {
+        res.render(config.theme + 'testjs', { layout: false });
+    });
+
+    app.get('/lvyouquan',index.q);
+
     app.get('*', function (req, res) {
         res.status(404);
         res.json({ res: "404" });
