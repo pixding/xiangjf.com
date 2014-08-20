@@ -1,6 +1,7 @@
-﻿define(['jquery'],function ($) {
-
-    //var $ = require("jquery");
-    alert($(".footer").length);
+﻿define(function (require, exports, module) {
+    var $ = require("jquery");
+    require('validate');
+    
+    
 
 });
