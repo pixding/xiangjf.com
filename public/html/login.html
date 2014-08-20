@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>想减肥_注册</title>
+    <meta content="想减肥，春季减肥" name="keywords">
+    <meta content="<%= post.desc%>" name="description">
+    <meta content="想减肥 | www.xiangjf.com" name="author">
+    <meta content="Copyright (c) 2014 xiangjf.com" name="Copyright">
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="../css/xiangjf.css" rel="stylesheet" />
+    <link href="login.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="top ">
+        <div class="reggrid">
+            <div class="logo">
+                <a href="#">
+                    <img src="../static/images/logo3.jpg" /></a>
+            </div>
+            <div class="info">
+                <span><a href="#">想减肥首页</a></span>
+                <span class="split">|</span>
+                <span><a href="#" class="hasaccount">已有帐号</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="doc">
+        <form id="regform">
+            <div class="regbox reggrid">
+
+                <dl class="dl">
+                    <dt class="regtitle">帐号注册</dt>
+                    <dd class="regitem">
+                        <div class="fn-left">
+                            <label class="lab">邮箱：</label>
+                            <input name="email" autocomplete="off" class="txt" type="text" />
+
+                        </div>
+                        <div>
+                        </div>
+                    </dd>
+                    <dd class="regitem">
+                        <div class="fn-left">
+                            <label class="lab">昵称：</label>
+                            <input autocomplete="off" class="txt" type="text" />
+
+                        </div>
+                        <div>
+                        </div>
+                    </dd>
+                    <dd class="regitem">
+                        <div class="fn-left">
+                            <label class="lab">密码：</label>
+                            <input autocomplete="off" class="txt" type="password" />
+
+                        </div>
+                        <div>
+                        </div>
+                    </dd>
+                    <dd class="regitem regitembottom">
+                        <div class="fn-left">
+                            <label class="lab">确认密码：</label>
+                            <input autocomplete="off" class="txt" type="password" />
+
+                        </div>
+                        <div>
+                        </div>
+                    </dd>
+                </dl>
+
+                <dl class="dl">
+                    <dd class="regitem regyzitem regitembottom">
+                        <div class="fn-left">
+                            <label class="lab">验证码：</label>
+                            <input autocomplete="off" class="txt yztxt" type="text" />
+
+                        </div>
+                        <div class="yzcode">
+                            <a class="yzcodeimg" href="#">
+                                <img class="fn-left" src="images/image.php.jpg" />
+                                <span class="fn-left">换一张</span>
+                            </a>
+
+                        </div>
+                    </dd>
+                </dl>
+
+                <div>
+                    <input type="submit" class="btn-register" value="" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="footer">
+        <div class="grid">
+            <ul class="footerul ">
+                <li><a href="#">关于想减肥</a></li>
+                <li><a href="#">免责声明</a></li>
+                <li><a href="#">版权声明</a></li>
+                <li><a href="#">帮助中心</a></li>
+                <li><a target="_blank" href="http://xiangjf.com/sitemap.xml">网站地图</a></li>
+
+            </ul>
+            <p><span>Copyright &copy; 2014 xiangjf.com All Rights Reserved. 浙ICP备13029152号-1 杭州拉丁信息技术有限公司 版权所有.</span></p>
+        </div>
+    </div>
+    <script src="js/sea.js"></script>
+    <!--<script src="js/jquery.js"></script>
+    <script src="js/validate.js"></script>
+    <script>
+        $(function () {
+            $(function () {
+                $("#regform").validate({
+                    rules: {
+                        email: "required"
+                    },
+                    messages: {
+                        email: "邮箱为必填"
+                    }
+                });
+            });
+        });
+    </script>-->
+    <script>
+        seajs.use("main.js");
+    </script>
+</body>
+</html>
