@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>想减肥_注册</title>
+    <meta content="减肥,减肥方法,怎样减肥,减肥瘦身,如何减肥,怎么减肥,瘦身,健康减肥,快速减肥,减肥方法大全,简单减肥,成功减肥,减肥常识" name="keywords" />
+    <meta content="想减肥,享受减肥,健康减肥。想减肥网，教广大女性怎样减肥、如何减肥才是最简单有效的。提供减肥资讯,介绍好用的减肥产品,分享达人瘦身案例。想减肥瘦身中心，减肥也可以很简单！" name="description" />
+    <meta content="想减肥 | www.xiangjf.com" name="author" />
+    <meta content="Copyright (c) 2014 xiangjf.com" name="Copyright" />
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/xiangjf.css" rel="stylesheet" />
+    <link href="/css/login.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="top ">
+        <div class="reggrid">
+            <div class="logo">
+                <a href="#">
+                    <img src="../static/images/logo3.jpg" /></a>
+            </div>
+            <div class="info">
+                <span><a href="/">想减肥首页</a></span>
+                <span class="split">|</span>
+                <span><a href="#" class="hasaccount">已有帐号</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="doc">
+        <form id="regform" method="post" action="register">
+            <div class="regbox reggrid">
+
+                <dl class="dl">
+                    <dt class="regtitle">帐号注册</dt>
+                    <dd class="regitem">
+                        <div class="fn-left">
+                            <label class="lab">邮箱：</label>
+                            <input name="email" autocomplete="off" class="txt" type="text" />
+
+                        </div>
+                        <div>
+                        </div>
+                    </dd>
+                    <dd class="regitem">
+                        <div class="fn-left">
+                            <label class="lab">昵称：</label>
+                            <input name="nickname" autocomplete="off" class="txt" type="text" />
+
+                        </div>
+                        <div>
+                        </div>
+                    </dd>
+                    <dd class="regitem">
+                        <div class="fn-left">
+                            <label class="lab">性别：</label>
+                            <label class="radiolab"><input value="1" name="sex" type="radio" /> 男</label>
+                            <label class="radiolab"><input value="2" name="sex" type="radio" /> 女</label>
+                        </div>
+                        <div>
+                        </div>
+                    </dd>
+                    <dd class="regitem">
+                        <div class="fn-left">
+                            <label class="lab">设置密码：</label>
+                            <input name="password" id="password" autocomplete="off" class="txt" type="password" />
+
+                        </div>
+                        <div>
+                        </div>
+                    </dd>
+                    <dd class="regitem regitembottom">
+                        <div class="fn-left">
+                            <label class="lab">确认密码：</label>
+                            <input name="pasagain" autocomplete="off" class="txt" type="password" />
+
+                        </div>
+                        <div>
+                        </div>
+                    </dd>
+                </dl>
+
+                <!--<dl class="dl">
+                    <dd class="regitem regyzitem regitembottom">
+                        <div class="fn-left">
+                            <label class="lab">验证码：</label>
+                            <input autocomplete="off" class="txt yztxt" type="text" />
+
+                        </div>
+                        <div class="yzcode">
+                            <a class="yzcodeimg" href="#">
+                                <img class="fn-left" src="images/image.php.jpg" />
+                                <span class="fn-left">换一张</span>
+                            </a>
+
+                        </div>
+                    </dd>
+                </dl>-->
+
+                <div>
+                    <input type="submit" class="btn-register" value="" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="/js/sea.js"></script>
+    <script>
+        seajs.use("/js/pages/reg.js");
+    </script>
+    <% include module/footer.html %>
+</body>
+</html>

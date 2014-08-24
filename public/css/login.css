@@ -1,0 +1,31 @@
+﻿body{ min-width:990px; }
+.top{ height:90px; border-bottom:3px solid #46a115;}
+.logo{ width:260px; float:left; height:90px;}
+.top .info{ font-family:'Microsoft Yahei';line-height:30px; float:right; padding-top:40px;}
+.top .info a{ color:#54c11a;font-size:16px;  }
+.top .info a:hover{ color:#46a115;}
+.top .info .split{ padding:0 10px; color:#54c11a; }
+.top .info .hasaccount{ background:url(http://i.360.cn/static/css/../img/registerNew.png?v=677f0.png) right center no-repeat; padding-right:20px;}
+.reggrid{ width:980px; margin:0 auto; font-family:SimSun;}
+.doc{background:url(images/regbg.jpg) center -165px no-repeat; min-height:610px; padding-top:50px;}
+.doc .regbox{ height:500px;  background:url(http://i.360.cn/static/css/../img/bdbg2.png?v=91e35.png) repeat-x;}
+         
+.regbox .regtitle{ font-size:20px; margin-bottom:40px; border-bottom:2px dashed #ccc; font-weight:bold; color:#666; padding:20px 0 10px 50px; line-height:36px;}
+.regbox .dl{ margin-bottom:30px;}
+.regbox .regitem{ padding:5px;  background:#fff; line-height:40px; height:40px; width:372px; position:relative; border:1px solid #ccc; border-bottom:none; margin-left:80px; }
+.regbox .regitem label.error{ width:500px;top:5px; font-weight:normal; font-size:12px; position:absolute; line-height:40px; color:#f00; left:400px;}
+
+.regbox .regitembottom{ border-bottom:1px solid #ccc;}
+.regbox .regitem .lab{ color:#999; line-height:40px; float:left;  font-size:16px; font-family:'Microsoft YaHei'; padding:0 5px;}
+.regbox .regitem .txt{ width:250px; padding:10px 3px 10px; line-height:20px; font-size:14px; color:#666; border:0;}
+.regbox .regitem .radiolab{ padding-left:20px; font-weight:bold;  float:left; margin-right:15px; line-height:40px; font-size:14px; color:#666;}
+.regbox .regyzitem{ width:212px;}
+.regbox .regitem .yztxt{ width:90px; letter-spacing:3px; padding:5px 3px 5px; line-height:30px; font-size:24px; color:#333;}
+.regbox .regyzitem .yzcode{ position:absolute; left:226px; top:-1px; height:50px; width:156px; }
+.regbox .regyzitem .yzcodeimg{ color:#54c11a; line-height:50px; font-size:14px; float:left; margin-right:5px;}
+.regbox .regyzitem .yzcodeimg:hover{color:#46a115;}
+.regbox .regyzitem .yzcodeimg img{border:1px solid #ccc; margin-right:5px; width:98px; height:48px;} 
+
+.regbox .btn-register{ width:372px; height:50px; cursor:pointer; margin-left:80px; color:#666; background:url(images/reg.png) -487px -10px no-repeat; display:block; border:none;}
+.regbox .btn-register:hover{ background-position:-487px -85px;}
+.regbox .btn-registering{ background-position:-487px -143px;}
