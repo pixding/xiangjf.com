@@ -19,6 +19,7 @@
 	"needle":"*",
 	"path":"*",
 	"request":"*",
-	"imagemagick":"*"
+	"imagemagick":"*",
+	"nodemailer":"1.2.1"
   }
 }

@@ -5,7 +5,16 @@ var config = {
     session_secret: 'session_xiangjf',
     cookie_secret: 'cookie_xiangjf',
     port: 3001,
-    theme: 'theme/default/'
+    theme: 'theme/default/',
+    mailopts: {
+        host: 'smtp.126.com',
+        port: 25,
+        auth: {
+            user: 'xiangjf01@126.com',
+            pass: '01xiangjf'
+        }
+    },
+    host:'localhost:3001'
 }
 config.static = {
     name: 'xiangjf',
@@ -40,3 +49,5 @@ config.static.searchKey = ['瘦脸','瘦大腿','收腹肚腩','丰胸美胸','�
 config.static.pimgkind = ['请选择', '明星', '搞笑', '美女', '汽车', '家居'];
 exports.config = config;
 exports.db = mongoskin.db("mongodb://127.0.0.1/xiangjfon");
+
+

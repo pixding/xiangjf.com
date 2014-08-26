@@ -5,6 +5,7 @@
 var config = require('../../config.js').config;
 var uuserMod = require('../../models/u/user');
 var lib = require('../../common/lib.js');
+var mailer = require('../../common/mail.js');
 
 exports.register = function (req, res, next) {
     if (req.method == "GET") {
@@ -48,7 +49,7 @@ exports.register = function (req, res, next) {
                     if (err) {
                         return next();
                     }
-
+                    mailer.sendActiveMail(newUserMod, "222223333344444");
                     res.render(config.theme + 'registersuc', { layout: false });
                 });
             }
