@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>想减肥_注册</title>
+    <meta content="减肥,减肥方法,怎样减肥,减肥瘦身,如何减肥,怎么减肥,瘦身,健康减肥,快速减肥,减肥方法大全,简单减肥,成功减肥,减肥常识" name="keywords" />
+    <meta content="想减肥,享受减肥,健康减肥。想减肥网，教广大女性怎样减肥、如何减肥才是最简单有效的。提供减肥资讯,介绍好用的减肥产品,分享达人瘦身案例。想减肥瘦身中心，减肥也可以很简单！" name="description" />
+    <meta content="想减肥 | www.xiangjf.com" name="author" />
+    <meta content="Copyright (c) 2014 xiangjf.com" name="Copyright" />
+    <link href="http://resource.pipikou.com/b/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/xiangjf.css" rel="stylesheet" />
+    <link href="/css/login.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="top ">
+        <div class="reggrid">
+            <div class="logo">
+                <a href="#">
+                    <img src="../static/images/logo3.jpg" /></a>
+            </div>
+            <div class="info">
+                <span><a href="/">想减肥首页</a></span>
+                <span class="split">|</span>
+                <span><a href="#" class="hasaccount">已有帐号</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="doc">
+        <form id="regform" method="post" action="register">
+            <div class="regbox reggrid">
+
+                <dl class="dl">
+                    <dt class="regtitle">注册成功</dt>
+                    <dd>注册确认邮件已经发到您的邮箱：<%= email?email:""%></dd>
+                    <dd>您需要点击邮件中的确认链接来完成注册</dd>
+                </dl>
+
+                <div>
+                    <a>立即查收邮件</a>
+                    <a>先去网站逛逛</a>
+                </div>
+
+                <div>
+                    <dl>
+                        <dt>没有收到邮件怎么办？</dt>
+                        <dd>看看是否在邮箱的广告邮件、垃圾邮件中</dd>
+                        <dd>邮箱写错了，<a href="#">点击这里</a> 重新注册</dd>
+                        <dd>确认没收到，稍待几分钟，若仍旧没收到确认信，<a href="#">点击这里</a> 重新发送一封邮件</dd>
+                    </dl>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+    <% include module/footer.html %>
+</body>
+</html>

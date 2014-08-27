@@ -50,7 +50,7 @@ exports.register = function (req, res, next) {
                         return next();
                     }
                     mailer.sendActiveMail(newUserMod, "222223333344444");
-                    res.render(config.theme + 'registersuc', { layout: false });
+                    res.redirect('/u/registersuc?email=' + newUserMod.email, { layout: false });
                 });
             }
         });
@@ -58,7 +58,16 @@ exports.register = function (req, res, next) {
     }
 }
 
-
+exports.regactive = function (req, res, next) {
+    var email = req.query.email;
+    uuserMod.findOne({ email: email }, function (err, result) {
+        if (err) {
+            return next();
+        }
+        
+        res.render(config.theme + 'regactive', { layout: false, email: email });
+    });
+}
 exports.validateAccount = function (req, res, next) {
     var email = req.body.email;
     uuserMod.findOne({ email: email }, function (err,result) {
