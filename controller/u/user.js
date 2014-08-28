@@ -19,6 +19,7 @@ exports.register = function (req, res, next) {
         
         newUserMod.sex = parseInt(req.body.sex) || 0;
         newUserMod.password = req.body.password || "";
+        newUserMod.active = false;
 
         if (!lib.emailReg.test(newUserMod.email)) {
             errorObj.push("您输入的邮箱格式不正确");
@@ -64,8 +65,10 @@ exports.regactive = function (req, res, next) {
         if (err) {
             return next();
         }
-        
-        res.render(config.theme + 'regactive', { layout: false, email: email });
+        if (!result) {
+            return next();
+        }
+        res.render(config.theme + 'regactive', { layout: false, result: result });
     });
 }
 exports.validateAccount = function (req, res, next) {

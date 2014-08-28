@@ -18,9 +18,10 @@
         <form id="regform" method="post" action="register">
             <div class="regbox reggrid">
 
+                <%if(!result.active){%>
                 <dl class="dl">
                     <dt class="regtitle">注册成功</dt>
-                    <dd>注册确认邮件已经发到您的邮箱：<%= email?email:""%></dd>
+                    <dd>注册确认邮件已经发到您的邮箱：<%= result.email?result.email:""%></dd>
                     <dd>您需要点击邮件中的确认链接来完成注册</dd>
                 </dl>
 
@@ -37,6 +38,18 @@
                         <dd>确认没收到，稍待几分钟，若仍旧没收到确认信，<a href="#">点击这里</a> 重新发送一封邮件</dd>
                     </dl>
                 </div>
+                <%}%>
+                <%if(result.active){%>
+                <dl class="dl">
+                    <dt class="regtitle">注册成功</dt>
+                    <dd>您的帐号已经激活。</dd>
+                </dl>
+
+                <div>
+                    <a>登录</a>
+                    <a>先去网站逛逛</a>
+                </div>
+                <%}%>
                 
             </div>
         </form>
