@@ -21,6 +21,9 @@ exports.register = function (req, res, next) {
         newUserMod.password = req.body.password || "";
         newUserMod.active = false;
 
+        var ts = new Date().getTime().toString();
+        newUserMod.token = lib.md5(ts);
+
         if (!lib.emailReg.test(newUserMod.email)) {
             errorObj.push("您输入的邮箱格式不正确");
         }
@@ -50,8 +53,8 @@ exports.register = function (req, res, next) {
                     if (err) {
                         return next();
                     }
-                    mailer.sendActiveMail(newUserMod, "222223333344444");
-                    res.redirect('/u/registersuc?email=' + newUserMod.email, { layout: false });
+                    mailer.sendActiveMail(newUserMod, newUserMod.token);
+                    res.redirect('/regactive?email=' + newUserMod.email, { layout: false });
                 });
             }
         });

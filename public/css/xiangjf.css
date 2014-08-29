@@ -4,10 +4,20 @@ a:hover{ text-decoration:underline;}
 .normal-more{ color:#36c;}
 .normal-more:hover{ text-decoration:underline;}
 .mb10{ margin-bottom:10px;}
+.mb20{ margin-bottom:20px;}
+.mb5{ margin-bottom:5px;}
+.mb30{ margin-bottom:30px;}
+.mb40{ margin-bottom:40px;}
+.mr5{ margin-right:5px;}
+.mr10{ margin-right:10px;}
+.mr20{ margin-right:20px;}
+.mr30{ margin-right:30px;}
+.mr40{ margin-right:40px;}
 .side{width:290px;}
 .wrap{width:780px;}
-.fn-btn{}
-
+.fn-btn{ border-radius:2px;vertical-align:middle; height:24px; text-decoration:none; cursor:pointer; display:inline-block;*display:inline;*zoom:1;border:0; padding:0 14px; color:#fff; background:#f60; line-height:24px;}
+.fn-btn:hover{ opacity:0.8;text-decoration:none; }
+.fn-btn-big{ font-size:14px; padding:0 22px; height:32px; line-height:32px;}
 
 /*顶部*/
 .topbar{ height:28px; background:#f3f3f3; border-bottom:1px solid #dedede; line-height:28px; color:#999; }

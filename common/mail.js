@@ -19,7 +19,7 @@ exports.sendActiveMail = function (who, token) {
     var to = who.email;
     var subject = "想减肥帐号激活";
     var html = [];
-    var tokenurl = url + '/u/activeuser?token=' + token;
+    var tokenurl = url + '/u/activeuser?account='+who.email+'&token=' + token;
     html.push('<p>您好,' + who.nickname + ':</p>');
     html.push('<p>感谢您注册想减肥。</p>');
     html.push('<p>请点击下面的链接激活您的帐号，完成注册。</p>');
