@@ -27,7 +27,7 @@ app.use(express.bodyParser({ uploadDir: './public/myupload' }));
 
 
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(require('./controller/userlogin').mid_user);
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());

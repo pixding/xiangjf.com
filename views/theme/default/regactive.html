@@ -10,20 +10,6 @@
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/css/xiangjf.css" rel="stylesheet" />
     <link href="/css/login.css" rel="stylesheet" />
-
-    <style>
-
-
-        .active-content{ padding:0 100px 0 100px;}
-        .active-content .active-tip{ font-size:20px; line-height:34px; padding-bottom:2px; color:#333;}
-        .active-content .active-tip strong{ color:#4bba1e;font-size:20px;}
-        .active-content .active-suggest{ color:#999;}
-        .active-content .activedobox{ padding-top:30px;}
-
-        .active-norecive{ background:#ffeebb;border:2px solid #fb7c1c; padding:10px 20px;}
-        .active-norecive dt{ padding:5px 0; line-height:24px; font-size:14px; color:#333;}
-        .active-norecive dd{ padding:3px; line-height:20px; color:#666;}
-    </style>
 </head>
 <body>
 
@@ -67,8 +53,8 @@
                     <h3 class="active-tip">您的帐号 <strong><%= result.email?result.email:""%></strong> 已经激活</h3>
                     
                     <div class="activedobox mb40 fn-clear">
-                        <a href="#" class="fn-left fn-btn fn-btn-big mr20">立即登录</a>
-                        <a href="#"  class="fn-left fn-btn fn-btn-big">先去网站逛逛</a>
+                        <a href="/u/login" class="fn-left fn-btn fn-btn-big mr20">立即登录</a>
+                        <a href="/"  class="fn-left fn-btn fn-btn-big">先去网站逛逛</a>
                     </div>
                 </div>
                 <%}%>

@@ -13,3 +13,9 @@ exports.findOne = function (query, callback) {
         callback(err, result);
     });
 };
+
+exports.update = function (query, options, callback) {
+    db.u_user.update(query, { $set: options }, function (err, result) {
+        callback(err, result);
+    })
+}

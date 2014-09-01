@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>想减肥_注册</title>
+    <meta content="减肥,减肥方法,怎样减肥,减肥瘦身,如何减肥,怎么减肥,瘦身,健康减肥,快速减肥,减肥方法大全,简单减肥,成功减肥,减肥常识" name="keywords" />
+    <meta content="想减肥,享受减肥,健康减肥。想减肥网，教广大女性怎样减肥、如何减肥才是最简单有效的。提供减肥资讯,介绍好用的减肥产品,分享达人瘦身案例。想减肥瘦身中心，减肥也可以很简单！" name="description" />
+    <meta content="想减肥 | www.xiangjf.com" name="author" />
+    <meta content="Copyright (c) 2014 xiangjf.com" name="Copyright" />
+    <link href="/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/xiangjf.css" rel="stylesheet" />
+    <link href="/css/login.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <% include module/simpletop.html %>
+    <div class="doc">
+        <form id="regform" method="post" action="register">
+            <div class="regbox reggrid">
+
+                <dl class="dl">
+                    <dt class="regtitle">帐号激活</dt>
+                    
+                </dl>
+
+                <% if(errmsg==1){%>
+                <div class="active-content">
+                    <h3 class="active-tip">您的帐号已成功激活。</h3>
+                    
+                    <div class="activedobox mb40 fn-clear">
+                        <a href="/u/login" class="fn-left fn-btn fn-btn-big mr20">登录</a>
+                        <a href="/"  class="fn-left fn-btn fn-btn-big">先去网站逛逛</a>
+                    </div>
+
+                </div>
+                <%}else{%>
+                <div class="active-content">
+                    <h3 class="active-tip">帐号不存在，或您的激活邮件已过期。</h3>
+                    <div class="activedobox mb40 fn-clear">
+                        <a href="/" class="fn-left fn-btn fn-btn-big">返回首页</a>
+                    </div>
+                    <dl class="active-norecive">
+                        <dt><strong>帐号激活失败</strong></dt>
+                        <dd>1、如果您的帐号已经激活、请直接<a href="#">登录</a></dd>
+                        <dd>2、如果帐号不存在，请<a href="/u/register">点击这里</a> 重新注册</dd>
+                        <dd>3、如果激活邮件已过期，<a href="/u/sendMessage">点击这里</a> 重新发送</dd>
+                    </dl>
+                </div>
+                <%}%>
+                
+            </div>
+        </form>
+    </div>
+    <% include module/footer.html %>
+</body>
+</html>

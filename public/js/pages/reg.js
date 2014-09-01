@@ -26,7 +26,7 @@
                 email: true,
                 remote: {
                     type: "POST",
-                    url: "validateAccount"
+                    url: "validateAccount?type=reg"
                 }
             },
             nickname: {
@@ -67,6 +67,40 @@
             pasagain: {
                 required: "请再输一次密码",
                 equalTo:"两次密码输入不一致"
+            }
+        }
+    });
+
+    $("#loginform").validate({
+        errorPlacement: function (label, element) {
+            label.appendTo(element.parents('.regitem'));
+        },
+        onkeyup:false,
+        rules: {
+            email: {
+                required: true,
+                email: true,
+                remote: {
+                    type: "POST",
+                    url: "validateAccount?type=login"
+                }
+            },
+            pass: {
+                required: true,
+                rangelength:[6,16]
+            }
+
+
+        },
+        messages: {
+            email: {
+                required: "请输入您的登录邮箱",
+                email:"您输入的登录邮箱格式不正确",
+                remote:"您的帐号不存在，如果您还没有注册，<a href='#'>去注册</a>"
+            },
+            pass: {
+                required: "请输入密码",
+                rangelength:"您的密码不正确"
             }
         }
     });

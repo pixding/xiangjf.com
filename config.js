@@ -4,6 +4,8 @@ var dateFormat = require('dateformat');
 var config = {
     session_secret: 'session_xiangjf',
     cookie_secret: 'cookie_xiangjf',
+    usercookie:'usercookie',
+    usersession:'usersession',
     port: 3001,
     theme: 'theme/default/',
     mailopts: {

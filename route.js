@@ -61,6 +61,10 @@ exports = module.exports = function (app) {
     app.post('/u/register', u_user.register);
     app.get('/u/regactive', u_user.regactive);
     app.post('/u/validateAccount', u_user.validateAccount);
+    app.get('/u/regsuccess', u_user.regsuccess);
+    app.get('/u/login', u_user.login);
+    app.post('/u/login', u_user.login);
+    app.get('/u/logout', u_user.logout);
 
     app.get('/testjs', function (req, res, next) {
         res.render(config.theme + 'testjs', { layout: false });
