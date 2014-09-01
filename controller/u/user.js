@@ -2,6 +2,7 @@
 /*
  * GET home page.
  */
+var dateFormat = require('dateformat');
 var config = require('../../config.js').config;
 var uuserMod = require('../../models/u/user');
 var lib = require('../../common/lib.js');
@@ -11,6 +12,9 @@ var userlogin = require('../../controller/userlogin.js')
 //注册
 exports.register = function (req, res, next) {
     if (req.method == "GET") {
+        if(req.session.comuser){
+            res.redirect('/');
+        }
         res.render(config.theme + 'register', { layout: false, error: [] });
     }
     if (req.method == "POST") {
@@ -22,6 +26,8 @@ exports.register = function (req, res, next) {
         newUserMod.sex = parseInt(req.body.sex) || 0;
         newUserMod.password = req.body.password || "";
         newUserMod.active = false;
+        var createDate = dateFormat(new Date(), "yyyy-mm-dd");
+        newUserMod.createDate = createDate;
 
         var ts = new Date().getTime().toString();
         newUserMod.token = lib.md5(ts);
@@ -67,6 +73,9 @@ exports.register = function (req, res, next) {
 //登录
 exports.login = function (req, res) {
     if (req.method == "GET") {
+        if(req.session.comuser){
+            res.redirect('/');
+        }
         res.render(config.theme + 'login', { layout: false,error:"" });
     }
     if (req.method == "POST") {
@@ -149,16 +158,14 @@ exports.regsuccess = function (req, res, next) {
             return next();
         }
         if(result){
-            uuserMod.update({ email: email}, { active: true }, function (err){
+            uuserMod.update({ email: email}, { active: true,token:"" }, function (err){
                 if(err){
                     return next();
                 }
-                errmsg = 1;
-                res.render(config.theme + 'regsuccess', { layout: false, errmsg: errmsg });
+                res.render(config.theme + 'regsuccess', { layout: false});
             });
         }else{
-            errmsg = -2;
-            res.render(config.theme + 'regsuccess', { layout: false, errmsg: errmsg });
+            res.redirect('/');
         }
     })
 }

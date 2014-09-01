@@ -68,6 +68,13 @@
                 required: "请再输一次密码",
                 equalTo:"两次密码输入不一致"
             }
+        },
+        success:function(label){
+            label.addClass("valid").text("　")
+        },
+        submitHandler:function(form){
+            $(".btn-register").attr("disabled","disabled").addClass("btn-registering");
+            form.submit();
         }
     });
 
@@ -102,6 +109,10 @@
                 required: "请输入密码",
                 rangelength:"您的密码不正确"
             }
+        },
+        submitHandler:function(form){
+            $(".btn-login").attr("disabled","disabled").addClass("btn-logining");
+            form.submit();
         }
     });
     

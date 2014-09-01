@@ -29,13 +29,13 @@
                     <p class="active-suggest">请及时进入您的邮箱收信，按照邮件中的提示完成帐号激活，激活后享有更多功能。 </p>
                     <div class="activedobox mb40 fn-clear">
                         <a href="#" class="fn-left fn-btn fn-btn-big mr20">立即查收邮件</a>
-                        <a href="#"  class="fn-left fn-btn fn-btn-big">先去网站逛逛</a>
+                        <a href="/"  class="fn-left fn-btn fn-btn-big">先去网站逛逛</a>
                     </div>
                     <dl class="active-norecive">
                         <dt><strong>没有收到邮件怎么办？</strong></dt>
                         <dd>1、看看是否在邮箱的广告邮件、垃圾邮件中</dd>
                         <dd>2、邮箱写错了，<a href="/u/register">点击这里</a> 重新注册</dd>
-                        <dd>3、确认没收到，稍待几分钟，若仍旧没收到确认信，<a href="/u/sendMessage">点击这里</a> 重新发送一封邮件</dd>
+                        <dd>3、确认没收到，稍待几分钟，若仍旧没收到确认信，<a href="javascript:;" class="J_sendActiveMail">点击这里</a> 重新发送一封邮件</dd>
                     </dl>
 
                 </div>
@@ -50,7 +50,7 @@
                     
                 </dl>
                 <div class="active-content">
-                    <h3 class="active-tip">您的帐号 <strong><%= result.email?result.email:""%></strong> 已经激活</h3>
+                    <h3 class="active-tip">恭喜，您的帐号 <strong><%= result.email?result.email:""%></strong> 激活</h3>
                     
                     <div class="activedobox mb40 fn-clear">
                         <a href="/u/login" class="fn-left fn-btn fn-btn-big mr20">立即登录</a>

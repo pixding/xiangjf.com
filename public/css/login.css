@@ -7,13 +7,15 @@
 .top .info .split{ padding:0 10px; color:#54c11a; }
 .top .info .hasaccount{ background:url(http://i.360.cn/static/css/../img/registerNew.png?v=677f0.png) right center no-repeat; padding-right:20px;}
 .reggrid{ width:980px; margin:0 auto; font-family:SimSun;}
-.doc{background:url(images/regbg.jpg) center -165px no-repeat; min-height:610px; padding-top:50px;}
+.doc{background:url(images/regbg.jpg) center -215px no-repeat; min-height:560px; padding-top:25px;}
 .doc .regbox{ height:500px;  background:url(http://i.360.cn/static/css/../img/bdbg2.png?v=91e35.png) repeat-x;}
          
 .regbox .regtitle{ font-size:20px; margin-bottom:40px; border-bottom:2px dashed #ccc; font-weight:bold; color:#666; padding:20px 0 10px 50px; line-height:36px;}
 .regbox .dl{ margin-bottom:30px;}
 .regbox .regitem{ padding:5px;  background:#fff; line-height:40px; height:40px; width:372px; position:relative; border:1px solid #ccc; border-bottom:none; margin-left:80px; }
-.regbox .regitem label.error{ width:500px;top:5px; font-weight:normal; font-size:12px; position:absolute; line-height:40px; color:#f00; left:400px;}
+.regbox .regitem label.error{ width:500px;top:5px; padding-left:24px; background:url(images/reg.png) -7px -254px no-repeat; font-weight:normal; font-size:12px; position:absolute; line-height:40px; color:#f00; left:400px;}
+.regbox .regitem label.valid{ width:500px;top:5px; padding-left:24px; background:url(images/reg.png) -7px -211px no-repeat; font-weight:normal; font-size:12px; position:absolute; line-height:40px; color:#f00; left:400px;}
+
 
 .regbox .regitembottom{ border-bottom:1px solid #ccc;}
 .regbox .regitem .lab{ color:#999; line-height:40px; float:left;  font-size:16px; font-family:'Microsoft YaHei'; padding:0 5px;}
@@ -29,6 +31,9 @@
 .regbox .btn-register{ width:372px; height:50px; cursor:pointer; margin-left:80px; color:#666; background:url(images/reg.png) -487px -10px no-repeat; display:block; border:none;}
 .regbox .btn-register:hover{ background-position:-487px -85px;}
 .regbox .btn-registering{ background-position:-487px -143px;}
+.regbox .btn-login{ width:372px; height:50px; cursor:pointer; margin-left:80px; color:#666; background:url(images/reg.png) -10px -10px no-repeat; display:block; border:none;}
+.regbox .btn-login:hover{ background-position:-9px -76px;}
+.regbox .btn-logining{ background-position:-10px -141px;}
 
 /*active */
 .active-content{ padding:0 100px 0 100px;}
