@@ -6,7 +6,7 @@ a:hover{ text-decoration:underline;}
 .fn-btn:hover{ opacity:0.8;}
 .fn-btn-big {font-size: 16px; margin-top: 20px;padding: 5px 35px;}
 
-/*头部栏*/
+/*头栏*/
 .topbar{ height:28px; background:#f3f3f3; border-bottom:1px solid #dedede; line-height:28px; color:#999; }
 .topbar .quicklink{}
 .topbar .quicklink li{ float:left; padding:0 10px;}
