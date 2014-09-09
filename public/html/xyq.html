@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>计算</title>
+    <link href="/css/base.css" rel="stylesheet" type="text/css" />
+    <style>
+        .txt{ border:none;border-bottom:1px solid #ccc; width:80px; text-align: center;}
+        .wrap{ width:950px; margin:0 auto;}
+        .fn-table{width:100%; table-layout: fixed; border-collapse: collapse;border-spacing: 0; max-width: 100%;}
+        .fn-table th{font-size:12px; background:#f6f6f6; color:#666;}
+        .fn-table th,.fn-table td{border-bottom:1px solid #ccc; color:#4b4b4b;word-wrap: break-word;word-break:break-all; padding:8px 0px 8px 8px; }
+        .btnbox{padding:10px; text-align: right;}
+    </style>
+
+</head>
+<body>
+    <div class="wrap">
+        <table class="fn-table">
+            <tr>
+                <th>单价</th>
+                <td><input id="J_unit" type="text" class="txt" /> 万元</td>
+                <th>体力单价</th>
+                <td><input id="J_sUnit" type="text" class="txt"  /> 万元</td>
+            </tr>
+            <tr>
+                <th>起始等级</th>
+                <td>1</td>
+                <th>目标等级</th>
+                <td><input id="J_targetLevel" type="text" class="txt"  /></td>
+            </tr>
+            <tr>
+                <th>12级失败概率</th>
+                <td><input type="text" id="J_sChance" class="txt"  />%</td>
+                <th>失败递增概率</th>
+                <td><input type="text" id="J_addChance" class="txt"  />%</td>
+            </tr>
+        </table>
+        <div class="btnbox">
+            <input type="button" id="J_reset"  value="重置" />
+            <input type="button" id="J_compute"  value="计算" />
+        </div>
+
+        <table class="fn-table">
+            <tr>
+                <th>等级</th>
+                <th>物品价格</th>
+                <th>体力价格</th>
+                <th>总价</th>
+            </tr>
+            <tbody class="J_result">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript" src="js/sea.js"></script>
+    <script>
+        seajs.use(['jquery'],function($){
+
+            $("#J_compute").bind("click",function(){
+                $(".J_result").html('');
+                var unit = parseFloat($("#J_unit").val(),10);
+                var sUnit = parseFloat($("#J_sUnit").val(),10);
+                var targetLevel = parseInt($("#J_targetLevel").val(),10);
+                var sChance = parseInt($("#J_sChance").val(),10);
+                var addChance = parseInt($("#J_addChance").val(),10);
+
+                var uLevel = [unit];
+                var tLevel = [0];
+
+                for(var i=1;i<targetLevel;i++){
+                    if(i<11) {
+                        var _uLevel = Math.pow(2, i) * unit;
+                        var _tLevel = tLevel[i - 1] * 2 + i * sUnit;
+
+                        uLevel.push(_uLevel);
+                        tLevel.push(_tLevel)
+                    }else{
+                        var _sChance = ((i-11)*addChance + sChance)*0.01;
+                        var _uLevel = (uLevel[i-1]*2-uLevel[i-1]*_sChance)/(1-_sChance);
+                        var _tLevel = (tLevel[i-1]*2+i*sUnit-tLevel[i-1]*_sChance)/(1-_sChance);
+
+                        uLevel.push(_uLevel);
+                        tLevel.push(_tLevel)
+
+                    }
+
+                }
+
+                var htm = [];
+                for(var i=0;i<uLevel.length;i++){
+
+                    htm.push('<tr>');
+                    htm.push('<td>'+(i+1)+'级</td>');
+                    htm.push('<td>'+uLevel[i].toFixed(2)+'</td>');
+                    htm.push('<td>'+tLevel[i].toFixed(2)+'</td>');
+                    htm.push('<td>'+(uLevel[i]+tLevel[i]).toFixed(2)+'</td>');
+                    htm.push('</tr>');
+                }
+                $(".J_result").append(htm.join(''));
+            })
+
+            $("#J_reset").bind("click",function() {
+                $(".J_result").html('');
+            })
+        });
+    </script>
+</body>
+</html>
