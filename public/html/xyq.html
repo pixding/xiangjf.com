@@ -52,11 +52,34 @@
 
             </tbody>
         </table>
+        <table class="fn-table">
+            <tr>
+                <th>单点价</th>
+                <td><input id="J_dunit" type="text" class="txt" /> 万两</td>
+                <th>3000万售价</th>
+                <td><input id="J_dAll" type="text" class="txt" /> RMB</td>
+                <th><input type="button" id="J_dComplete"  value="计算" /></th>
+            </tr>
+        </table>
+
     </div>
 
     <script type="text/javascript" src="js/sea.js"></script>
     <script>
         seajs.use(['jquery'],function($){
+            $("#J_dComplete").bind("click",function() {
+                var _unit = $("#J_dunit").val();
+                var _all = $("#J_dAll").val();
+                if(_unit){
+                    $("#J_dAll").val(3000/_unit*0.096/0.95);
+                    return false;
+                }
+                if(_all){
+                    $("#J_dunit").val(3000/_all/0.95*0.096);
+                    return false;
+                }
+            })
+
 
             $("#J_compute").bind("click",function(){
                 $(".J_result").html('');

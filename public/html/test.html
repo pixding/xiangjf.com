@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css" >
+        html {
+            background: #45473f;
+            height: auto;
+        }
+
+        body {
+            width: 960px;
+            margin: 20px auto;
+            background: #ffe3a6;
+            border: 1px solid #efefef;
+        }
+        #wrapper {
+            display: inline-block;
+            border-left: 200px solid #d4c376;
+            position:relative;
+            vertical-align: bottom;
+        }
+        #sidebar {
+            float: left;
+            width: 200px;
+            margin-left: -200px;
+            margin-right: -1px;
+            border-right: 1px solid #888;
+            position: relative;
+        }
+        #main {
+            float: left;
+            border-left: 1px solid #888;
+        }
+        #maing,
+        #sidebar{
+            padding-bottom: 2em;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper" >
+        <div id="sidebar" >
+            .....
+            .....
+            .....
+            .....
+            .....
+            <p>sadfasdf</p>
+            <p>sadfasdf</p>
+            <p>sadfasdf</p>
+            <p>sadfasdf</p>
+            <p>sadfasdf</p>
+            <p>sadfasdf</p>
+            <p>sadfasdf</p>
+            <p>sadfasdf</p>
+            <p>sadfasdf</p>
+            <p>sadfasdf</p>
+            <p>sadfasdf</p>
+            <p>sadfasdf</p>
+        </div>
+        <div id="main" >
+            ....
+            ....
+            ....
+            ....
+            ....
+            ....
+            ....
+            <p>sadfasdf</p>
+            <p>sadfasdf</p>
+            <p>sadfasdf</p>
+        </div>
+    </div>
+
+    <script>
+        Array.prototype.myFilter = function(fuc){
+            if(typeof fuc !='function'){
+                throw TypeError;
+            }
+            var thisArg = arguments[1];
+            var res = new Array();
+            var len = this.length;
+            for(var i=0;i<len;i++) {
+                if(fuc.call(thisArg,this[i],i,this)){
+                    res.push(this[i]);
+                }
+            }
+            return res;
+        }
+
+        var myArr = [1,3,'',,5,7,9];
+        var sArr = myArr.myFilter(function(value){
+            if(value%2==1){
+                return true;
+            }else{
+                return false;
+            }
+        })
+        console.log(sArr.join(','));
+    </script>
+</body>
+</html>
+

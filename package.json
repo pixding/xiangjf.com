@@ -20,6 +20,7 @@
 	"path":"*",
 	"request":"*",
 	"imagemagick":"*",
-	"nodemailer":"1.2.1"
+	"nodemailer":"1.2.1",
+    ""
   }
 }

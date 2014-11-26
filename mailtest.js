@@ -1,26 +1,27 @@
-﻿/*
+﻿
 var nodemailer = require('nodemailer');
 
 var transporter = nodemailer.createTransport({
-    host: 'smtp.126.com',
+    host: 'smtp.163.com',
     port: 25,
     auth: {
-        user: 'xiangjf01@126.com',
-        pass: '01xiangjf'
+        user: '13732263640@163.com',
+        pass: 'djqq1987'
     }
 });
 transporter.sendMail({
-    from: 'xiangjf01@126.com',
-    to: 'dingjian@pipikou.com',
-    subject: 'hello',
-    text: 'hello world!'
+    from: '旅游圈<13732263640@163.com>',
+    to: 'd1987j@qq.com',
+    subject: '1',
+    text: '1'
 }, function (err) {
     if (err) {
         console.log(err);
     }
-});*/
+});
 
 
+/*
 var multipost = require("multipost");
 var userlist = ['上海乐凯旅行社有限公司,周旭超,13916773571,zhouxuchao@126.com,1192642989,上海市松江区谷阳北路1250弄64号302室,zhouxuchao@126.com,ILOVETMY25',
     '上海自由之旅旅行社浦东分部,张金萍,13917368902,zzjjpp79@126.com,654908688,零陵路上影广场3号楼913室,zzjjpp79@126.com,790109172',
@@ -66,6 +67,7 @@ var postFields = [
     }
 ];
 
+*/
 /*
 for(var i=0;i<userlist2.length;i++){
     var data = userlist2[i].split(',');
@@ -127,7 +129,8 @@ for(var i=0;i<userlist2.length;i++){
         console.log(res.data);
     });
 }
-*/
+*//*
+
 
 
 
@@ -165,4 +168,5 @@ for(var i=0;i<userlist2.length;i++) {
         console.log(res.data);
     });
 };
+*/
 
