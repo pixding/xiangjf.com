@@ -24,9 +24,8 @@
                     
                 </dl>
 
-                <% if(errmsg==1){%>
                 <div class="active-content">
-                    <h3 class="active-tip">您的帐号已成功激活。</h3>
+                    <h3 class="active-tip">恭喜，您的帐号已成功激活。</h3>
                     
                     <div class="activedobox mb40 fn-clear">
                         <a href="/u/login" class="fn-left fn-btn fn-btn-big mr20">登录</a>
@@ -34,20 +33,7 @@
                     </div>
 
                 </div>
-                <%}else{%>
-                <div class="active-content">
-                    <h3 class="active-tip">帐号不存在，或您的激活邮件已过期。</h3>
-                    <div class="activedobox mb40 fn-clear">
-                        <a href="/" class="fn-left fn-btn fn-btn-big">返回首页</a>
-                    </div>
-                    <dl class="active-norecive">
-                        <dt><strong>帐号激活失败</strong></dt>
-                        <dd>1、如果您的帐号已经激活、请直接<a href="#">登录</a></dd>
-                        <dd>2、如果帐号不存在，请<a href="/u/register">点击这里</a> 重新注册</dd>
-                        <dd>3、如果激活邮件已过期，<a href="/u/sendMessage">点击这里</a> 重新发送</dd>
-                    </dl>
-                </div>
-                <%}%>
+
                 
             </div>
         </form>
